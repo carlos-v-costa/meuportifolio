@@ -3,49 +3,139 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfólio de Carlos — estudante de ADS com foco em Front-End." />
     <title>Carlos · Portfólio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <!-- SAUDAÇÃO -->
-        <div class="greeting" id="greeting"></div>
-        
-        <!-- HERO -->
-        <h1>Olá, eu sou <span>Carlos</span></h1>
-        <p class="sub">Estudante de ADS · Front-End em formação</p>
-        
-        <!-- BOTÕES -->
-        <div class="btn-group">
-            <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
-            <a href="https://github.com/carlos-v-costa" target="_blank" class="btn btn-outline">
-                <i class="fab fa-github"></i> GitHub
-            </a>
+
+    <!-- ============================
+    MENU FIXO
+    ============================ -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <span class="logo">Carlos.</span>
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+    </nav>
 
-        <!-- PROJETOS -->
-        <h2 id="projetos">Meus Projetos</h2>
-        <div class="projects" id="projects-grid"></div>
-
-        <!-- CONTATO -->
-        <h2>Contato</h2>
-        <div class="contact">
-            <a href="mailto:carlosvsantanacosta@gmail.com"><i class="fas fa-envelope"></i> carlosvsantanacosta@gmail.com</a>
-            <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i> github.com/carlos-v-costa</a>
-            <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/carlos-vinicius-937751405</a>
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <div class="social">
-                <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <!-- ============================
+    HERO (Apresentação)
+    ============================ -->
+    <header class="hero" id="hero">
+        <div class="container hero-content">
+            <div class="greeting" id="greeting"></div>
+            <h1 id="hero-title">Olá, eu sou <span>Carlos</span></h1>
+            <p class="subtitle" id="typed-text"></p>
+            <div class="btn-group">
+                <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
+                <a href="#contato" class="btn btn-outline">Contato</a>
+                <a href="curriculo.pdf" download class="btn btn-ghost">
+                    <i class="fas fa-download"></i> Currículo
+                </a>
             </div>
-            <p>© 2026 Carlos · Estudante de ADS</p>
-        </footer>
-    </div>
+        </div>
+    </header>
+
+    <!-- ============================
+    SOBRE
+    ============================ -->
+    <section class="section" id="sobre">
+        <div class="container">
+            <h2 class="section-title"><span>Sobre</span></h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, focado em criar soluções front-end com design limpo e funcional. Tenho projetos completos publicados no GitHub e estou sempre buscando aprender novas tecnologias.
+                    </p>
+                    <p>
+                        Atualmente estou aprofundando meus conhecimentos em <strong>JavaScript, React e desenvolvimento de APIs</strong>.
+                    </p>
+                    <div class="about-cta">
+                        <a href="curriculo.pdf" download class="btn btn-primary">
+                            <i class="fas fa-download"></i> Baixar Currículo
+                        </a>
+                    </div>
+                </div>
+                <div class="about-photo">
+                    <div class="photo-placeholder">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+    PROJETOS
+    ============================ -->
+    <section class="section" id="projetos">
+        <div class="container">
+            <h2 class="section-title"><span>Projetos</span></h2>
+            <div class="projects-grid" id="projects-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============================
+    HABILIDADES
+    ============================ -->
+    <section class="section" id="habilidades">
+        <div class="container">
+            <h2 class="section-title"><span>Habilidades</span></h2>
+            <div class="skills-grid" id="skills-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============================
+    CONTATO
+    ============================ -->
+    <section class="section" id="contato">
+        <div class="container">
+            <h2 class="section-title"><span>Contato</span></h2>
+            <div class="contact-container">
+                <a href="mailto:carlosvsantanacosta@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>carlosvsantanacosta@gmail.com</span>
+                </a>
+                <a href="https://github.com/carlos-v-costa" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>github.com/carlos-v-costa</span>
+                </a>
+                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>linkedin.com/in/carlos-vinicius-937751405</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+    FOOTER
+    ============================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Carlos · Estudante de ADS</p>
+                <div class="footer-social">
+                    <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
