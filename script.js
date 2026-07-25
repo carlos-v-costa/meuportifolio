@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // ============================
     // PRELOADER
+    // ============================
     window.addEventListener('load', function() {
         const preloader = document.getElementById('preloader');
         if (preloader) {
@@ -9,11 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // PARTÍCULAS
-    function createParticles() {
+    // ============================
+    // PARTÍCULAS MATRIX
+    // ============================
+    function createMatrixParticles() {
         const container = document.getElementById('particles-container');
         if (!container) return;
-        for (let i = 0; i < 80; i++) {
+        container.innerHTML = '';
+        for (let i = 0; i < 120; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             const size = Math.random() * 6 + 2;
@@ -22,13 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
             particle.style.animationDuration = Math.random() * 20 + 10 + 's';
-            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.opacity = Math.random() * 0.3 + 0.05;
+            const green = Math.floor(Math.random() * 100 + 155);
+            particle.style.background = `rgba(0, ${green}, 50, 0.12)`;
+            particle.style.boxShadow = `0 0 ${Math.random() * 15 + 5}px rgba(0, ${green}, 50, 0.15)`;
             container.appendChild(particle);
         }
     }
-    createParticles();
+    createMatrixParticles();
 
+    // ============================
     // SAUDAÇÃO
+    // ============================
     function setGreeting() {
         const h = new Date().getHours();
         let msg = '';
@@ -40,7 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setGreeting();
 
+    // ============================
     // TYPED
+    // ============================
     function typeEffect() {
         const phrases = [
             'Estudante de ADS · Front-End em formação',
@@ -78,7 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     typeEffect();
 
+    // ============================
     // CONTADORES
+    // ============================
     function animateCounters() {
         const counters = document.querySelectorAll('.stat-number');
         const observer = new IntersectionObserver((entries) => {
@@ -101,7 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     animateCounters();
 
+    // ============================
     // MENU MOBILE
+    // ============================
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     if (menuToggle && navLinks) {
@@ -111,7 +128,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================
     // SCROLL SPY
+    // ============================
     const sections = document.querySelectorAll('section[id]');
     const navAnchors = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
@@ -126,7 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ============================
     // TEMA
+    // ============================
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     if (localStorage.getItem('theme') === 'light') {
@@ -142,7 +163,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================
     // PROJETOS
+    // ============================
     const projects = [
         { name: 'Nexus · Task Manager', icon: '⚡', desc: 'Sistema de tarefas com gamificação, gráficos, loja e conquistas.', tech: ['HTML', 'CSS', 'JS', 'Chart.js'], filter: ['html','css','js'], link: '#', detailed: 'Projeto completo de gerenciamento de tarefas com experiência gamificada.' },
         { name: 'Dashboard Analytics', icon: '📊', desc: 'Dashboard interativo com gráficos dinâmicos.', tech: ['HTML', 'CSS', 'JS'], filter: ['html','css','js'], link: '#', detailed: 'Painel de controle com visualização de dados em tempo real.' },
@@ -182,7 +205,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ============================
     // MODAL
+    // ============================
     const modal = document.getElementById('projectModal');
     const modalClose = document.querySelector('.modal-close');
     const modalTitle = document.getElementById('modalTitle');
@@ -204,7 +229,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { modal.style.display = 'none'; document.body.style.overflow = 'auto'; } });
     }
 
+    // ============================
     // HABILIDADES
+    // ============================
     const skills = [
         { name: 'HTML5', icon: 'fab fa-html5', level: 85 },
         { name: 'CSS3', icon: 'fab fa-css3-alt', level: 80 },
@@ -224,7 +251,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+    // ============================
     // CERTIFICADOS
+    // ============================
     const certs = [
         { name: 'HTML5 e CSS3', issuer: 'Curso em Vídeo', year: '2025' },
         { name: 'JavaScript Básico', issuer: 'Curso em Vídeo', year: '2025' },
@@ -242,7 +271,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+    // ============================
     // TIMELINE
+    // ============================
     const timelineData = [
         { year: '2026', title: 'Início da Faculdade', desc: 'Comecei Análise e Desenvolvimento de Sistemas' },
         { year: '2026', title: 'Primeiro Portfólio', desc: 'Publiquei meu primeiro site no GitHub Pages' },
@@ -259,7 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+    // ============================
     // DEPOIMENTOS
+    // ============================
     const depoimentos = [
         { name: 'Professor A.', text: 'Carlos é um aluno dedicado e curioso. Tem grande potencial na área de tecnologia.' },
         { name: 'Colega B.', text: 'Sempre disposto a ajudar e compartilhar conhecimento. Ótimo trabalho em equipe.' }
@@ -275,7 +308,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
     }
 
+    // ============================
     // FAQ
+    // ============================
     const faqs = [
         { q: 'Qual sua principal tecnologia?', a: 'Tenho foco em JavaScript e React, mas também trabalho com HTML, CSS e ferramentas de versionamento.' },
         { q: 'Está disponível para estágio?', a: 'Sim! Estou buscando oportunidades de estágio e desenvolvimento júnior.' },
@@ -304,7 +339,118 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================
+    // GAMIFICAÇÃO
+    // ============================
+    let gamification = {
+        xp: 0,
+        level: 1,
+        streak: 0,
+        lastDate: null,
+        achievements: []
+    };
+
+    const achievementsList = [
+        { id: 'first_xp', name: 'Primeiro XP', icon: '🌟', desc: 'Ganhe 10 XP', unlocked: false },
+        { id: 'level_5', name: 'Nível 5', icon: '📈', desc: 'Alcance o nível 5', unlocked: false },
+        { id: 'streak_3', name: 'Streak 3', icon: '🔥', desc: 'Mantenha streak de 3 dias', unlocked: false },
+        { id: 'xp_100', name: '100 XP', icon: '⚡', desc: 'Acumule 100 XP', unlocked: false },
+        { id: 'level_10', name: 'Nível 10', icon: '🏆', desc: 'Alcance o nível 10', unlocked: false }
+    ];
+
+    function loadGamification() {
+        const saved = localStorage.getItem('nexus_gamification');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                gamification = data;
+            } catch(e) {}
+        }
+        updateGamificationUI();
+    }
+
+    function saveGamification() {
+        localStorage.setItem('nexus_gamification', JSON.stringify(gamification));
+    }
+
+    function addXP(amount) {
+        gamification.xp += amount;
+        while (gamification.xp >= gamification.level * 100) {
+            gamification.xp -= gamification.level * 100;
+            gamification.level++;
+            showToast(`🏆 UP! Nível ${gamification.level} alcançado!`);
+        }
+        updateStreak();
+        checkAchievements();
+        saveGamification();
+        updateGamificationUI();
+        showToast(`+${amount} XP!`);
+    }
+
+    function updateStreak() {
+        const today = new Date().toDateString();
+        if (gamification.lastDate === today) return;
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (gamification.lastDate === yesterday.toDateString()) {
+            gamification.streak++;
+        } else {
+            gamification.streak = 1;
+        }
+        gamification.lastDate = today;
+    }
+
+    function checkAchievements() {
+        achievementsList.forEach(ach => {
+            if (ach.unlocked) return;
+            let unlocked = false;
+            if (ach.id === 'first_xp' && gamification.xp >= 10) unlocked = true;
+            if (ach.id === 'level_5' && gamification.level >= 5) unlocked = true;
+            if (ach.id === 'streak_3' && gamification.streak >= 3) unlocked = true;
+            if (ach.id === 'xp_100' && gamification.xp >= 100) unlocked = true;
+            if (ach.id === 'level_10' && gamification.level >= 10) unlocked = true;
+            if (unlocked) {
+                ach.unlocked = true;
+                showToast(`🏅 Conquista desbloqueada: ${ach.name}! ${ach.icon}`);
+            }
+        });
+    }
+
+    function updateGamificationUI() {
+        document.getElementById('gamificationXp').textContent = gamification.xp;
+        document.getElementById('gamificationLevel').textContent = gamification.level;
+        document.getElementById('gamificationStreak').textContent = gamification.streak;
+        const unlockedCount = achievementsList.filter(a => a.unlocked).length;
+        document.getElementById('gamificationAchievements').textContent = unlockedCount;
+
+        const list = document.getElementById('gamificationAchievementsList');
+        if (list) {
+            list.innerHTML = achievementsList.map(ach => `
+                <div class="achievement-item ${ach.unlocked ? 'unlocked' : 'locked'}">
+                    <span class="achievement-icon">${ach.icon}</span>
+                    <div class="achievement-name">${ach.name}</div>
+                    <div class="achievement-desc">${ach.desc}</div>
+                </div>
+            `).join('');
+        }
+    }
+
+    document.getElementById('addXpBtn')?.addEventListener('click', () => addXP(10));
+    document.getElementById('resetGamificationBtn')?.addEventListener('click', () => {
+        if (confirm('Resetar todo o progresso da gamificação?')) {
+            gamification = { xp: 0, level: 1, streak: 0, lastDate: null, achievements: [] };
+            achievementsList.forEach(a => a.unlocked = false);
+            saveGamification();
+            updateGamificationUI();
+            showToast('Progresso resetado!');
+        }
+    });
+
+    loadGamification();
+
+    // ============================
     // GERADOR DE IDEIAS
+    // ============================
     const ideias = [
         'Crie um app de receitas com busca por ingredientes',
         'Desenvolva um jogo da velha com IA',
@@ -326,7 +472,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================
+    // TOAST
+    // ============================
+    function showToast(msg, duration = 3000) {
+        const existing = document.querySelector('.custom-toast');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.className = 'custom-toast';
+        toast.textContent = msg;
+        toast.style.cssText = `
+            position: fixed; bottom: 30px; right: 30px;
+            background: #00b4d8; color: #0a0f0a;
+            padding: 12px 24px; border-radius: 10px;
+            font-weight: 500; z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 50);
+        setTimeout(() => {
+            toast.style.transform = 'translateX(400px)';
+            setTimeout(() => toast.remove(), 400);
+        }, duration);
+    }
+
+    // ============================
     // BACK TO TOP
+    // ============================
     const backToTop = document.getElementById('backToTop');
     if (backToTop) {
         window.addEventListener('scroll', () => {
@@ -335,7 +510,9 @@ document.addEventListener('DOMContentLoaded', function() {
         backToTop.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     }
 
+    // ============================
     // COMPARTILHAR
+    // ============================
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
         shareBtn.addEventListener('click', () => {
@@ -348,7 +525,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================
     // SCROLL SUAVE
+    // ============================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');

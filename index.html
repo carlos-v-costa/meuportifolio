@@ -23,10 +23,11 @@
     </div>
 
     <!-- ============================================
-    FUNDO DINÂMICO (GRADIENTE + PARTÍCULAS)
+    FUNDO DINÂMICO (GRADIENTE + PARTÍCULAS MATRIX)
     ============================================ -->
     <div id="particles-container" class="particles-bg"></div>
     <div class="gradient-bg"></div>
+    <div class="matrix-rain"></div>
 
     <!-- ============================================
     MENU FIXO
@@ -43,8 +44,9 @@
                 <li><a href="#timeline">Trajetória</a></li>
                 <li><a href="#depoimentos">Depoimentos</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contato">Contato</a></li>
+                <li><a href="#gamificacao">Gamificação</a></li>
                 <li><a href="#gerador">Gerador</a></li>
+                <li><a href="#contato">Contato</a></li>
             </ul>
             <div class="nav-right">
                 <button id="themeToggle" aria-label="Alternar tema">
@@ -58,7 +60,7 @@
     </nav>
 
     <!-- ============================================
-    HERO
+    HERO (Apresentação)
     ============================================ -->
     <header class="hero" id="hero">
         <div class="container hero-content">
@@ -68,15 +70,15 @@
             <p class="subtitle" id="typed-text"></p>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="10">0</span>
+                    <span class="stat-number" data-count="15">0</span>
                     <span class="stat-label">Projetos</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-number" data-count="1500">0</span>
                     <span class="stat-label">Horas de Estudo</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="5">0</span>
+                    <span class="stat-number" data-count="10">0</span>
                     <span class="stat-label">Certificados</span>
                 </div>
             </div>
@@ -130,7 +132,7 @@
     </section>
 
     <!-- ============================================
-    PROJETOS (com filtro e modal)
+    PROJETOS
     ============================================ -->
     <section class="section" id="projetos">
         <div class="container">
@@ -197,7 +199,43 @@
     </section>
 
     <!-- ============================================
-    GERADOR DE IDEIAS (Bônus)
+    GAMIFICAÇÃO
+    ============================================ -->
+    <section class="section" id="gamificacao">
+        <div class="container">
+            <h2 class="section-title"><span>🏆 Gamificação</span></h2>
+            <div class="gamification-stats">
+                <div class="gamification-card">
+                    <span class="gamification-icon">⭐</span>
+                    <span class="gamification-value" id="gamificationXp">0</span>
+                    <span class="gamification-label">XP Total</span>
+                </div>
+                <div class="gamification-card">
+                    <span class="gamification-icon">📈</span>
+                    <span class="gamification-value" id="gamificationLevel">1</span>
+                    <span class="gamification-label">Nível</span>
+                </div>
+                <div class="gamification-card">
+                    <span class="gamification-icon">🔥</span>
+                    <span class="gamification-value" id="gamificationStreak">0</span>
+                    <span class="gamification-label">Streak (dias)</span>
+                </div>
+                <div class="gamification-card">
+                    <span class="gamification-icon">🏅</span>
+                    <span class="gamification-value" id="gamificationAchievements">0</span>
+                    <span class="gamification-label">Conquistas</span>
+                </div>
+            </div>
+            <div class="gamification-actions">
+                <button class="btn btn-primary" id="addXpBtn">🎮 Ganhar XP</button>
+                <button class="btn btn-outline" id="resetGamificationBtn">🔄 Resetar Progresso</button>
+            </div>
+            <div class="gamification-achievements" id="gamificationAchievementsList"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    GERADOR DE IDEIAS
     ============================================ -->
     <section class="section" id="gerador">
         <div class="container">

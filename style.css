@@ -33,19 +33,22 @@
     --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* --- FUNDO DINÂMICO --- */
+/* --- FUNDO MATRIX DINÂMICO --- */
 .gradient-bg {
     position: fixed;
     inset: 0;
     z-index: -1;
     background: linear-gradient(-45deg, #0a0f0a, #0d1a0d, #0a1628, #0f1a2a);
     background-size: 400% 400%;
-    animation: gradientMove 25s ease infinite;
+    animation: gradientFlow 20s ease infinite;
+    opacity: 0.95;
 }
 
-@keyframes gradientMove {
+@keyframes gradientFlow {
     0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
     100% { background-position: 0% 50%; }
 }
 
@@ -59,16 +62,36 @@
 
 .particle {
     position: absolute;
-    background: rgba(0, 180, 216, 0.15);
+    background: rgba(0, 255, 100, 0.12);
     border-radius: 50%;
-    animation: floatParticle linear infinite;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.15);
+    animation: matrixParticle linear infinite;
 }
 
-@keyframes floatParticle {
-    0% { transform: translateY(0); opacity: 0; }
+@keyframes matrixParticle {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 1; }
-    100% { transform: translateY(-120vh) translateX(80px); opacity: 0; }
+    100% { transform: translateY(-120vh) translateX(80px) scale(0.5); opacity: 0; }
+}
+
+.matrix-rain {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.04;
+    background: repeating-linear-gradient(0deg,
+        transparent 0px,
+        rgba(0, 255, 100, 0.02) 2px,
+        transparent 4px
+    );
+    animation: rainFall 15s linear infinite;
+}
+
+@keyframes rainFall {
+    0% { transform: translateY(-10%); }
+    100% { transform: translateY(10%); }
 }
 
 /* --- BASE --- */
@@ -552,6 +575,51 @@ body {
 .faq-question i { transition: transform var(--duration-fast); }
 .faq-answer { display: none; padding: var(--space-2) 0 var(--space-4); color: var(--text-secondary); font-size: 0.875rem; }
 
+/* --- GAMIFICAÇÃO --- */
+.gamification-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+}
+.gamification-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    text-align: center;
+}
+.gamification-icon { font-size: 2rem; display: block; margin-bottom: var(--space-2); }
+.gamification-value { font-size: 1.5rem; font-weight: 700; color: var(--primary-light); display: block; }
+.gamification-label { font-size: 0.75rem; color: var(--text-muted); }
+
+.gamification-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: var(--space-8);
+}
+
+.gamification-achievements {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+}
+.achievement-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    text-align: center;
+    transition: all var(--duration-fast);
+}
+.achievement-item.locked { opacity: 0.4; filter: grayscale(0.5); }
+.achievement-item.unlocked { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,180,216,0.15); }
+.achievement-item .achievement-icon { font-size: 2rem; display: block; margin-bottom: var(--space-2); }
+.achievement-item .achievement-name { font-size: 0.875rem; font-weight: 600; }
+.achievement-item .achievement-desc { font-size: 0.75rem; color: var(--text-secondary); }
+
 /* --- GERADOR --- */
 .gerador-box {
     background: var(--bg-card);
@@ -697,6 +765,7 @@ footer {
     .projects-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .photo-placeholder { max-width: 200px; font-size: 4rem; }
+    .gamification-stats { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
     .hero h1 { font-size: 2rem; }
@@ -705,4 +774,5 @@ footer {
     .cert-grid { grid-template-columns: 1fr; }
     .depoimentos-grid { grid-template-columns: 1fr; }
     .gerador-box { padding: var(--space-4); }
+    .gamification-stats { grid-template-columns: 1fr; }
 }
