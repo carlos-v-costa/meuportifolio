@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfólio de Carlos — estudante de ADS com foco em Front-End." />
+    <meta name="description" content="Portfólio de Carlos — estudante de ADS, desenvolvedor front-end, apaixonado por tecnologia e design." />
+    <meta name="theme-color" content="#00b4d8" />
     <title>Carlos · Portfólio</title>
 
+    <!-- FONTS & ICONS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -14,32 +16,65 @@
 </head>
 <body>
 
-    <!-- ============================
-    MENU FIXO
-    ============================ -->
+    <!-- ============================================
+    PRELOADER (Tela de carregamento)
+    ============================================ -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- ============================================
+    MENU FIXO (com scroll spy)
+    ============================================ -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <span class="logo">Carlos.</span>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="active">Início</a></li>
                 <li><a href="#sobre">Sobre</a></li>
                 <li><a href="#projetos">Projetos</a></li>
                 <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#certificados">Certificados</a></li>
+                <li><a href="#timeline">Trajetória</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contato">Contato</a></li>
             </ul>
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="nav-right">
+                <button id="themeToggle" aria-label="Alternar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- ============================
-    HERO (Apresentação)
-    ============================ -->
+    <!-- ============================================
+    HERO (Apresentação com efeito de digitação)
+    ============================================ -->
     <header class="hero" id="hero">
+        <div class="hero-bg"></div>
         <div class="container hero-content">
+            <div class="hero-badge">🚀 Disponível para oportunidades</div>
             <div class="greeting" id="greeting"></div>
-            <h1 id="hero-title">Olá, eu sou <span>Carlos</span></h1>
+            <h1>Olá, eu sou <span>Carlos</span></h1>
             <p class="subtitle" id="typed-text"></p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number" data-count="10">0</span>
+                    <span class="stat-label">Projetos</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-label">Horas de Estudo</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number" data-count="5">0</span>
+                    <span class="stat-label">Certificados</span>
+                </div>
+            </div>
             <div class="btn-group">
                 <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
                 <a href="#contato" class="btn btn-outline">Contato</a>
@@ -48,50 +83,67 @@
                 </a>
             </div>
         </div>
+        <div class="scroll-indicator">
+            <span>Role para baixo</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
     </header>
 
-    <!-- ============================
-    SOBRE
-    ============================ -->
+    <!-- ============================================
+    SOBRE (com foto e depoimento)
+    ============================================ -->
     <section class="section" id="sobre">
         <div class="container">
             <h2 class="section-title"><span>Sobre</span></h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p>
-                        Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, focado em criar soluções front-end com design limpo e funcional. Tenho projetos completos publicados no GitHub e estou sempre buscando aprender novas tecnologias.
-                    </p>
-                    <p>
-                        Atualmente estou aprofundando meus conhecimentos em <strong>JavaScript, React e desenvolvimento de APIs</strong>.
-                    </p>
+                    <p>Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, focado em criar soluções front-end com design limpo e funcional. Tenho projetos completos publicados no GitHub e estou sempre buscando aprender novas tecnologias.</p>
+                    <p>Atualmente, estou aprofundando meus conhecimentos em <strong>JavaScript, React e desenvolvimento de APIs</strong>.</p>
                     <div class="about-cta">
                         <a href="curriculo.pdf" download class="btn btn-primary">
                             <i class="fas fa-download"></i> Baixar Currículo
                         </a>
                     </div>
+                    <div class="about-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"A tecnologia move o mundo, mas a curiosidade move a tecnologia."</p>
+                    </div>
                 </div>
                 <div class="about-photo">
                     <div class="photo-placeholder">
                         <i class="fas fa-user-circle"></i>
+                        <span class="photo-badge">📸 Carlos</span>
+                    </div>
+                    <div class="social-mini">
+                        <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:carlosvsantanacosta@gmail.com"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================
-    PROJETOS
-    ============================ -->
+    <!-- ============================================
+    PROJETOS (com filtro e modal)
+    ============================================ -->
     <section class="section" id="projetos">
         <div class="container">
             <h2 class="section-title"><span>Projetos</span></h2>
+            <div class="project-filters" id="projectFilters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="html">HTML</button>
+                <button class="filter-btn" data-filter="css">CSS</button>
+                <button class="filter-btn" data-filter="js">JavaScript</button>
+                <button class="filter-btn" data-filter="react">React</button>
+            </div>
             <div class="projects-grid" id="projects-grid"></div>
         </div>
     </section>
 
-    <!-- ============================
-    HABILIDADES
-    ============================ -->
+    <!-- ============================================
+    HABILIDADES (com ícones e animação)
+    ============================================ -->
     <section class="section" id="habilidades">
         <div class="container">
             <h2 class="section-title"><span>Habilidades</span></h2>
@@ -99,43 +151,99 @@
         </div>
     </section>
 
-    <!-- ============================
-    CONTATO
-    ============================ -->
+    <!-- ============================================
+    CERTIFICADOS
+    ============================================ -->
+    <section class="section" id="certificados">
+        <div class="container">
+            <h2 class="section-title"><span>Certificados</span></h2>
+            <div class="cert-grid" id="cert-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    TRAJETÓRIA (Timeline)
+    ============================================ -->
+    <section class="section" id="timeline">
+        <div class="container">
+            <h2 class="section-title"><span>Trajetória</span></h2>
+            <div class="timeline" id="timeline"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    DEPOIMENTOS
+    ============================================ -->
+    <section class="section" id="depoimentos">
+        <div class="container">
+            <h2 class="section-title"><span>Depoimentos</span></h2>
+            <div class="depoimentos-grid" id="depoimentos-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    FAQ (Perguntas Frequentes)
+    ============================================ -->
+    <section class="section" id="faq">
+        <div class="container">
+            <h2 class="section-title"><span>FAQ</span></h2>
+            <div class="faq-grid" id="faq-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    CONTATO (com formulário e mapa)
+    ============================================ -->
     <section class="section" id="contato">
         <div class="container">
             <h2 class="section-title"><span>Contato</span></h2>
-            <div class="contact-container">
-                <a href="mailto:carlosvsantanacosta@gmail.com" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>carlosvsantanacosta@gmail.com</span>
-                </a>
-                <a href="https://github.com/carlos-v-costa" target="_blank" class="contact-item">
-                    <i class="fab fa-github"></i>
-                    <span>github.com/carlos-v-costa</span>
-                </a>
-                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" class="contact-item">
-                    <i class="fab fa-linkedin"></i>
-                    <span>linkedin.com/in/carlos-vinicius-937751405</span>
-                </a>
+            <div class="contact-wrapper">
+                <div class="contact-container">
+                    <a href="mailto:carlosvsantanacosta@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i> carlosvsantanacosta@gmail.com
+                    </a>
+                    <a href="https://github.com/carlos-v-costa" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i> github.com/carlos-v-costa
+                    </a>
+                    <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i> linkedin.com/in/carlos-vinicius-937751405
+                    </a>
+                </div>
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117037.18511952095!2d-46.53661858281624!3d-23.558019453525618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59b83b87edff%3A0x6f9792202cf31c91!2sRibeir%C3%A3o%20Pires%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1745092398563!5m2!1spt-BR!2sbr" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================
-    FOOTER
-    ============================ -->
+    <!-- ============================================
+    FOOTER (com redes sociais e créditos)
+    ============================================ -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>© 2026 Carlos · Estudante de ADS</p>
-                <div class="footer-social">
-                    <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i></a>
-                </div>
+        <div class="container footer-content">
+            <p>© 2026 Carlos · Estudante de ADS</p>
+            <div class="footer-social">
+                <a href="https://github.com/carlos-v-costa" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:carlosvsantanacosta@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="#" id="shareBtn"><i class="fas fa-share-alt"></i></a>
             </div>
+            <button id="backToTop" class="back-to-top"><i class="fas fa-chevron-up"></i></button>
         </div>
     </footer>
+
+    <!-- ============================================
+    MODAL (para detalhes dos projetos)
+    ============================================ -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+            <div id="modalTech" class="modal-tags"></div>
+            <a href="#" id="modalLink" class="btn btn-primary" target="_blank">Ver Projeto</a>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

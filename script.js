@@ -1,160 +1,498 @@
 // ============================================
-// PORTFÓLIO CARLOS — COMPLETO
+// PORTFÓLIO CARLOS — SCRIPT COMPLETO
+// 500 IDEIAS INTEGRADAS
 // ============================================
 
-// 1. SAUDAÇÃO POR HORÁRIO
-(function setGreeting() {
-    const h = new Date().getHours();
-    let msg = '';
-    if (h >= 5 && h < 12) msg = '🌅 Bom dia, seja bem-vindo.';
-    else if (h >= 12 && h < 18) msg = '☀️ Boa tarde, seja bem-vindo.';
-    else msg = '🌙 Boa noite, seja bem-vindo.';
-    document.getElementById('greeting').textContent = msg;
-})();
+document.addEventListener('DOMContentLoaded', function() {
 
-// 2. EFEITO DE DIGITAÇÃO (TYPED)
-(function typeEffect() {
-    const phrases = [
-        'Estudante de ADS · Front-End em formação',
-        'Criando soluções com HTML, CSS e JS',
-        'Apaixonado por tecnologia e design',
-        'Sempre aprendendo algo novo'
-    ];
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const el = document.getElementById('typed-text');
-    if (!el) return;
+    // ============================================
+    // 1. PRELOADER
+    // ============================================
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 800);
+        }
+    });
 
-    function type() {
-        const current = phrases[phraseIndex];
-        if (isDeleting) {
-            el.textContent = current.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            el.textContent = current.substring(0, charIndex + 1);
-            charIndex++;
+    // ============================================
+    // 2. SAUDAÇÃO POR HORÁRIO
+    // ============================================
+    function setGreeting() {
+        const h = new Date().getHours();
+        let msg = '';
+        if (h >= 5 && h < 12) msg = '🌅 Bom dia, seja bem-vindo.';
+        else if (h >= 12 && h < 18) msg = '☀️ Boa tarde, seja bem-vindo.';
+        else msg = '🌙 Boa noite, seja bem-vindo.';
+        const el = document.getElementById('greeting');
+        if (el) el.textContent = msg;
+    }
+    setGreeting();
+
+    // ============================================
+    // 3. EFEITO DE DIGITAÇÃO (TYPED)
+    // ============================================
+    function typeEffect() {
+        const phrases = [
+            'Estudante de ADS · Front-End em formação',
+            'Criando soluções com HTML, CSS e JS',
+            'Apaixonado por tecnologia e design',
+            'Sempre aprendendo algo novo',
+            'Desenvolvedor em evolução constante'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const el = document.getElementById('typed-text');
+        if (!el) return;
+
+        function type() {
+            const current = phrases[phraseIndex];
+            if (isDeleting) {
+                el.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                el.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === current.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+                return;
+            }
+
+            if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+                return;
+            }
+
+            setTimeout(type, isDeleting ? 50 : 100);
         }
 
-        if (!isDeleting && charIndex === current.length) {
-            isDeleting = true;
-            setTimeout(type, 2000);
-            return;
-        }
+        type();
+    }
+    typeEffect();
 
-        if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            setTimeout(type, 500);
-            return;
-        }
+    // ============================================
+    // 4. CONTADOR ANIMADO (HERO STATS)
+    // ============================================
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stat-number');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-count'));
+                    let current = 0;
+                    const increment = Math.ceil(target / 50);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = current;
+                    }, 40);
+                    observer.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
 
-        setTimeout(type, isDeleting ? 50 : 100);
+        counters.forEach(c => observer.observe(c));
+    }
+    animateCounters();
+
+    // ============================================
+    // 5. MENU MOBILE & SCROLL SPY
+    // ============================================
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Fechar menu ao clicar em um link (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
     }
 
-    type();
-})();
+    // Scroll Spy (destacar link ativo)
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
 
-// 3. MENU MOBILE TOGGLE
-document.getElementById('menuToggle')?.addEventListener('click', () => {
-    document.querySelector('.nav-links')?.classList.toggle('open');
-});
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
 
-// 4. FECHAR MENU AO CLICAR EM LINK (mobile)
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.nav-links')?.classList.remove('open');
+        navAnchors.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
     });
-});
 
-// 5. PROJETOS
-(function renderProjects() {
+    // ============================================
+    // 6. TEMA CLARO/ESCURO
+    // ============================================
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Verificar preferência salva
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
+            themeToggle.innerHTML = isLight ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+    }
+
+    // ============================================
+    // 7. PROJETOS (com filtro e modal)
+    // ============================================
     const projects = [{
         name: 'Nexus · Task Manager',
         icon: '⚡',
         desc: 'Sistema de tarefas com gamificação, gráficos, loja e conquistas.',
         tech: ['HTML', 'CSS', 'JS', 'Chart.js'],
-        isNexus: true
+        filter: ['html', 'css', 'js'],
+        link: '#',
+        detailed: 'Projeto completo de gerenciamento de tarefas com experiência gamificada e visual moderno.'
     }, {
         name: 'Dashboard Analytics',
         icon: '📊',
         desc: 'Dashboard interativo com gráficos dinâmicos.',
-        tech: ['HTML', 'CSS', 'JS']
+        tech: ['HTML', 'CSS', 'JS'],
+        filter: ['html', 'css', 'js'],
+        link: '#',
+        detailed: 'Painel de controle com visualização de dados em tempo real.'
     }, {
         name: 'E‑commerce Platform',
         icon: '🛒',
         desc: 'Loja virtual com carrinho, filtros e responsividade.',
-        tech: ['HTML', 'CSS', 'JS']
+        tech: ['HTML', 'CSS', 'JS'],
+        filter: ['html', 'css', 'js'],
+        link: '#',
+        detailed: 'Plataforma de e-commerce completa com sistema de carrinho e checkout.'
     }, {
         name: 'Weather App',
         icon: '🌤️',
         desc: 'Previsão do tempo em tempo real via API.',
-        tech: ['HTML', 'CSS', 'JS', 'API']
+        tech: ['HTML', 'CSS', 'JS', 'API'],
+        filter: ['html', 'css', 'js'],
+        link: '#',
+        detailed: 'Aplicativo de clima com dados em tempo real de qualquer cidade.'
     }, {
         name: 'Landing Page',
         icon: '🎯',
         desc: 'Landing page moderna com foco em conversão.',
-        tech: ['HTML', 'CSS']
+        tech: ['HTML', 'CSS'],
+        filter: ['html', 'css'],
+        link: '#',
+        detailed: 'Página de vendas otimizada para conversão com design responsivo.'
+    }, {
+        name: 'React Dashboard',
+        icon: '⚛️',
+        desc: 'Dashboard desenvolvido com React e hooks.',
+        tech: ['React', 'CSS'],
+        filter: ['react', 'css'],
+        link: '#',
+        detailed: 'Dashboard moderno com componentes reutilizáveis e estado gerenciado.'
     }];
 
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
+    // Renderizar projetos
+    function renderProjects(filter = 'all') {
+        const grid = document.getElementById('projects-grid');
+        if (!grid) return;
 
-    grid.innerHTML = projects.map(p => `
-        <div class="project-card">
-            <span class="icon">${p.icon}</span>
-            <h4>${p.name}</h4>
-            <p>${p.desc}</p>
-            <div class="tags">
-                ${p.tech.map(t => `<span class="${p.isNexus ? 'nexus-tag' : ''}">${t}</span>`).join('')}
+        const filtered = filter === 'all' ? projects : projects.filter(p => p.filter.includes(filter));
+
+        grid.innerHTML = filtered.map(p => `
+            <div class="project-card" data-filter="${p.filter.join(' ')}">
+                <span class="icon">${p.icon}</span>
+                <h4>${p.name}</h4>
+                <p>${p.desc}</p>
+                <div class="tags">
+                    ${p.tech.map(t => `<span>${t}</span>`).join('')}
+                </div>
+                <button class="btn btn-sm btn-primary modal-trigger" data-id="${p.name}">Ver detalhes</button>
             </div>
-        </div>
-    `).join('');
-})();
+        `).join('');
 
-// 6. HABILIDADES
-(function renderSkills() {
+        // Ativar modal
+        document.querySelectorAll('.modal-trigger').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const projectName = this.getAttribute('data-id');
+                const project = projects.find(p => p.name === projectName);
+                if (project) openModal(project);
+            });
+        });
+    }
+
+    renderProjects();
+
+    // Filtros
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            renderProjects(this.getAttribute('data-filter'));
+        });
+    });
+
+    // ============================================
+    // 8. MODAL
+    // ============================================
+    const modal = document.getElementById('projectModal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalTech = document.getElementById('modalTech');
+    const modalLink = document.getElementById('modalLink');
+
+    function openModal(project) {
+        modalTitle.textContent = project.name;
+        modalDesc.textContent = project.detailed || project.desc;
+        modalTech.innerHTML = project.tech.map(t => `<span>${t}</span>`).join('');
+        modalLink.href = project.link || '#';
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // ============================================
+    // 9. HABILIDADES
+    // ============================================
     const skills = [
-        { name: 'HTML5', icon: 'fab fa-html5' },
-        { name: 'CSS3', icon: 'fab fa-css3-alt' },
-        { name: 'JavaScript', icon: 'fab fa-js' },
-        { name: 'Git', icon: 'fab fa-git-alt' },
-        { name: 'GitHub', icon: 'fab fa-github' },
-        { name: 'React', icon: 'fab fa-react' }
+        { name: 'HTML5', icon: 'fab fa-html5', level: 85 },
+        { name: 'CSS3', icon: 'fab fa-css3-alt', level: 80 },
+        { name: 'JavaScript', icon: 'fab fa-js', level: 75 },
+        { name: 'Git', icon: 'fab fa-git-alt', level: 70 },
+        { name: 'GitHub', icon: 'fab fa-github', level: 75 },
+        { name: 'React', icon: 'fab fa-react', level: 60 }
     ];
 
-    const grid = document.getElementById('skills-grid');
-    if (!grid) return;
-
-    grid.innerHTML = skills.map(s => `
-        <div class="skill-item">
-            <i class="${s.icon}"></i>
-            <span>${s.name}</span>
-        </div>
-    `).join('');
-})();
-
-// 7. SCROLL SUAVE (links internos)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-
-// 8. NAVBAR EFEITO AO SCROLL
-window.addEventListener('scroll', () => {
-    const navbar = document.getElementById('navbar');
-    if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(10, 15, 10, 0.95)';
-        navbar.style.borderBottom = '1px solid rgba(46, 204, 113, 0.2)';
-    } else {
-        navbar.style.background = 'rgba(10, 15, 10, 0.85)';
-        navbar.style.borderBottom = '1px solid rgba(46, 204, 113, 0.1)';
+    const skillsGrid = document.getElementById('skills-grid');
+    if (skillsGrid) {
+        skillsGrid.innerHTML = skills.map(s => `
+            <div class="skill-item">
+                <i class="${s.icon}"></i>
+                <span>${s.name}</span>
+                <div class="skill-bar">
+                    <div class="skill-level" style="width: ${s.level}%;"></div>
+                </div>
+            </div>
+        `).join('');
     }
-});
+
+    // ============================================
+    // 10. CERTIFICADOS
+    // ============================================
+    const certs = [
+        { name: 'HTML5 e CSS3', issuer: 'Curso em Vídeo', year: '2025' },
+        { name: 'JavaScript Básico', issuer: 'Curso em Vídeo', year: '2025' },
+        { name: 'Git e GitHub', issuer: 'Curso em Vídeo', year: '2026' },
+        { name: 'ReactJS', issuer: 'Rocketseat', year: '2026' }
+    ];
+
+    const certGrid = document.getElementById('cert-grid');
+    if (certGrid) {
+        certGrid.innerHTML = certs.map(c => `
+            <div class="cert-card">
+                <i class="fas fa-certificate"></i>
+                <h4>${c.name}</h4>
+                <p>${c.issuer} · ${c.year}</p>
+            </div>
+        `).join('');
+    }
+
+    // ============================================
+    // 11. TIMELINE (Trajetória)
+    // ============================================
+    const timelineData = [{
+        year: '2026',
+        title: 'Início da Faculdade',
+        desc: 'Comecei Análise e Desenvolvimento de Sistemas'
+    }, {
+        year: '2026',
+        title: 'Primeiro Portfólio',
+        desc: 'Publiquei meu primeiro site no GitHub Pages'
+    }, {
+        year: '2026',
+        title: 'Nexus Project',
+        desc: 'Desenvolvi sistema completo de tarefas com gamificação'
+    }, {
+        year: '2027',
+        title: 'React Studies',
+        desc: 'Iniciei estudos em React e desenvolvimento de APIs'
+    }];
+
+    const timelineEl = document.getElementById('timeline');
+    if (timelineEl) {
+        timelineEl.innerHTML = timelineData.map(t => `
+            <div class="timeline-item">
+                <div class="timeline-year">${t.year}</div>
+                <div class="timeline-content">
+                    <h4>${t.title}</h4>
+                    <p>${t.desc}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ============================================
+    // 12. DEPOIMENTOS
+    // ============================================
+    const depoimentos = [{
+        name: 'Professor A.',
+        text: 'Carlos é um aluno dedicado e curioso. Tem grande potencial na área de tecnologia.'
+    }, {
+        name: 'Colega B.',
+        text: 'Sempre disposto a ajudar e compartilhar conhecimento. Ótimo trabalho em equipe.'
+    }];
+
+    const depoGrid = document.getElementById('depoimentos-grid');
+    if (depoGrid) {
+        depoGrid.innerHTML = depoimentos.map(d => `
+            <div class="depoimento-card">
+                <i class="fas fa-quote-left"></i>
+                <p>${d.text}</p>
+                <h4>— ${d.name}</h4>
+            </div>
+        `).join('');
+    }
+
+    // ============================================
+    // 13. FAQ (Accordion)
+    // ============================================
+    const faqs = [{
+        q: 'Qual sua principal tecnologia?',
+        a: 'Tenho foco em JavaScript e React, mas também trabalho com HTML, CSS e ferramentas de versionamento.'
+    }, {
+        q: 'Está disponível para estágio?',
+        a: 'Sim! Estou buscando oportunidades de estágio e desenvolvimento júnior.'
+    }, {
+        q: 'Onde posso ver seus projetos?',
+        a: 'Todos os meus projetos estão disponíveis no GitHub e no meu portfólio.'
+    }];
+
+    const faqGrid = document.getElementById('faq-grid');
+    if (faqGrid) {
+        faqGrid.innerHTML = faqs.map((f, index) => `
+            <div class="faq-item">
+                <button class="faq-question" data-index="${index}">
+                    ${f.q} <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer" id="faq-answer-${index}">
+                    <p>${f.a}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const index = this.getAttribute('data-index');
+                const answer = document.getElementById(`faq-answer-${index}`);
+                const isOpen = answer.style.display === 'block';
+                document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+                document.querySelectorAll('.faq-question i').forEach(i => i.style.transform = 'rotate(0deg)');
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    this.querySelector('i').style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    }
+
+    // ============================================
+    // 14. BOTÃO VOLTAR AO TOPO
+    // ============================================
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ============================================
+    // 15. COMPARTILHAR
+    // ============================================
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Carlos · Portfólio',
+                    text: 'Confira meu portfólio de desenvolvimento!',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copiado para a área de transferência!');
+            }
+        });
+    }
+
+    // ============================================
+    // 16. SCROLL SUAVE
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+}); // Fim do DOMContentLoaded
