@@ -1,6 +1,6 @@
 // ============================================
 // PORTFÓLIO CARLOS — SCRIPT COMPLETO
-// 500 IDEIAS INTEGRADAS
+// 500 IDEIAS INÉDITAS INTEGRADAS
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,7 +19,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 2. SAUDAÇÃO POR HORÁRIO
+    // 2. FUNDO DINÂMICO (PARTÍCULAS)
+    // ============================================
+    function createParticles() {
+        const container = document.getElementById('particles-container');
+        if (!container) return;
+        const count = 80;
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 6 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            container.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // ============================================
+    // 3. SAUDAÇÃO POR HORÁRIO
     // ============================================
     function setGreeting() {
         const h = new Date().getHours();
@@ -33,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setGreeting();
 
     // ============================================
-    // 3. EFEITO DE DIGITAÇÃO (TYPED)
+    // 4. EFEITO DE DIGITAÇÃO (TYPED)
     // ============================================
     function typeEffect() {
         const phrases = [
@@ -80,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     typeEffect();
 
     // ============================================
-    // 4. CONTADOR ANIMADO (HERO STATS)
+    // 5. CONTADOR ANIMADO (HERO STATS)
     // ============================================
     function animateCounters() {
         const counters = document.querySelectorAll('.stat-number');
@@ -109,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animateCounters();
 
     // ============================================
-    // 5. MENU MOBILE & SCROLL SPY
+    // 6. MENU MOBILE & SCROLL SPY
     // ============================================
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
@@ -119,7 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.toggle('open');
         });
 
-        // Fechar menu ao clicar em um link (mobile)
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('open');
@@ -127,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll Spy (destacar link ativo)
     const sections = document.querySelectorAll('section[id]');
     const navAnchors = document.querySelectorAll('.nav-links a');
 
@@ -149,12 +170,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 6. TEMA CLARO/ESCURO
+    // 7. TEMA CLARO/ESCURO
     // ============================================
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
 
-    // Verificar preferência salva
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         body.classList.add('light-mode');
@@ -171,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 7. PROJETOS (com filtro e modal)
+    // 8. PROJETOS (com filtro e modal)
     // ============================================
     const projects = [{
         name: 'Nexus · Task Manager',
@@ -223,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
         detailed: 'Dashboard moderno com componentes reutilizáveis e estado gerenciado.'
     }];
 
-    // Renderizar projetos
     function renderProjects(filter = 'all') {
         const grid = document.getElementById('projects-grid');
         if (!grid) return;
@@ -242,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
 
-        // Ativar modal
         document.querySelectorAll('.modal-trigger').forEach(btn => {
             btn.addEventListener('click', function() {
                 const projectName = this.getAttribute('data-id');
@@ -254,7 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderProjects();
 
-    // Filtros
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -265,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 8. MODAL
+    // 9. MODAL
     // ============================================
     const modal = document.getElementById('projectModal');
     const modalClose = document.querySelector('.modal-close');
@@ -299,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 9. HABILIDADES
+    // 10. HABILIDADES
     // ============================================
     const skills = [
         { name: 'HTML5', icon: 'fab fa-html5', level: 85 },
@@ -324,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 10. CERTIFICADOS
+    // 11. CERTIFICADOS
     // ============================================
     const certs = [
         { name: 'HTML5 e CSS3', issuer: 'Curso em Vídeo', year: '2025' },
@@ -345,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 11. TIMELINE (Trajetória)
+    // 12. TIMELINE
     // ============================================
     const timelineData = [{
         year: '2026',
@@ -379,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 12. DEPOIMENTOS
+    // 13. DEPOIMENTOS
     // ============================================
     const depoimentos = [{
         name: 'Professor A.',
@@ -401,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 13. FAQ (Accordion)
+    // 14. FAQ
     // ============================================
     const faqs = [{
         q: 'Qual sua principal tecnologia?',
@@ -427,7 +444,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `).join('');
 
-        // Accordion
         document.querySelectorAll('.faq-question').forEach(btn => {
             btn.addEventListener('click', function() {
                 const index = this.getAttribute('data-index');
@@ -444,7 +460,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 14. BOTÃO VOLTAR AO TOPO
+    // 15. GERADOR DE IDEIAS
+    // ============================================
+    const ideias = [
+        'Crie um app de receitas com busca por ingredientes',
+        'Desenvolva um jogo da velha com IA',
+        'Crie um dashboard de vendas com gráficos',
+        'Desenvolva um site de portfólio com efeito parallax',
+        'Crie um gerador de senhas seguras',
+        'Desenvolva um app de clima com previsão semanal',
+        'Crie um sistema de tarefas com gamificação',
+        'Desenvolva um e-commerce com carrinho e checkout',
+        'Crie um blog com sistema de comentários',
+        'Desenvolva uma calculadora científica interativa'
+    ];
+
+    const gerarBtn = document.getElementById('gerarIdeia');
+    const resultado = document.getElementById('ideiaResultado');
+
+    if (gerarBtn && resultado) {
+        gerarBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * ideias.length);
+            resultado.innerHTML = `
+                <div class="ideia-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>${ideias[randomIndex]}</span>
+                </div>
+            `;
+        });
+    }
+
+    // ============================================
+    // 16. BOTÃO VOLTAR AO TOPO
     // ============================================
     const backToTop = document.getElementById('backToTop');
     if (backToTop) {
@@ -462,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 15. COMPARTILHAR
+    // 17. COMPARTILHAR
     // ============================================
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
@@ -481,7 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 16. SCROLL SUAVE
+    // 18. SCROLL SUAVE
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {

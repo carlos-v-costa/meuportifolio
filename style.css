@@ -1,6 +1,7 @@
 /* ============================================
    PORTFÓLIO CARLOS — DESIGN SYSTEM
-   500 IDEIAS INTEGRADAS
+   500 IDEIAS INÉDITAS INTEGRADAS
+   FUNDO DINÂMICO + PARTÍCULAS
    ============================================ */
 
 /* --------------------------------------------
@@ -46,14 +47,14 @@
 
     /* Tipografia */
     --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-size-xs: 0.75rem;    /* 12px */
-    --font-size-sm: 0.875rem;   /* 14px */
-    --font-size-md: 1rem;       /* 16px */
-    --font-size-lg: 1.25rem;    /* 20px */
-    --font-size-xl: 1.5rem;     /* 24px */
-    --font-size-2xl: 2rem;      /* 32px */
-    --font-size-3xl: 3rem;      /* 48px */
-    --font-size-4xl: 3.75rem;   /* 60px */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 3rem;
+    --font-size-4xl: 3.75rem;
 
     /* Espaçamentos */
     --space-1: 4px;
@@ -85,7 +86,7 @@
 }
 
 /* --------------------------------------------
-   2. BASE
+   2. BASE E FUNDO DINÂMICO
    -------------------------------------------- */
 html {
     scroll-behavior: smooth;
@@ -101,15 +102,59 @@ body {
                 color var(--duration-normal) var(--ease-smooth);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Gradiente animado de fundo */
+.gradient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-back);
+    background: linear-gradient(-45deg, #0a0f0a, #0d1a0d, #0a1628, #0f1a2a);
+    background-size: 400% 400%;
+    animation: gradientMove 25s ease infinite;
+    opacity: 0.9;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Partículas interativas */
+.particles-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(0, 180, 216, 0.15);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-120vh) translateX(80px); opacity: 0; }
 }
 
 .container {
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 var(--space-6);
+    position: relative;
+    z-index: var(--z-normal);
 }
 
-/* Scrollbar personalizada */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -119,13 +164,11 @@ body {
 ::-webkit-scrollbar-thumb {
     background: var(--primary);
     border-radius: var(--radius-full);
-    transition: background var(--duration-fast);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-light);
 }
 
-/* Seleção de texto */
 ::selection {
     background: var(--primary);
     color: #fff;
@@ -351,14 +394,6 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     padding: var(--space-16) 0;
     overflow: hidden;
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(0, 180, 216, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(46, 204, 113, 0.04) 0%, transparent 60%);
-    z-index: var(--z-back);
 }
 
 .hero-content {
@@ -819,7 +854,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------
-   15. FAQ (ACCORDION)
+   15. FAQ
    -------------------------------------------- */
 .faq-grid {
     max-width: 720px;
@@ -868,7 +903,51 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------
-   16. CONTATO
+   16. GERADOR DE IDEIAS
+   -------------------------------------------- */
+.gerador-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gerador-box p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.ideia-resultado {
+    margin-top: var(--space-6);
+    padding: var(--space-4);
+    background: var(--bg-body);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ideia-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--primary-light);
+}
+
+.ideia-item i {
+    font-size: var(--font-size-xl);
+    color: var(--accent);
+}
+
+/* --------------------------------------------
+   17. CONTATO
    -------------------------------------------- */
 .contact-wrapper {
     display: grid;
@@ -915,7 +994,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------
-   17. MODAL
+   18. MODAL
    -------------------------------------------- */
 .modal {
     display: none;
@@ -982,7 +1061,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --------------------------------------------
-   18. FOOTER
+   19. FOOTER
    -------------------------------------------- */
 footer {
     border-top: 1px solid var(--border);
@@ -1051,7 +1130,7 @@ footer {
 }
 
 /* --------------------------------------------
-   19. TEMA CLARO
+   20. TEMA CLARO
    -------------------------------------------- */
 body.light-mode {
     --bg-body: #f2f6f9;
@@ -1080,7 +1159,7 @@ body.light-mode .btn-primary {
 }
 
 /* --------------------------------------------
-   20. RESPONSIVIDADE
+   21. RESPONSIVIDADE
    -------------------------------------------- */
 @media (max-width: 1024px) {
     .contact-wrapper {
@@ -1156,10 +1235,6 @@ body.light-mode .btn-primary {
         text-align: center;
     }
 
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-    }
-
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -1213,5 +1288,9 @@ body.light-mode .btn-primary {
         width: 40px;
         height: 40px;
         font-size: var(--font-size-md);
+    }
+
+    .gerador-box {
+        padding: var(--space-4);
     }
 }

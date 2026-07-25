@@ -17,14 +17,20 @@
 <body>
 
     <!-- ============================================
-    PRELOADER (Tela de carregamento)
+    PRELOADER
     ============================================ -->
     <div id="preloader">
         <div class="loader"></div>
     </div>
 
     <!-- ============================================
-    MENU FIXO (com scroll spy)
+    FUNDO DINÂMICO (PARTÍCULAS + GRADIENTE)
+    ============================================ -->
+    <div id="particles-container" class="particles-bg"></div>
+    <div class="gradient-bg"></div>
+
+    <!-- ============================================
+    MENU FIXO
     ============================================ -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -39,6 +45,7 @@
                 <li><a href="#depoimentos">Depoimentos</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contato">Contato</a></li>
+                <li><a href="#gerador">Gerador</a></li>
             </ul>
             <div class="nav-right">
                 <button id="themeToggle" aria-label="Alternar tema">
@@ -52,10 +59,9 @@
     </nav>
 
     <!-- ============================================
-    HERO (Apresentação com efeito de digitação)
+    HERO
     ============================================ -->
     <header class="hero" id="hero">
-        <div class="hero-bg"></div>
         <div class="container hero-content">
             <div class="hero-badge">🚀 Disponível para oportunidades</div>
             <div class="greeting" id="greeting"></div>
@@ -90,7 +96,7 @@
     </header>
 
     <!-- ============================================
-    SOBRE (com foto e depoimento)
+    SOBRE
     ============================================ -->
     <section class="section" id="sobre">
         <div class="container">
@@ -142,7 +148,7 @@
     </section>
 
     <!-- ============================================
-    HABILIDADES (com ícones e animação)
+    HABILIDADES
     ============================================ -->
     <section class="section" id="habilidades">
         <div class="container">
@@ -162,7 +168,7 @@
     </section>
 
     <!-- ============================================
-    TRAJETÓRIA (Timeline)
+    TRAJETÓRIA
     ============================================ -->
     <section class="section" id="timeline">
         <div class="container">
@@ -182,7 +188,7 @@
     </section>
 
     <!-- ============================================
-    FAQ (Perguntas Frequentes)
+    FAQ
     ============================================ -->
     <section class="section" id="faq">
         <div class="container">
@@ -192,7 +198,21 @@
     </section>
 
     <!-- ============================================
-    CONTATO (com formulário e mapa)
+    GERADOR DE IDEIAS (Bônus)
+    ============================================ -->
+    <section class="section" id="gerador">
+        <div class="container">
+            <h2 class="section-title"><span>⚡ Gerador de Ideias</span></h2>
+            <div class="gerador-box">
+                <p>Clique no botão para receber uma ideia aleatória para seu próximo projeto.</p>
+                <button id="gerarIdeia" class="btn btn-primary">🎲 Gerar Ideia</button>
+                <div id="ideiaResultado" class="ideia-resultado"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    CONTATO
     ============================================ -->
     <section class="section" id="contato">
         <div class="container">
@@ -217,7 +237,7 @@
     </section>
 
     <!-- ============================================
-    FOOTER (com redes sociais e créditos)
+    FOOTER
     ============================================ -->
     <footer>
         <div class="container footer-content">
@@ -233,7 +253,7 @@
     </footer>
 
     <!-- ============================================
-    MODAL (para detalhes dos projetos)
+    MODAL
     ============================================ -->
     <div id="projectModal" class="modal">
         <div class="modal-content">
