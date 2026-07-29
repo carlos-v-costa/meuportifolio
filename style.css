@@ -74,17 +74,21 @@ html {
 
 body {
     font-family: var(--font);
-    background: var(--bg-body);
+    background: linear-gradient(-45deg, #0a0f0a, #0d1a0d, #0a1628, #0f1a2a);
+    background-size: 400% 400%;
+    animation: gradientMove 25s ease infinite;
     color: var(--text-primary);
     padding-top: 72px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    transition: background var(--duration-normal) var(--ease-smooth),
-                color var(--duration-normal) var(--ease-smooth);
+    ...
 }
 
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 50%; }
+}
 .container {
     max-width: 1120px;
     margin: 0 auto;
