@@ -79,19 +79,21 @@
                 <!-- FORMULÁRIO DE CONTATO COM FORMSUBMIT -->
                 <form class="contact-form" action="https://formsubmit.co/carlosvsantanacosta@gmail.com" method="POST">
 
-                    <!-- CAMPO OCULTO PARA REDIRECIONAR -->
-                    <input type="hidden" name="_next" value="https://carlos-v-costa.github.io/meu-portfolio/agradecimento.html">
+    <!-- DESATIVA O reCAPTCHA -->
+    <input type="hidden" name="_captcha" value="false">
 
-                    <!-- CAMPO OCULTO PARA EVITAR SPAM -->
-                    <input type="text" name="_honey" style="display:none">
+    <!-- REDIRECIONA PARA AGRADECIMENTO -->
+    <input type="hidden" name="_next" value="https://carlos-v-costa.github.io/meu-portfolio/agradecimento.html">
 
-                    <!-- CAMPOS DO FORMULÁRIO -->
-                    <input type="text" name="nome" placeholder="Seu nome" required />
-                    <input type="email" name="email" placeholder="Seu e-mail" required />
-                    <input type="text" name="assunto" placeholder="Assunto" required />
-                    <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-                </form>
+    <!-- CAMPO ANTI-SPAM (mantenha) -->
+    <input type="text" name="_honey" style="display:none">
+
+    <input type="text" name="nome" placeholder="Seu nome" required />
+    <input type="email" name="email" placeholder="Seu e-mail" required />
+    <input type="text" name="assunto" placeholder="Assunto" required />
+    <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
+    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+</form>
 
             </div>
         </div>
