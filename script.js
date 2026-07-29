@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     const accessibilityToggle = document.getElementById('accessibilityToggle');
     const body = document.body;
-    // Verificar preferência salva
     if (localStorage.getItem('accessibility-mode') === 'true') {
         body.classList.add('accessibility-mode');
     }
@@ -179,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', function() {
                 const answer = this.nextElementSibling;
                 const isOpen = answer.style.display === 'block';
-                // Fechar todos
                 document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
                 document.querySelectorAll('.faq-question i').forEach(i => i.style.transform = 'rotate(0deg)');
                 if (!isOpen) {
@@ -188,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        // Abrir o primeiro por padrão
         const firstAnswer = document.querySelector('.faq-answer');
         if (firstAnswer) {
             firstAnswer.style.display = 'block';
@@ -213,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 11. DETECTAR PÁGINA ATUAL PARA O MENU (páginas separadas)
+    // 11. DETECTAR PÁGINA ATUAL PARA O MENU
     // ============================================
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-links a').forEach(link => {
