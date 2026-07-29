@@ -1,6 +1,6 @@
 /* ============================================
    PORTFÓLIO CARLOS — DESIGN SYSTEM
-   Tema escuro · Azul celeste · Acessível
+   Tema escuro · ONDAS ANIMADAS (PALETA 2)
    ============================================ */
 
 /* --------------------------------------------
@@ -65,9 +65,9 @@
 }
 
 /* --------------------------------------------
-   2. NEBULOSA COLORIDA — FUNDO
+   2. FUNDO DE ONDAS ANIMADAS (PALETA 2)
    -------------------------------------------- */
-.nebula {
+.waves-bg {
     position: fixed;
     inset: 0;
     z-index: -1;
@@ -75,50 +75,61 @@
     overflow: hidden;
 }
 
-.nebula-blob {
+.wave {
     position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.2;
-    animation: blobMove 20s ease-in-out infinite;
+    animation: waveMove 5s ease-in-out infinite;
 }
 
-.nebula-blob:nth-child(1) {
-    width: 400px;
-    height: 400px;
-    background: #00ff88;
-    top: -100px;
-    left: -100px;
+.wave:nth-child(1) {
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 255, 136, 0.06) 25%,
+        rgba(0, 180, 216, 0.04) 50%,
+        rgba(240, 250, 240, 0.02) 75%,
+        transparent 100%
+    );
 }
 
-.nebula-blob:nth-child(2) {
-    width: 500px;
-    height: 500px;
-    background: #7b2ffc;
-    bottom: -150px;
-    right: -150px;
-    animation-delay: -7s;
+.wave:nth-child(2) {
+    animation-delay: -2s;
+    height: 80%;
+    opacity: 0.6;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 180, 216, 0.05) 25%,
+        rgba(0, 255, 136, 0.03) 50%,
+        rgba(240, 250, 240, 0.02) 75%,
+        transparent 100%
+    );
 }
 
-.nebula-blob:nth-child(3) {
-    width: 300px;
-    height: 300px;
-    background: #ff2d75;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -14s;
+.wave:nth-child(3) {
+    animation-delay: -3.5s;
+    height: 60%;
+    opacity: 0.4;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 255, 136, 0.04) 25%,
+        rgba(0, 180, 216, 0.03) 50%,
+        rgba(240, 250, 240, 0.01) 75%,
+        transparent 100%
+    );
 }
 
-@keyframes blobMove {
+@keyframes waveMove {
     0%, 100% {
-        transform: translate(0, 0) scale(1);
+        transform: translateX(0) scaleY(0.5);
     }
-    33% {
-        transform: translate(80px, -60px) scale(1.2);
-    }
-    66% {
-        transform: translate(-60px, 80px) scale(0.8);
+    50% {
+        transform: translateX(10%) scaleY(1);
     }
 }
 
