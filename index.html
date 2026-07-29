@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="1500 ideias organizadas em 15 categorias — inspire-se para seus projetos." />
+    <meta name="description" content="Portfólio de Carlos — estudante de ADS, desenvolvedor front-end." />
     <meta name="theme-color" content="#00b4d8" />
-    <title>1500 Ideias · Carlos</title>
+    <title>Carlos · Portfólio</title>
 
-    <!-- Pré-conexão para fontes -->
+    <!-- Fontes e Ícones -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -17,35 +17,25 @@
 <body>
 
     <!-- ============================================
-    PRELOADER (TELA DE CARREGAMENTO)
-    ============================================ -->
-    <div id="preloader" role="status" aria-label="Carregando o site">
-        <div class="loader"></div>
-    </div>
-
-    <!-- ============================================
-    FUNDO DINÂMICO (GRADIENTE + PARTÍCULAS)
-    ============================================ -->
-    <div class="gradient-bg" aria-hidden="true"></div>
-    <div id="particles-container" class="particles-bg" aria-hidden="true"></div>
-
-    <!-- ============================================
     MENU FIXO (NAVEGAÇÃO PRINCIPAL)
     ============================================ -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
         <div class="container nav-container">
             <span class="logo">Carlos.</span>
             <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="none"><a href="#hero" class="active" role="menuitem">Início</a></li>
-                <li role="none"><a href="#categorias" role="menuitem">Categorias</a></li>
-                <li role="none"><a href="#gamificacao" role="menuitem">Gamificação</a></li>
-                <li role="none"><a href="#gerador" role="menuitem">Gerador</a></li>
-                <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
-                <li role="none"><a href="#contato" role="menuitem">Contato</a></li>
+                <li role="none"><a href="index.html" class="active" role="menuitem">Início</a></li>
+                <li role="none"><a href="sobre.html" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="habilidades.html" role="menuitem">Habilidades</a></li>
+                <li role="none"><a href="projetos.html" role="menuitem">Projetos</a></li>
+                <li role="none"><a href="certificados.html" role="menuitem">Certificados</a></li>
+                <li role="none"><a href="linha-do-tempo.html" role="menuitem">Linha do Tempo</a></li>
+                <li role="none"><a href="estatisticas.html" role="menuitem">Estatísticas</a></li>
+                <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
+                <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
             </ul>
             <div class="nav-right">
-                <button id="themeToggle" aria-label="Alternar tema claro/escuro">
-                    <i class="fas fa-moon"></i>
+                <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade" title="Modo de Acessibilidade (Alto Contraste + Fonte Maior)">
+                    <i class="fas fa-universal-access"></i>
                 </button>
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu mobile">
                     <i class="fas fa-bars"></i>
@@ -59,28 +49,27 @@
     ============================================ -->
     <header class="hero" id="hero">
         <div class="container hero-content">
-            <div class="hero-badge">🚀 1500 Ideias</div>
             <div class="greeting" id="greeting"></div>
             <h1>Olá, eu sou <span>Carlos</span></h1>
             <p class="subtitle" id="typed-text"></p>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="15">0</span>
-                    <span class="stat-label">Categorias</span>
+                    <span class="stat-number" data-count="6">0</span>
+                    <span class="stat-label">Projetos</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="1500">0</span>
-                    <span class="stat-label">Ideias</span>
+                    <span class="stat-number" data-count="9">0</span>
+                    <span class="stat-label">Certificados</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-number" data-count="100">0</span>
+                    <span class="stat-number" data-count="1250">0</span>
                     <span class="stat-label">Horas de Estudo</span>
                 </div>
             </div>
             <div class="btn-group">
-                <a href="#categorias" class="btn btn-primary">Ver Ideias</a>
-                <a href="#contato" class="btn btn-outline">Contato</a>
-                <a href="curriculo.pdf" download class="btn btn-ghost">
+                <a href="projetos.html" class="btn btn-primary">Ver Projetos</a>
+                <a href="contato.html" class="btn btn-outline">Contato</a>
+                <a href="assets/pdf/curriculo-carlos.pdf" download class="btn btn-ghost">
                     <i class="fas fa-download"></i> Currículo
                 </a>
             </div>
@@ -92,260 +81,29 @@
     </header>
 
     <!-- ============================================
-    SOBRE / INTRODUÇÃO
+    SEÇÃO DE DESTAQUES (NA HOME)
     ============================================ -->
-    <section class="section" id="sobre">
+    <section class="section" id="destaques">
         <div class="container">
-            <h2 class="section-title"><span>Sobre</span></h2>
-            <p class="sobre-texto">
-                Este é um repositório com <strong>1500 ideias</strong> organizadas em <strong>15 categorias</strong>, cada uma com 100 ideias. Use como inspiração para seus projetos, estudos e criatividade.
-            </p>
-            <p class="sobre-texto">
-                Todas as ideias são <strong>100% originais</strong> e foram pensadas para estimular sua criatividade e ajudá-lo a encontrar o próximo grande projeto.
-            </p>
-        </div>
-    </section>
-
-    <!-- ============================================
-    SEÇÃO GERAL DE CATEGORIAS
-    ============================================ -->
-    <section class="section" id="categorias">
-        <div class="container">
-            <h2 class="section-title"><span>📂 Categorias</span></h2>
-            <p class="categorias-intro">Clique em uma categoria para explorar as 100 ideias:</p>
-            <div class="categorias-grid" id="categoriasGrid">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 1 — PROJETOS WEB
-    ============================================ -->
-    <section class="section categoria" id="categoria1">
-        <div class="container">
-            <h2 class="section-title"><span>🌐 1 — Projetos Web</span></h2>
-            <div class="ideias-grid" id="grid-categoria1"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 2 — DESIGN E UI/UX
-    ============================================ -->
-    <section class="section categoria" id="categoria2">
-        <div class="container">
-            <h2 class="section-title"><span>🎨 2 — Design e UI/UX</span></h2>
-            <div class="ideias-grid" id="grid-categoria2"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 3 — FERRAMENTAS E UTILITÁRIOS
-    ============================================ -->
-    <section class="section categoria" id="categoria3">
-        <div class="container">
-            <h2 class="section-title"><span>🛠️ 3 — Ferramentas e Utilitários</span></h2>
-            <div class="ideias-grid" id="grid-categoria3"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 4 — IA E AUTOMAÇÃO
-    ============================================ -->
-    <section class="section categoria" id="categoria4">
-        <div class="container">
-            <h2 class="section-title"><span>🤖 4 — IA e Automação</span></h2>
-            <div class="ideias-grid" id="grid-categoria4"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 5 — EDUCAÇÃO E APRENDIZADO
-    ============================================ -->
-    <section class="section categoria" id="categoria5">
-        <div class="container">
-            <h2 class="section-title"><span>📚 5 — Educação e Aprendizado</span></h2>
-            <div class="ideias-grid" id="grid-categoria5"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 6 — SUSTENTABILIDADE
-    ============================================ -->
-    <section class="section categoria" id="categoria6">
-        <div class="container">
-            <h2 class="section-title"><span>🌿 6 — Sustentabilidade</span></h2>
-            <div class="ideias-grid" id="grid-categoria6"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 7 — SAÚDE E BEM-ESTAR
-    ============================================ -->
-    <section class="section categoria" id="categoria7">
-        <div class="container">
-            <h2 class="section-title"><span>🧠 7 — Saúde e Bem-Estar</span></h2>
-            <div class="ideias-grid" id="grid-categoria7"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 8 — SOCIAL E COMUNIDADE
-    ============================================ -->
-    <section class="section categoria" id="categoria8">
-        <div class="container">
-            <h2 class="section-title"><span>🌍 8 — Social e Comunidade</span></h2>
-            <div class="ideias-grid" id="grid-categoria8"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 9 — JOGOS E ENTRETENIMENTO
-    ============================================ -->
-    <section class="section categoria" id="categoria9">
-        <div class="container">
-            <h2 class="section-title"><span>🎮 9 — Jogos e Entretenimento</span></h2>
-            <div class="ideias-grid" id="grid-categoria9"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 10 — STARTUPS E NEGÓCIOS
-    ============================================ -->
-    <section class="section categoria" id="categoria10">
-        <div class="container">
-            <h2 class="section-title"><span>💼 10 — Startups e Negócios</span></h2>
-            <div class="ideias-grid" id="grid-categoria10"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 11 — CIÊNCIA E TECNOLOGIA
-    ============================================ -->
-    <section class="section categoria" id="categoria11">
-        <div class="container">
-            <h2 class="section-title"><span>🔬 11 — Ciência e Tecnologia</span></h2>
-            <div class="ideias-grid" id="grid-categoria11"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 12 — ARTE E CULTURA
-    ============================================ -->
-    <section class="section categoria" id="categoria12">
-        <div class="container">
-            <h2 class="section-title"><span>🎭 12 — Arte e Cultura</span></h2>
-            <div class="ideias-grid" id="grid-categoria12"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 13 — FINANÇAS E INVESTIMENTOS
-    ============================================ -->
-    <section class="section categoria" id="categoria13">
-        <div class="container">
-            <h2 class="section-title"><span>💰 13 — Finanças e Investimentos</span></h2>
-            <div class="ideias-grid" id="grid-categoria13"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 14 — MARKETING E VENDAS
-    ============================================ -->
-    <section class="section categoria" id="categoria14">
-        <div class="container">
-            <h2 class="section-title"><span>📈 14 — Marketing e Vendas</span></h2>
-            <div class="ideias-grid" id="grid-categoria14"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CATEGORIA 15 — ESTILO DE VIDA E HOBBIES
-    ============================================ -->
-    <section class="section categoria" id="categoria15">
-        <div class="container">
-            <h2 class="section-title"><span>🏖️ 15 — Estilo de Vida e Hobbies</span></h2>
-            <div class="ideias-grid" id="grid-categoria15"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    GAMIFICAÇÃO
-    ============================================ -->
-    <section class="section" id="gamificacao">
-        <div class="container">
-            <h2 class="section-title"><span>🏆 Gamificação</span></h2>
-            <div class="gamification-stats">
-                <div class="gamification-card">
-                    <span class="gamification-icon">⭐</span>
-                    <span class="gamification-value" id="gamificationXp">0</span>
-                    <span class="gamification-label">XP</span>
+            <h2 class="section-title"><span>Em Destaque</span></h2>
+            <div class="destaques-grid">
+                <div class="destaque-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Projetos</h3>
+                    <p>6 projetos desenvolvidos, incluindo o Nexus, um sistema de tarefas com gamificação.</p>
+                    <a href="projetos.html" class="btn btn-sm btn-primary">Ver Projetos</a>
                 </div>
-                <div class="gamification-card">
-                    <span class="gamification-icon">📈</span>
-                    <span class="gamification-value" id="gamificationLevel">1</span>
-                    <span class="gamification-label">Nível</span>
+                <div class="destaque-card">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Certificados</h3>
+                    <p>9 certificados em HTML, CSS, JavaScript, React, UX/UI e mais.</p>
+                    <a href="certificados.html" class="btn btn-sm btn-primary">Ver Certificados</a>
                 </div>
-                <div class="gamification-card">
-                    <span class="gamification-icon">🔥</span>
-                    <span class="gamification-value" id="gamificationStreak">0</span>
-                    <span class="gamification-label">Streak</span>
-                </div>
-                <div class="gamification-card">
-                    <span class="gamification-icon">🏅</span>
-                    <span class="gamification-value" id="gamificationAchievements">0</span>
-                    <span class="gamification-label">Conquistas</span>
-                </div>
-            </div>
-            <div class="gamification-actions">
-                <button class="btn btn-primary" id="addXpBtn">🎮 +10 XP</button>
-                <button class="btn btn-outline" id="resetGamificationBtn">🔄 Resetar</button>
-            </div>
-            <div class="gamification-achievements" id="gamificationAchievementsList"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    GERADOR DE IDEIAS
-    ============================================ -->
-    <section class="section" id="gerador">
-        <div class="container">
-            <h2 class="section-title"><span>⚡ Gerador de Ideias</span></h2>
-            <div class="gerador-box">
-                <p>Clique no botão para receber uma ideia aleatória.</p>
-                <button id="gerarIdeia" class="btn btn-primary">🎲 Gerar Ideia</button>
-                <div id="ideiaResultado" class="ideia-resultado"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    FAQ (PERGUNTAS FREQUENTES)
-    ============================================ -->
-    <section class="section" id="faq">
-        <div class="container">
-            <h2 class="section-title"><span>❓ Perguntas Frequentes</span></h2>
-            <div class="faq-grid" id="faq-grid"></div>
-        </div>
-    </section>
-
-    <!-- ============================================
-    CONTATO
-    ============================================ -->
-    <section class="section" id="contato">
-        <div class="container">
-            <h2 class="section-title"><span>📞 Contato</span></h2>
-            <div class="contact-wrapper">
-                <div class="contact-container">
-                    <a href="mailto:carlosvsantanacosta@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i> carlosvsantanacosta@gmail.com
-                    </a>
-                    <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" class="contact-item">
-                        <i class="fab fa-github"></i> github.com/carlos-v-costa
-                    </a>
-                    <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" class="contact-item">
-                        <i class="fab fa-linkedin"></i> linkedin.com/in/carlos-vinicius-937751405
-                    </a>
+                <div class="destaque-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Faculdade</h3>
+                    <p>Cursando 2º semestre de Análise e Desenvolvimento de Sistemas.</p>
+                    <a href="linha-do-tempo.html" class="btn btn-sm btn-primary">Ver Trajetória</a>
                 </div>
             </div>
         </div>
@@ -356,7 +114,7 @@
     ============================================ -->
     <footer role="contentinfo">
         <div class="container footer-content">
-            <p>© 2026 Carlos · 1500 Ideias</p>
+            <p>© 2026 Carlos · Estudante de ADS</p>
             <div class="footer-social">
                 <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" aria-label="GitHub">
                     <i class="fab fa-github"></i>
@@ -364,24 +122,15 @@
                 <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
+                <a href="mailto:carlosvsantanacosta@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
             <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
                 <i class="fas fa-chevron-up"></i>
             </button>
         </div>
     </footer>
-
-    <!-- ============================================
-    MODAL (PARA EXIBIR DETALHES)
-    ============================================ -->
-    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Fechar modal">&times;</button>
-            <h2 id="modalTitle"></h2>
-            <p id="modalDesc"></p>
-            <div id="modalTech" class="modal-tags"></div>
-        </div>
-    </div>
 
     <!-- ============================================
     SCRIPTS
