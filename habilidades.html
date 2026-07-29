@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Habilidades técnicas de Carlos — desenvolvedor front-end." />
+    <meta name="theme-color" content="#00b4d8" />
+    <title>Carlos · Habilidades</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ============================================
+    MENU FIXO
+    ============================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
+        <div class="container nav-container">
+            <span class="logo">Carlos.</span>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem">Início</a></li>
+                <li role="none"><a href="sobre.html" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="habilidades.html" class="active" role="menuitem">Habilidades</a></li>
+                <li role="none"><a href="projetos.html" role="menuitem">Projetos</a></li>
+                <li role="none"><a href="certificados.html" role="menuitem">Certificados</a></li>
+                <li role="none"><a href="linha-do-tempo.html" role="menuitem">Linha do Tempo</a></li>
+                <li role="none"><a href="estatisticas.html" role="menuitem">Estatísticas</a></li>
+                <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
+                <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade" title="Modo de Acessibilidade (Alto Contraste + Fonte Maior)">
+                    <i class="fas fa-universal-access"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    HABILIDADES
+    ============================================ -->
+    <section class="section" id="habilidades">
+        <div class="container">
+            <h1 class="page-title"><span>Habilidades Técnicas</span></h1>
+            <p class="habilidades-intro">Tecnologias e ferramentas que utilizo no meu dia a dia como desenvolvedor.</p>
+            <div class="skills-grid">
+                <!-- HTML5 -->
+                <div class="skill-item">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML5</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 85%;"></div></div>
+                </div>
+                <!-- CSS3 -->
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS3</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div>
+                </div>
+                <!-- JavaScript -->
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <span>JavaScript</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 75%;"></div></div>
+                </div>
+                <!-- React -->
+                <div class="skill-item">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 60%;"></div></div>
+                </div>
+                <!-- Git -->
+                <div class="skill-item">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 70%;"></div></div>
+                </div>
+                <!-- GitHub -->
+                <div class="skill-item">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 75%;"></div></div>
+                </div>
+                <!-- Responsive Design -->
+                <div class="skill-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Responsive Design</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 80%;"></div></div>
+                </div>
+                <!-- Figma -->
+                <div class="skill-item">
+                    <i class="fab fa-figma"></i>
+                    <span>Figma</span>
+                    <div class="skill-bar"><div class="skill-level" style="width: 60%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    FOOTER
+    ============================================ -->
+    <footer role="contentinfo">
+        <div class="container footer-content">
+            <p>© 2026 Carlos · Estudante de ADS</p>
+            <div class="footer-social">
+                <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:carlosvsantanacosta@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Projetos de Carlos — desenvolvedor front-end." />
+    <meta name="theme-color" content="#00b4d8" />
+    <title>Carlos · Projetos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ============================================
+    MENU FIXO
+    ============================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
+        <div class="container nav-container">
+            <span class="logo">Carlos.</span>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem">Início</a></li>
+                <li role="none"><a href="sobre.html" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="habilidades.html" role="menuitem">Habilidades</a></li>
+                <li role="none"><a href="projetos.html" class="active" role="menuitem">Projetos</a></li>
+                <li role="none"><a href="certificados.html" role="menuitem">Certificados</a></li>
+                <li role="none"><a href="linha-do-tempo.html" role="menuitem">Linha do Tempo</a></li>
+                <li role="none"><a href="estatisticas.html" role="menuitem">Estatísticas</a></li>
+                <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
+                <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade" title="Modo de Acessibilidade (Alto Contraste + Fonte Maior)">
+                    <i class="fas fa-universal-access"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    PROJETOS
+    ============================================ -->
+    <section class="section" id="projetos">
+        <div class="container">
+            <h1 class="page-title"><span>Projetos em Desenvolvimento</span></h1>
+            <p class="projetos-intro">Projetos que estou desenvolvendo para aprimorar minhas habilidades e construir um portfólio sólido.</p>
+            <div class="projetos-grid">
+                
+                <!-- Nexus · Task Manager -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">⚡</span>
+                    <h3>Nexus · Task Manager</h3>
+                    <p>Sistema de gerenciamento de tarefas com gamificação, gráficos e conquistas.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Chart.js</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+                <!-- Weather Dashboard -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">🌤️</span>
+                    <h3>Weather Dashboard</h3>
+                    <p>Aplicativo de previsão do tempo com dados em tempo real e gráficos semanais.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>API</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+                <!-- E‑commerce Platform -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">🛒</span>
+                    <h3>E‑commerce Platform</h3>
+                    <p>Loja virtual com carrinho de compras, filtros e sistema de checkout.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>LocalStorage</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+                <!-- Portfolio Pro -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">💼</span>
+                    <h3>Portfolio Pro</h3>
+                    <p>Site profissional com animações, temas escuro/claro e efeitos visuais modernos.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+                <!-- DevConnect -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">👥</span>
+                    <h3>DevConnect</h3>
+                    <p>Rede social para desenvolvedores, com posts, comentários e perfis públicos.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Firebase</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+                <!-- Finance Tracker -->
+                <div class="projeto-card">
+                    <span class="lock">🔒</span>
+                    <span class="icon">💰</span>
+                    <h3>Finance Tracker</h3>
+                    <p>Sistema de controle financeiro pessoal com gráficos e categorização de gastos.</p>
+                    <div class="tags">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Chart.js</span>
+                    </div>
+                    <a href="#" class="btn btn-sm btn-primary">Ver detalhes</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    FOOTER
+    ============================================ -->
+    <footer role="contentinfo">
+        <div class="container footer-content">
+            <p>© 2026 Carlos · Estudante de ADS</p>
+            <div class="footer-social">
+                <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:carlosvsantanacosta@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

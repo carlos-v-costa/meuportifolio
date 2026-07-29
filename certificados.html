@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Certificados de Carlos — desenvolvedor front-end." />
+    <meta name="theme-color" content="#00b4d8" />
+    <title>Carlos · Certificados</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ============================================
+    MENU FIXO
+    ============================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
+        <div class="container nav-container">
+            <span class="logo">Carlos.</span>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="index.html" role="menuitem">Início</a></li>
+                <li role="none"><a href="sobre.html" role="menuitem">Sobre</a></li>
+                <li role="none"><a href="habilidades.html" role="menuitem">Habilidades</a></li>
+                <li role="none"><a href="projetos.html" role="menuitem">Projetos</a></li>
+                <li role="none"><a href="certificados.html" class="active" role="menuitem">Certificados</a></li>
+                <li role="none"><a href="linha-do-tempo.html" role="menuitem">Linha do Tempo</a></li>
+                <li role="none"><a href="estatisticas.html" role="menuitem">Estatísticas</a></li>
+                <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
+                <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade" title="Modo de Acessibilidade (Alto Contraste + Fonte Maior)">
+                    <i class="fas fa-universal-access"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    CERTIFICADOS
+    ============================================ -->
+    <section class="section" id="certificados">
+        <div class="container">
+            <h1 class="page-title"><span>Meus Certificados</span></h1>
+            <p class="certificados-intro">Certificados que obtive ao longo da minha jornada de aprendizado em programação.</p>
+            <div class="cert-grid">
+
+                <!-- 2024 -->
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Lógica de Programação</h4>
+                    <p>Curso em Vídeo · Jan 2024</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>HTML5 e CSS3</h4>
+                    <p>Curso em Vídeo · Mar 2024</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Git e GitHub</h4>
+                    <p>Curso em Vídeo · Jun 2024</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>JavaScript Básico</h4>
+                    <p>Curso em Vídeo · Set 2024</p>
+                </div>
+
+                <!-- 2025 -->
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Responsive Web Design</h4>
+                    <p>freeCodeCamp · Fev 2025</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>JavaScript Algorithms</h4>
+                    <p>freeCodeCamp · Mai 2025</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Front End Libraries</h4>
+                    <p>freeCodeCamp · Ago 2025</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>UX/UI Design Fundamentals</h4>
+                    <p>Google (Coursera) · Nov 2025</p>
+                </div>
+
+                <!-- 2026 -->
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>ReactJS</h4>
+                    <p>Rocketseat · Fev 2026</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Análise e Desenvolvimento de Sistemas</h4>
+                    <p>Faculdade · 2º semestre (Cursando)</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+    FOOTER
+    ============================================ -->
+    <footer role="contentinfo">
+        <div class="container footer-content">
+            <p>© 2026 Carlos · Estudante de ADS</p>
+            <div class="footer-social">
+                <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:carlosvsantanacosta@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
