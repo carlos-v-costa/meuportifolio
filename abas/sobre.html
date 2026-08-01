@@ -11,18 +11,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
 
     <!-- ============================================
-    MENU FIXO (NAVEGAÇÃO PRINCIPAL)
+    FUNDO GRADIENTE SUAVE
+    ============================================ -->
+    <div class="gradient-bg"></div>
+
+    <!-- ============================================
+    MENU FIXO
     ============================================ -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
         <div class="container nav-container">
             <span class="logo">Carlos.</span>
             <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="none"><a href="index.html" role="menuitem">Início</a></li>
+                <li role="none"><a href="../index.html" role="menuitem">Início</a></li>
                 <li role="none"><a href="sobre.html" class="active" role="menuitem">Sobre</a></li>
                 <li role="none"><a href="habilidades.html" role="menuitem">Habilidades</a></li>
                 <li role="none"><a href="projetos.html" role="menuitem">Projetos</a></li>
@@ -31,6 +36,7 @@
                 <li role="none"><a href="estatisticas.html" role="menuitem">Estatísticas</a></li>
                 <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
                 <li role="none"><a href="contato.html" role="menuitem">Contato</a></li>
+                <li role="none"><a href="../projetos/roleta/index.html" role="menuitem">🎡 Roda da Sorte</a></li>
             </ul>
             <div class="nav-right">
                 <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade" title="Modo de Acessibilidade (Alto Contraste + Fonte Maior)">
@@ -44,7 +50,7 @@
     </nav>
 
     <!-- ============================================
-    SOBRE (APRESENTAÇÃO PRINCIPAL)
+    SOBRE
     ============================================ -->
     <section class="section" id="sobre">
         <div class="container">
@@ -52,22 +58,19 @@
             <div class="sobre-content">
                 <div class="sobre-texto">
                     <p>
-                        Sou um estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> com uma paixão genuína por transformar ideias em código. Desde o início da minha jornada, fui atraído pela capacidade da tecnologia de resolver problemas reais e impactar a vida das pessoas. Acredito que a programação é mais do que uma habilidade técnica — é uma forma de pensar, de estruturar soluções e de criar algo que antes não existia.
+                        Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong>, focado em criar soluções front-end com design limpo e funcional. Tenho projetos completos publicados no GitHub e estou sempre buscando aprender novas tecnologias.
                     </p>
                     <p>
-                        Meu foco atual é o desenvolvimento <strong>Front-End</strong>, com domínio de <strong>HTML, CSS, JavaScript</strong> e frameworks como <strong>React</strong>. Estou constantemente buscando aprender novas ferramentas e metodologias para me manter atualizado em um mercado que evolui a cada dia. Para mim, cada projeto é uma oportunidade de evoluir e de entregar o melhor resultado possível.
+                        Meu foco atual é o desenvolvimento <strong>Front-End</strong>, com domínio de <strong>HTML, CSS, JavaScript</strong> e frameworks como <strong>React</strong>. Estou constantemente buscando aprender novas ferramentas e metodologias para me manter atualizado em um mercado que evolui a cada dia.
                     </p>
                     <p>
                         Tenho um perfil <strong>analítico, curioso e autodidata</strong>. Gosto de desafios que me tirem da zona de conforto e me façam pensar de forma criativa. Além da programação, me interesso por design de interfaces, experiência do usuário e por entender como as pessoas interagem com a tecnologia.
                     </p>
                     <p>
-                        Meu objetivo de curto prazo é conquistar minha primeira oportunidade como <strong>estagiário ou desenvolvedor júnior</strong>, onde eu possa aplicar meus conhecimentos, aprender com profissionais experientes e contribuir para projetos significativos. Acredito que minha dedicação, organização e capacidade de aprendizado rápido podem agregar valor a qualquer equipe.
+                        Meu objetivo de curto prazo é conquistar minha primeira oportunidade como <strong>estagiário ou desenvolvedor júnior</strong>, onde eu possa aplicar meus conhecimentos, aprender com profissionais experientes e contribuir para projetos significativos.
                     </p>
                     <p>
-                        Se você está procurando alguém que seja <strong>comprometido</strong>, que saiba <strong>trabalhar em equipe</strong> e que esteja disposto a dar o melhor de si, <strong>vamos conversar</strong>. Estou aberto a conexões, oportunidades de estágio e parcerias que possam me ajudar a crescer como profissional e como pessoa.
-                    </p>
-                    <p class="sobre-idiomas">
-                        <strong>Idiomas:</strong> Português (nativo) · Inglês (intermediário — leitura técnica e comunicação básica)
+                        Se você está procurando alguém que seja <strong>comprometido</strong>, que saiba <strong>trabalhar em equipe</strong> e que esteja disposto a dar o melhor de si, <strong>vamos conversar</strong>. Estou aberto a conexões, oportunidades de estágio e parcerias.
                     </p>
                 </div>
             </div>
@@ -302,7 +305,7 @@
     </section>
 
     <!-- ============================================
-    FOOTER (RODAPÉ)
+    FOOTER
     ============================================ -->
     <footer role="contentinfo">
         <div class="container footer-content">
@@ -324,6 +327,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
 </html>
