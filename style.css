@@ -1,10 +1,10 @@
 /* ============================================
    PORTFÓLIO CARLOS — DESIGN SYSTEM
-   Cores adaptáveis · Animação suave
+   Tema escuro · Gradiente suave
    ============================================ */
 
 /* --------------------------------------------
-   1. RESET E VARIÁVEIS (TEMA ESCURO)
+   1. RESET E VARIÁVEIS
    -------------------------------------------- */
 * {
     margin: 0;
@@ -13,39 +13,28 @@
 }
 
 :root {
-    /* Cores primárias (fixas) */
     --primary: #00b4d8;
     --primary-dark: #0077b6;
     --primary-light: #48cae4;
     --secondary: #2ecc71;
     --secondary-dark: #27ae60;
     --accent: #f39c12;
-
-    /* Cores de fundo (tema escuro) */
     --bg-body: #0a0f0a;
     --bg-card: rgba(20, 30, 20, 0.6);
     --bg-card-hover: rgba(30, 50, 30, 0.7);
-
-    /* Cores de texto (tema escuro) */
     --text-primary: #edf2f7;
     --text-secondary: #94a3b8;
     --text-muted: #5a6a7a;
-
-    /* Bordas e sombras */
     --border: rgba(46, 204, 113, 0.15);
     --border-hover: rgba(46, 204, 113, 0.35);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6);
-
-    /* Bordas arredondadas */
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
     --radius-xl: 24px;
     --radius-full: 9999px;
-
-    /* Tipografia */
     --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
@@ -55,8 +44,6 @@
     --font-size-2xl: 2rem;
     --font-size-3xl: 3rem;
     --font-size-4xl: 3.75rem;
-
-    /* Espaçamentos */
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
@@ -68,21 +55,17 @@
     --space-12: 48px;
     --space-16: 64px;
     --space-20: 80px;
-
-    /* Transições */
     --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --duration-fast: 150ms;
     --duration-normal: 300ms;
     --duration-slow: 500ms;
-
-    /* Z-Index */
     --z-front: 10;
     --z-modal: 1000;
 }
 
 /* --------------------------------------------
-   2. FUNDO GRADIENTE SUAVE (TEMA ESCURO)
+   2. FUNDO GRADIENTE SUAVE
    -------------------------------------------- */
 .gradient-bg {
     position: fixed;
@@ -961,27 +944,20 @@ footer {
    22. MODO DE ACESSIBILIDADE (TEMA CLARO)
    -------------------------------------------- */
 body.accessibility-mode {
-    /* Cores de fundo (tema claro) */
     --bg-body: #f5f7fa;
     --bg-card: rgba(255, 255, 255, 0.8);
     --bg-card-hover: rgba(255, 255, 255, 0.95);
-
-    /* Cores de texto (tema claro) */
     --text-primary: #1a2a3a;
     --text-secondary: #4a5a6a;
     --text-muted: #8a9aaa;
-
-    /* Bordas e sombras (tema claro) */
     --border: rgba(0, 0, 0, 0.1);
     --border-hover: rgba(0, 0, 0, 0.2);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
     --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.1);
-
     font-size: 120%;
 }
 
-/* Gradiente no tema claro (mais suave) */
 body.accessibility-mode .gradient-bg {
     background: linear-gradient(-45deg, #f0f4f8, #e8ecf0, #e0e8f0, #f0f4f8);
     opacity: 0.8;
