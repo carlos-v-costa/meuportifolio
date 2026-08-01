@@ -1,6 +1,6 @@
 /* ============================================
    PORTFÓLIO CARLOS — DESIGN SYSTEM
-   Tema escuro · ONDAS ANIMADAS (PALETA 2)
+   Tema escuro · Gradiente animado (Paleta 2)
    ============================================ */
 
 /* --------------------------------------------
@@ -65,72 +65,23 @@
 }
 
 /* --------------------------------------------
-   2. FUNDO DE ONDAS ANIMADAS (PALETA 2)
+   2. FUNDO GRADIENTE ANIMADO (PALETA 2)
    -------------------------------------------- */
-.waves-bg {
+.gradient-bg {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: #0a0f0a;
-    overflow: hidden;
+    background: linear-gradient(-45deg, #0a0f0a, #00ff88, #7b2ffc, #00b4d8, #ff6b9d);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
 }
 
-.wave {
-    position: absolute;
-    bottom: 0;
-    left: -50%;
-    width: 200%;
-    height: 100%;
-    border-radius: 50%;
-    animation: waveMove 5s ease-in-out infinite;
-}
-
-.wave:nth-child(1) {
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0, 255, 136, 0.06) 25%,
-        rgba(0, 180, 216, 0.04) 50%,
-        rgba(240, 250, 240, 0.02) 75%,
-        transparent 100%
-    );
-}
-
-.wave:nth-child(2) {
-    animation-delay: -2s;
-    height: 80%;
-    opacity: 0.6;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0, 180, 216, 0.05) 25%,
-        rgba(0, 255, 136, 0.03) 50%,
-        rgba(240, 250, 240, 0.02) 75%,
-        transparent 100%
-    );
-}
-
-.wave:nth-child(3) {
-    animation-delay: -3.5s;
-    height: 60%;
-    opacity: 0.4;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(0, 255, 136, 0.04) 25%,
-        rgba(0, 180, 216, 0.03) 50%,
-        rgba(240, 250, 240, 0.01) 75%,
-        transparent 100%
-    );
-}
-
-@keyframes waveMove {
-    0%, 100% {
-        transform: translateX(0) scaleY(0.5);
-    }
-    50% {
-        transform: translateX(10%) scaleY(1);
-    }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* --------------------------------------------
