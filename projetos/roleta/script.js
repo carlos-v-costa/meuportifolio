@@ -1,5 +1,5 @@
 // ============================================
-// ROLETA — SCRIPT COMPLETO (SEPARADO)
+// ROLETA — SCRIPT COMPLETO (RENOVADO)
 // ============================================
 
 // ===== ELEMENTOS =====
@@ -18,15 +18,17 @@ let items = [];
 let isSpinning = false;
 let soundEnabled = true;
 
+// ===== CORES DA ROLETA (PALETA HARMONIOSA) =====
+const COLORS = [
+    '#00b4d8', '#48cae4', '#0077b6', '#90e0ef',
+    '#00d4ff', '#0096c7', '#023e8a', '#03045e'
+];
+
 // ===== CARREGAR DADOS SALVOS =====
 function loadData() {
     const saved = localStorage.getItem('roleta_items');
     if (saved) {
-        try {
-            items = JSON.parse(saved);
-        } catch (e) {
-            items = [];
-        }
+        try { items = JSON.parse(saved); } catch (e) { items = []; }
     }
     renderItems();
     loadHistorico();
@@ -43,21 +45,15 @@ function loadHistorico() {
         try {
             const historico = JSON.parse(saved);
             renderHistorico(historico);
-        } catch (e) {
-            renderHistorico([]);
-        }
-    } else {
-        renderHistorico([]);
-    }
+        } catch (e) { renderHistorico([]); }
+    } else { renderHistorico([]); }
 }
 
 function saveHistorico(entry) {
     let historico = [];
     const saved = localStorage.getItem('roleta_historico');
     if (saved) {
-        try {
-            historico = JSON.parse(saved);
-        } catch (e) {}
+        try { historico = JSON.parse(saved); } catch (e) {}
     }
     historico.unshift({ item: entry, data: new Date().toLocaleString() });
     if (historico.length > 20) historico.pop();
@@ -91,9 +87,7 @@ function renderItems() {
             ${item}
             <button class="remove-btn" data-index="${index}"><i class="fas fa-times"></i></button>
         `;
-        li.querySelector('.remove-btn').addEventListener('click', () => {
-            removeItem(index);
-        });
+        li.querySelector('.remove-btn').addEventListener('click', () => { removeItem(index); });
         itemList.appendChild(li);
     });
     updateRoletaCores();
@@ -141,16 +135,14 @@ function updateRoletaCores() {
         roleta.style.background = '#2d3436';
         return;
     }
-    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd', '#1dd1a1', '#f368e0', '#ff9f43', '#00d2d3', '#ff6b6b', '#feca57'];
     let gradient = 'conic-gradient(';
     const step = 100 / count;
-    colors.forEach((color, i) => {
-        if (i < count) {
-            const start = i * step;
-            const end = (i + 1) * step;
-            gradient += `${color} ${start}% ${end}%${i < count - 1 ? ',' : ''}`;
-        }
-    });
+    for (let i = 0; i < count; i++) {
+        const color = COLORS[i % COLORS.length];
+        const start = i * step;
+        const end = (i + 1) * step;
+        gradient += `${color} ${start}% ${end}%${i < count - 1 ? ',' : ''}`;
+    }
     gradient += ')';
     roleta.style.background = gradient;
 }
@@ -186,11 +178,53 @@ function spinRoleta() {
 
         saveHistorico(result);
         playCelebrationSound();
+        createConfetti();
 
         isSpinning = false;
         spinBtn.disabled = false;
     }, 4000);
 }
+
+// ============================================
+// CONFETES
+// ============================================
+function createConfetti() {
+    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#1dd1a1', '#f368e0'];
+    const container = document.querySelector('.roleta-container');
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        const size = Math.random() * 8 + 4;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const left = Math.random() * 100;
+        const delay = Math.random() * 0.5;
+        const duration = Math.random() * 1 + 1;
+        confetti.style.cssText = `
+            position: fixed;
+            width: ${size}px;
+            height: ${size * 0.6}px;
+            background: ${color};
+            left: ${left}%;
+            top: -10%;
+            border-radius: 2px;
+            z-index: 1000;
+            pointer-events: none;
+            animation: confettiFall ${duration}s ease-in ${delay}s forwards;
+            transform: rotate(${Math.random() * 360}deg);
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), (duration + delay) * 1000 + 100);
+    }
+}
+
+// CSS para confetes (adicione no style.css)
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    @keyframes confettiFall {
+        0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+`;
+document.head.appendChild(confettiStyle);
 
 // ============================================
 // SONS (Web Audio API)
@@ -215,7 +249,7 @@ function playClickSound() {
         gain.connect(audioCtx.destination);
         osc.frequency.value = 800;
         osc.type = 'sine';
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.08);
@@ -234,7 +268,7 @@ function playSpinSound() {
             gain.connect(audioCtx.destination);
             osc.frequency.value = 600 + Math.random() * 200;
             osc.type = 'square';
-            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.04);
@@ -257,7 +291,7 @@ function playSuccessSound() {
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
                 osc.type = 'sine';
-                gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
                 osc.start(audioCtx.currentTime);
                 osc.stop(audioCtx.currentTime + 0.25);
@@ -279,7 +313,7 @@ function playCelebrationSound() {
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
                 osc.type = 'sine';
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.07, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
                 osc.start(audioCtx.currentTime);
                 osc.stop(audioCtx.currentTime + 0.12);
@@ -298,7 +332,7 @@ function playErrorSound() {
         gain.connect(audioCtx.destination);
         osc.frequency.value = 200;
         osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.3);
@@ -324,7 +358,6 @@ soundToggle.addEventListener('change', function() {
 // ============================================
 
 loadData();
-
 if (items.length > 0) {
     updateRoletaCores();
 }
