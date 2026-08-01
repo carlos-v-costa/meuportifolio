@@ -1,12 +1,60 @@
 /* ============================================
-   ESTILOS DA ROLETA (RENOVADO)
+   ESTILOS EXCLUSIVOS DA ROLETA
    ============================================ */
 
+/* ---- MENU SIMPLES ---- */
+.navbar-simples {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 15, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+}
+
+.nav-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-voltar {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+.btn-voltar:hover {
+    background: var(--bg-card);
+    border-color: var(--primary-light);
+    color: var(--primary-light);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-light);
+}
+
+/* ---- ROLETA ---- */
 .roleta-container {
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 5rem 1rem 2rem;
 }
 
 .roleta-subtitle {
@@ -37,35 +85,16 @@
     overflow: hidden;
 }
 
-/* Efeito de brilho na roleta */
-.roleta::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: conic-gradient(transparent, rgba(0, 180, 216, 0.2), transparent 30%);
-    animation: glowRotate 4s linear infinite;
-    z-index: 1;
-    pointer-events: none;
-}
-
-@keyframes glowRotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 .roleta-ponteiro {
     position: absolute;
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0;
     z-index: 10;
     filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
     color: #ff6b6b;
 }
 
-/* Triângulo estilizado como ponteiro */
 .roleta-ponteiro::before {
     content: '';
     display: block;
@@ -97,10 +126,6 @@
     border: 3px solid #feca57;
     z-index: 5;
     transition: transform 0.3s;
-}
-
-.roleta-center:hover {
-    transform: translate(-50%, -50%) scale(1.05);
 }
 
 .controls {
@@ -186,12 +211,6 @@
     backdrop-filter: blur(10px);
 }
 
-.item-list li:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.1);
-}
-
 .item-list .remove-btn {
     background: none;
     border: none;
@@ -261,32 +280,6 @@
     letter-spacing: 1px;
 }
 
-.historico-area ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.historico-area li {
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    color: var(--text-secondary);
-    transition: all 0.3s;
-}
-
-.historico-area li:hover {
-    padding-left: 8px;
-    color: var(--text-primary);
-}
-
-.historico-area li span {
-    color: var(--primary-light);
-    font-weight: 500;
-}
-
 .sound-toggle {
     display: flex;
     align-items: center;
@@ -309,7 +302,25 @@
     font-size: 1rem;
 }
 
-/* Responsivo */
+/* ---- RODAPÉ ---- */
+.btn-voltar-footer {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.btn-voltar-footer:hover {
+    color: var(--primary-light);
+    border-color: var(--primary-light);
+}
+
+/* ---- RESPONSIVO ---- */
 @media (max-width: 480px) {
     .roleta-center {
         width: 45px;
@@ -332,5 +343,12 @@
     .btn {
         font-size: 0.85rem;
         padding: 0.6rem 1.2rem;
+    }
+    .navbar-simples .logo {
+        font-size: 1rem;
+    }
+    .btn-voltar {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }

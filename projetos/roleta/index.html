@@ -19,37 +19,24 @@
 <body>
 
     <!-- ============================================
-    FUNDO GRADIENTE
+    FUNDO GRADIENTE (SEM INTERFERÊNCIA)
     ============================================ -->
     <div class="gradient-bg"></div>
 
     <!-- ============================================
-    MENU FIXO
+    MENU SIMPLES (APENAS VOLTAR)
     ============================================ -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
+    <nav class="navbar-simples">
         <div class="container nav-container">
-            <span class="logo">Carlos.</span>
-            <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="none"><a href="../../index.html" role="menuitem">Início</a></li>
-                <li role="none"><a href="../../abas/sobre.html" role="menuitem">Sobre</a></li>
-                <li role="none"><a href="../../abas/habilidades.html" role="menuitem">Habilidades</a></li>
-                <li role="none"><a href="../../abas/projetos.html" role="menuitem">Projetos</a></li>
-                <li role="none"><a href="../../abas/certificados.html" role="menuitem">Certificados</a></li>
-                <li role="none"><a href="../../abas/linha-do-tempo.html" role="menuitem">Linha do Tempo</a></li>
-                <li role="none"><a href="../../abas/estatisticas.html" role="menuitem">Estatísticas</a></li>
-                <li role="none"><a href="../../abas/faq.html" role="menuitem">FAQ</a></li>
-                <li role="none"><a href="../../abas/contato.html" role="menuitem">Contato</a></li>
-                <li role="none"><a href="index.html" class="active" role="menuitem">🎡 Roda da Sorte</a></li>
-            </ul>
-            <div class="nav-right">
-                <button id="accessibilityToggle" aria-label="Alternar modo de acessibilidade"><i class="fas fa-universal-access"></i></button>
-                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu mobile"><i class="fas fa-bars"></i></button>
-            </div>
+            <a href="../../index.html" class="btn-voltar">
+                <i class="fas fa-arrow-left"></i> Voltar ao Portfólio
+            </a>
+            <span class="logo">🎡 Roda da Sorte</span>
         </div>
     </nav>
 
     <!-- ============================================
-    ROLETA
+    ROLETA (CONTEÚDO PRINCIPAL)
     ============================================ -->
     <section class="section" id="roleta">
         <div class="container">
@@ -105,21 +92,20 @@
     </section>
 
     <!-- ============================================
-    FOOTER
+    FOOTER SIMPLES
     ============================================ -->
     <footer role="contentinfo">
         <div class="container footer-content">
-            <p>© 2026 Carlos · Estudante de ADS</p>
-            <div class="footer-social">
-                <a href="https://github.com/carlos-v-costa" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/carlos-vinicius-937751405" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:carlosvsantanacosta@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-            <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo"><i class="fas fa-chevron-up"></i></button>
+            <p>© 2026 Carlos · Roda da Sorte</p>
+            <a href="../../index.html" class="btn-voltar-footer">
+                <i class="fas fa-arrow-left"></i> Voltar ao Portfólio
+            </a>
         </div>
     </footer>
 
-    <script src="../../script.js"></script>
+    <!-- ============================================
+    SCRIPTS (APENAS DA ROLETA)
+    ============================================ -->
     <script src="script.js"></script>
 </body>
 </html>

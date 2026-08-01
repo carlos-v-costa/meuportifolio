@@ -1,8 +1,7 @@
 // ============================================
-// ROLETA — SCRIPT COMPLETO (RENOVADO)
+// ROLETA — SCRIPT COMPLETO
 // ============================================
 
-// ===== ELEMENTOS =====
 const roleta = document.getElementById('roleta');
 const itemInput = document.getElementById('itemInput');
 const addBtn = document.getElementById('addItemBtn');
@@ -13,18 +12,16 @@ const resultArea = document.getElementById('resultArea');
 const historicoList = document.getElementById('historicoList');
 const soundToggle = document.getElementById('soundToggle');
 
-// ===== ESTADO =====
 let items = [];
 let isSpinning = false;
 let soundEnabled = true;
 
-// ===== CORES DA ROLETA (PALETA HARMONIOSA) =====
 const COLORS = [
     '#00b4d8', '#48cae4', '#0077b6', '#90e0ef',
     '#00d4ff', '#0096c7', '#023e8a', '#03045e'
 ];
 
-// ===== CARREGAR DADOS SALVOS =====
+// ===== CARREGAR DADOS =====
 function loadData() {
     const saved = localStorage.getItem('roleta_items');
     if (saved) {
@@ -74,7 +71,7 @@ function renderHistorico(historico) {
     });
 }
 
-// ===== RENDERIZAR ITENS =====
+// ===== ITENS =====
 function renderItems() {
     itemList.innerHTML = '';
     if (items.length === 0) {
@@ -93,7 +90,6 @@ function renderItems() {
     updateRoletaCores();
 }
 
-// ===== ADICIONAR ITEM =====
 function addItem() {
     const text = itemInput.value.trim();
     if (!text) return;
@@ -108,7 +104,6 @@ function addItem() {
     playClickSound();
 }
 
-// ===== REMOVER ITEM =====
 function removeItem(index) {
     items.splice(index, 1);
     saveItems();
@@ -116,7 +111,6 @@ function removeItem(index) {
     playClickSound();
 }
 
-// ===== LIMPAR LISTA =====
 function clearItems() {
     if (items.length === 0) return;
     if (confirm('Tem certeza que deseja limpar a lista?')) {
@@ -128,7 +122,7 @@ function clearItems() {
     }
 }
 
-// ===== ATUALIZAR CORES DA ROLETA =====
+// ===== ROLETA =====
 function updateRoletaCores() {
     const count = items.length;
     if (count === 0) {
@@ -147,7 +141,6 @@ function updateRoletaCores() {
     roleta.style.background = gradient;
 }
 
-// ===== GIRAR ROLETA =====
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
@@ -178,7 +171,6 @@ function spinRoleta() {
 
         saveHistorico(result);
         playCelebrationSound();
-        createConfetti();
 
         isSpinning = false;
         spinBtn.disabled = false;
@@ -186,48 +178,7 @@ function spinRoleta() {
 }
 
 // ============================================
-// CONFETES
-// ============================================
-function createConfetti() {
-    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#1dd1a1', '#f368e0'];
-    const container = document.querySelector('.roleta-container');
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        const size = Math.random() * 8 + 4;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const left = Math.random() * 100;
-        const delay = Math.random() * 0.5;
-        const duration = Math.random() * 1 + 1;
-        confetti.style.cssText = `
-            position: fixed;
-            width: ${size}px;
-            height: ${size * 0.6}px;
-            background: ${color};
-            left: ${left}%;
-            top: -10%;
-            border-radius: 2px;
-            z-index: 1000;
-            pointer-events: none;
-            animation: confettiFall ${duration}s ease-in ${delay}s forwards;
-            transform: rotate(${Math.random() * 360}deg);
-        `;
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), (duration + delay) * 1000 + 100);
-    }
-}
-
-// CSS para confetes (adicione no style.css)
-const confettiStyle = document.createElement('style');
-confettiStyle.textContent = `
-    @keyframes confettiFall {
-        0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-        100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
-    }
-`;
-document.head.appendChild(confettiStyle);
-
-// ============================================
-// SONS (Web Audio API)
+// SONS
 // ============================================
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -340,7 +291,7 @@ function playErrorSound() {
 }
 
 // ============================================
-// EVENT LISTENERS
+// EVENTOS
 // ============================================
 
 addBtn.addEventListener('click', addItem);
@@ -352,10 +303,6 @@ clearBtn.addEventListener('click', clearItems);
 soundToggle.addEventListener('change', function() {
     soundEnabled = this.checked;
 });
-
-// ============================================
-// INICIALIZAR
-// ============================================
 
 loadData();
 if (items.length > 0) {
