@@ -1,7 +1,7 @@
 // ELEMENTOS
 const themeSelect = document.getElementById('themeSelect');
-const hudTheme = document.getElementById('hudTheme');
-const creditCounter = document.getElementById('creditCounter');
+const statusTheme = document.getElementById('statusTheme');
+const statusSpins = document.getElementById('statusSpins');
 
 const itemInput = document.getElementById('itemInput');
 const addItemBtn = document.getElementById('addItemBtn');
@@ -18,23 +18,23 @@ const btnPreset = document.getElementById('btnPreset');
 let currentTheme = 'FILMES';
 let items = [];
 let isSpinning = false;
-let credits = 0;
+let spins = 0;
 
-// PALETA RETRÔ PARA FATIAS
+// CORES PARA FATIAS
 const SLICE_COLORS = [
-  '#e4000f', '#4b6cd1', '#6a4bd1', '#f2d64b',
-  '#3a3a3a', '#c4c4c4', '#e47f0f', '#2b8c3a'
+  '#ff6b6b', '#4ecdc4', '#ffe66d', '#1a9af7',
+  '#ff9f1c', '#ff6b9c', '#9b5de5', '#00bbf9'
 ];
 
 // LOCALSTORAGE KEYS
 function getItemsKey() {
-  return `pixelRoulette_items_${currentTheme}`;
+  return `rodaDivertida_items_${currentTheme}`;
 }
 function getHistoryKey() {
-  return `pixelRoulette_history_${currentTheme}`;
+  return `rodaDivertida_history_${currentTheme}`;
 }
-const CREDIT_KEY = 'pixelRoulette_credits';
-const THEME_KEY = 'pixelRoulette_theme';
+const SPINS_KEY = 'rodaDivertida_spins';
+const THEME_KEY = 'rodaDivertida_theme';
 
 // CARREGAR DADOS
 function loadData() {
@@ -42,11 +42,11 @@ function loadData() {
   if (savedTheme) currentTheme = savedTheme;
 
   themeSelect.value = currentTheme;
-  hudTheme.textContent = currentTheme;
+  statusTheme.textContent = formatThemeLabel(currentTheme);
 
-  const savedCredits = localStorage.getItem(CREDIT_KEY);
-  if (savedCredits) credits = parseInt(savedCredits) || 0;
-  updateCredits();
+  const savedSpins = localStorage.getItem(SPINS_KEY);
+  if (savedSpins) spins = parseInt(savedSpins) || 0;
+  updateSpins();
 
   const savedItems = localStorage.getItem(getItemsKey());
   if (savedItems) {
@@ -57,18 +57,14 @@ function loadData() {
   loadHistory();
 }
 
-function saveItems() {
-  localStorage.setItem(getItemsKey(), JSON.stringify(items));
+function updateSpins() {
+  statusSpins.textContent = spins.toString();
 }
 
-function updateCredits() {
-  creditCounter.textContent = String(credits).padStart(3, '0');
-}
-
-function addCredit() {
-  credits++;
-  localStorage.setItem(CREDIT_KEY, credits.toString());
-  updateCredits();
+function addSpin() {
+  spins++;
+  localStorage.setItem(SPINS_KEY, spins.toString());
+  updateSpins();
 }
 
 // HISTÓRICO
@@ -103,7 +99,7 @@ function renderHistory(history) {
   if (!history || history.length === 0) {
     const li = document.createElement('li');
     li.className = 'history-empty';
-    li.textContent = 'NENHUM SORTEIO AINDA.';
+    li.textContent = 'Nenhum sorteio ainda.';
     historyList.appendChild(li);
     return;
   }
@@ -119,7 +115,7 @@ function renderItems() {
   itemList.innerHTML = '';
   if (items.length === 0) {
     const li = document.createElement('li');
-    li.textContent = 'NENHUMA OPÇÃO ADICIONADA.';
+    li.textContent = 'Nenhuma opção adicionada.';
     itemList.appendChild(li);
     renderSlices();
     return;
@@ -129,7 +125,7 @@ function renderItems() {
     li.textContent = text;
     const btn = document.createElement('button');
     btn.className = 'item-remove';
-    btn.textContent = 'X';
+    btn.textContent = '✕';
     btn.addEventListener('click', () => {
       items.splice(index, 1);
       saveItems();
@@ -141,15 +137,18 @@ function renderItems() {
   renderSlices();
 }
 
+function saveItems() {
+  localStorage.setItem(getItemsKey(), JSON.stringify(items));
+}
+
 function addItemFromInput() {
   const raw = itemInput.value.trim();
   if (!raw) return;
 
-  // permite múltiplos separados por vírgula
   const parts = raw.split(',').map(p => p.trim()).filter(p => p);
   parts.forEach(p => {
-    if (items.length < 12) {
-      items.push(p.toUpperCase());
+    if (items.length < 16) {
+      items.push(p);
     }
   });
 
@@ -181,7 +180,6 @@ function renderSlices() {
     slice.className = 'slice';
     slice.style.background = color;
     slice.style.transform = `rotate(${angle}deg)`;
-    slice.style.border = '1px solid #000000';
 
     const span = document.createElement('span');
     span.textContent = item;
@@ -194,7 +192,7 @@ function renderSlices() {
 function spinWheel() {
   if (isSpinning) return;
   if (items.length === 0) {
-    resultArea.innerHTML = '<span class="result-placeholder">ADICIONE OPÇÕES PRIMEIRO.</span>';
+    resultArea.innerHTML = '<span class="result-placeholder">Adicione opções primeiro.</span>';
     return;
   }
 
@@ -211,19 +209,31 @@ function spinWheel() {
 
   setTimeout(() => {
     const result = items[randomIndex];
-    addCredit();
+    addSpin();
     saveHistoryEntry(result);
-    resultArea.innerHTML = `<span class="result-highlight">RESULTADO: ${result}</span>`;
+    resultArea.innerHTML = `<span class="result-highlight">Resultado: ${result}</span>`;
     isSpinning = false;
     spinBtn.disabled = false;
   }, 3200);
 }
 
 // TEMA / PRESET
+function formatThemeLabel(theme) {
+  switch (theme) {
+    case 'FILMES': return 'Filmes';
+    case 'SÉRIES': return 'Séries';
+    case 'JOGOS': return 'Jogos';
+    case 'ANIMES': return 'Animes';
+    case 'MÚSICAS': return 'Músicas';
+    case 'COMIDAS': return 'Comidas';
+    default: return theme;
+  }
+}
+
 function changeTheme(newTheme) {
   currentTheme = newTheme;
   localStorage.setItem(THEME_KEY, currentTheme);
-  hudTheme.textContent = currentTheme;
+  statusTheme.textContent = formatThemeLabel(currentTheme);
   items = [];
   const savedItems = localStorage.getItem(getItemsKey());
   if (savedItems) {
@@ -237,22 +247,22 @@ function loadPresetForTheme() {
   let preset = [];
   switch (currentTheme) {
     case 'FILMES':
-      preset = ['MATRIX', 'JURASSIC PARK', 'TOY STORY', 'STAR WARS', 'TERMINATOR', 'AVATAR'];
+      preset = ['Matrix', 'Toy Story', 'Avatar', 'Jurassic Park', 'Star Wars', 'Vingadores'];
       break;
     case 'SÉRIES':
-      preset = ['BREAKING BAD', 'STRANGER THINGS', 'THE OFFICE', 'GAME OF THRONES', 'LOST'];
+      preset = ['Breaking Bad', 'Stranger Things', 'The Office', 'Game of Thrones', 'Friends'];
       break;
     case 'JOGOS':
-      preset = ['MARIO', 'ZELDA', 'METROID', 'F-ZERO', 'DONKEY KONG', 'STREET FIGHTER'];
+      preset = ['Mario', 'Zelda', 'Fortnite', 'Minecraft', 'Street Fighter', 'FIFA'];
       break;
     case 'ANIMES':
-      preset = ['NARUTO', 'DRAGON BALL', 'ONE PIECE', 'BLEACH', 'DEMON SLAYER'];
+      preset = ['Naruto', 'Dragon Ball', 'One Piece', 'Bleach', 'Demon Slayer'];
       break;
     case 'MÚSICAS':
-      preset = ['ROCK', 'POP', 'JAZZ', 'LO-FI', 'HIP HOP', 'METAL'];
+      preset = ['Rock', 'Pop', 'Jazz', 'Lo-fi', 'Hip Hop', 'Metal'];
       break;
     case 'COMIDAS':
-      preset = ['PIZZA', 'HAMBÚRGUER', 'SUSHI', 'LASANHA', 'CHURRASCO', 'TACOS'];
+      preset = ['Pizza', 'Hambúrguer', 'Sushi', 'Lasanha', 'Churrasco', 'Tacos'];
       break;
   }
   items = preset;

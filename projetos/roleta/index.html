@@ -2,98 +2,98 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>🎮 Pixel Roulette</title>
+  <title>Roda Divertida</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- SCANLINES / CRT -->
-  <div class="crt-overlay"></div>
+  <!-- FUNDO ANIMADO COLORIDO -->
+  <div class="bg-animated">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+  </div>
 
   <header class="header">
     <div class="container header-content">
-      <div class="logo-area">
-        <span class="logo-title">PIXEL ROULETTE</span>
-        <span class="logo-sub">8-BIT DECISION MAKER</span>
+      <div class="logo">
+        <h1>🎉 Roda Divertida</h1>
+        <p>Deixe a sorte escolher por você</p>
       </div>
-      <div class="hud">
-        <div class="hud-item">
-          <span class="hud-label">CRÉDITOS</span>
-          <span id="creditCounter" class="hud-value">000</span>
+      <div class="status">
+        <div class="status-item">
+          <span class="status-label">Tema</span>
+          <span id="statusTheme" class="status-value">Filmes</span>
         </div>
-        <div class="hud-item">
-          <span class="hud-label">TEMA</span>
-          <span id="hudTheme" class="hud-value">FILMES</span>
+        <div class="status-item">
+          <span class="status-label">Giros</span>
+          <span id="statusSpins" class="status-value">0</span>
         </div>
       </div>
     </div>
   </header>
 
   <main class="main">
-    <div class="container">
+    <div class="container layout">
 
-      <!-- SELETOR DE TEMA -->
-      <section class="panel panel-theme">
-        <h2 class="panel-title">TEMA</h2>
-        <div class="theme-select-row">
-          <select id="themeSelect" class="select-theme">
-            <option value="FILMES">FILMES</option>
-            <option value="SÉRIES">SÉRIES</option>
-            <option value="JOGOS">JOGOS</option>
-            <option value="ANIMES">ANIMES</option>
-            <option value="MÚSICAS">MÚSICAS</option>
-            <option value="COMIDAS">COMIDAS</option>
+      <!-- LADO ESQUERDO: CONTROLES -->
+      <section class="panel panel-controls">
+        <h2>Escolha o tema</h2>
+        <div class="row">
+          <select id="themeSelect" class="select">
+            <option value="FILMES">Filmes</option>
+            <option value="SÉRIES">Séries</option>
+            <option value="JOGOS">Jogos</option>
+            <option value="ANIMES">Animes</option>
+            <option value="MÚSICAS">Músicas</option>
+            <option value="COMIDAS">Comidas</option>
           </select>
-          <button id="btnPreset" class="btn btn-small">CARREGAR LISTA RETRÔ</button>
+          <button id="btnPreset" class="btn btn-secondary">Lista pronta</button>
         </div>
-        <p class="panel-help">
-          Escolha um tema e adicione opções para a roleta decidir por você.
-        </p>
-      </section>
+        <p class="hint">Escolha um tema e use uma lista pronta ou crie a sua.</p>
 
-      <!-- FORM DE ITENS -->
-      <section class="panel panel-items">
-        <h2 class="panel-title">OPÇÕES</h2>
-        <div class="item-input-row">
-          <input id="itemInput" type="text" maxlength="30" placeholder="DIGITE UMA OPÇÃO (EX: MATRIX)" />
-          <button id="addItemBtn" class="btn">ADICIONAR</button>
+        <h2>Adicione opções</h2>
+        <div class="row">
+          <input id="itemInput" type="text" maxlength="40" placeholder="Ex: Matrix, Toy Story, Avatar..." />
+          <button id="addItemBtn" class="btn">Adicionar</button>
         </div>
-        <p class="panel-help">
-          Dica: você pode digitar várias opções separadas por vírgula.
-        </p>
+        <p class="hint">Você pode digitar várias opções separadas por vírgula.</p>
+
         <ul id="itemList" class="item-list"></ul>
-        <div class="item-actions">
-          <button id="clearItemsBtn" class="btn btn-danger">LIMPAR LISTA</button>
+
+        <div class="row actions-row">
+          <button id="clearItemsBtn" class="btn btn-danger">Limpar lista</button>
         </div>
       </section>
 
-      <!-- ROLETA -->
+      <!-- LADO DIREITO: ROLETA + RESULTADO -->
       <section class="panel panel-wheel">
-        <h2 class="panel-title">ROLETA</h2>
+        <h2>Roda da sorte</h2>
         <div class="wheel-wrapper">
           <div class="wheel-border">
-            <div id="wheel" class="wheel">
+            <div class="wheel">
               <div class="wheel-pointer"></div>
               <div id="wheelSlices" class="wheel-slices"></div>
-              <div class="wheel-center">★</div>
+              <div class="wheel-center">🎮</div>
             </div>
           </div>
         </div>
-        <div class="wheel-actions">
-          <button id="spinBtn" class="btn btn-primary">GIRAR</button>
-        </div>
-        <div id="resultArea" class="result-box">
-          <span class="result-placeholder">AGUARDANDO SORTEIO...</span>
-        </div>
-      </section>
 
-      <!-- HISTÓRICO -->
-      <section class="panel panel-history">
-        <h2 class="panel-title">HISTÓRICO</h2>
+        <div class="row center">
+          <button id="spinBtn" class="btn btn-primary">Girar!</button>
+        </div>
+
+        <div id="resultArea" class="result-box">
+          <span class="result-placeholder">Adicione opções e gire a roda!</span>
+        </div>
+
+        <h2>Histórico</h2>
         <ul id="historyList" class="history-list">
-          <li class="history-empty">NENHUM SORTEIO AINDA.</li>
+          <li class="history-empty">Nenhum sorteio ainda.</li>
         </ul>
       </section>
 
@@ -102,8 +102,8 @@
 
   <footer class="footer">
     <div class="container footer-content">
-      <span>© 2026 CARLOS · PIXEL ROULETTE</span>
-      <span>INSPIRE-SE · DECIDA · JOGUE</span>
+      <span>© 2026 Carlos · Roda Divertida</span>
+      <span>Escolha um tema, preencha opções e deixe a sorte decidir.</span>
     </div>
   </footer>
 
