@@ -335,4 +335,71 @@ function playSuccessSound() {
                 osc.frequency.value = freq;
                 osc.type = 'square';
                 gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audio
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.2);
+            }, i * 100);
+        });
+    } catch (e) {}
+}
+
+function playCelebrationSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const notes = [523, 587, 659, 698, 784, 880];
+        notes.forEach((freq, i) => {
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'square';
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.1);
+            }, i * 60);
+        });
+    } catch (e) {}
+}
+
+function playErrorSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 200;
+        osc.type = 'sawtooth';
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.3);
+    } catch (e) {}
+}
+
+// ============================================
+// EVENTOS
+// ============================================
+
+setThemeBtn.addEventListener('click', setTheme);
+themeInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') setTheme();
+});
+addBtn.addEventListener('click', addItem);
+itemInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addItem();
+});
+spinBtn.addEventListener('click', spinRoleta);
+clearBtn.addEventListener('click', clearItems);
+soundToggle.addEventListener('click', function() {
+    soundEnabled = !soundEnabled;
+    soundStatus.textContent = soundEnabled ? 'LIGADO' : 'DESLIGADO';
+});
+
+loadData();
+renderItems();
