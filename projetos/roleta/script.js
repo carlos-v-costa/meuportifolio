@@ -1,13 +1,11 @@
 // ============================================
-// RODA 8-BIT — SCRIPT COMPLETO (COM FATIAS)
+// RODA ARCADE — SCRIPT COMPLETO (STREET FIGHTER)
 // ============================================
 
 // ===== ELEMENTOS =====
 const roleta = document.getElementById('roleta');
 const roletaFatias = document.getElementById('roletaFatias');
-const themeInput = document.getElementById('themeInput');
-const setThemeBtn = document.getElementById('setThemeBtn');
-const currentTheme = document.getElementById('currentTheme');
+const roletaBorder = document.getElementById('roletaBorder');
 const itemInput = document.getElementById('itemInput');
 const addBtn = document.getElementById('addItemBtn');
 const itemList = document.getElementById('itemList');
@@ -17,49 +15,43 @@ const resultArea = document.getElementById('resultArea');
 const historicoList = document.getElementById('historicoList');
 const soundToggle = document.getElementById('soundToggle');
 const soundStatus = document.getElementById('soundStatus');
-const spinCounter = document.getElementById('spinCounter');
+const coinCounter = document.getElementById('coinCounter');
 
 let items = [];
-let tema = 'NENHUM';
 let isSpinning = false;
 let soundEnabled = true;
-let spins = 0;
+let coins = 0;
 let currentRotation = 0;
 
-// ===== CORES 8-BITS (NES) =====
+// ===== CORES STREET FIGHTER =====
 const COLORS = [
-    '#e52521', '#f5c800', '#0068b5', '#00a800',
-    '#e52521', '#f5c800', '#0068b5', '#00a800'
+    '#ff0000', '#ffcc00', '#0066ff', '#00ff00',
+    '#ff00ff', '#00ffff', '#ff6600', '#ff0066'
 ];
 
 // ===== CARREGAR DADOS =====
 function loadData() {
-    const savedItems = localStorage.getItem('roleta8bit_items');
+    const savedItems = localStorage.getItem('roletaArcade_items');
     if (savedItems) {
         try { items = JSON.parse(savedItems); } catch (e) { items = []; }
     }
-    const savedTheme = localStorage.getItem('roleta8bit_theme');
-    if (savedTheme) {
-        tema = savedTheme;
-        currentTheme.textContent = tema;
+    const savedCoins = localStorage.getItem('roletaArcade_coins');
+    if (savedCoins) {
+        coins = parseInt(savedCoins) || 0;
+        coinCounter.textContent = coins;
     }
     renderItems();
     loadHistorico();
-    const savedSpins = localStorage.getItem('roleta8bit_spins');
-    if (savedSpins) {
-        spins = parseInt(savedSpins) || 0;
-        spinCounter.textContent = spins;
-    }
 }
 
 function saveItems() {
-    localStorage.setItem('roleta8bit_items', JSON.stringify(items));
-    localStorage.setItem('roleta8bit_theme', tema);
+    localStorage.setItem('roletaArcade_items', JSON.stringify(items));
+    localStorage.setItem('roletaArcade_coins', coins.toString());
 }
 
 // ===== HISTÓRICO =====
 function loadHistorico() {
-    const saved = localStorage.getItem('roleta8bit_historico');
+    const saved = localStorage.getItem('roletaArcade_historico');
     if (saved) {
         try {
             const historico = JSON.parse(saved);
@@ -70,20 +62,20 @@ function loadHistorico() {
 
 function saveHistorico(entry) {
     let historico = [];
-    const saved = localStorage.getItem('roleta8bit_historico');
+    const saved = localStorage.getItem('roletaArcade_historico');
     if (saved) {
         try { historico = JSON.parse(saved); } catch (e) {}
     }
     historico.unshift({ item: entry, data: new Date().toLocaleString() });
     if (historico.length > 20) historico.pop();
-    localStorage.setItem('roleta8bit_historico', JSON.stringify(historico));
+    localStorage.setItem('roletaArcade_historico', JSON.stringify(historico));
     renderHistorico(historico);
 }
 
 function renderHistorico(historico) {
     historicoList.innerHTML = '';
     if (!historico || historico.length === 0) {
-        historicoList.innerHTML = '<li class="empty-message">NENHUM SORTEIO AINDA.</li>';
+        historicoList.innerHTML = '<li class="empty-message-arcade">NENHUM SORTEIO AINDA.</li>';
         return;
     }
     historico.forEach(h => {
@@ -93,22 +85,11 @@ function renderHistorico(historico) {
     });
 }
 
-// ===== TEMA =====
-function setTheme() {
-    const text = themeInput.value.trim().toUpperCase();
-    if (!text) return;
-    tema = text;
-    currentTheme.textContent = tema;
-    themeInput.value = '';
-    saveItems();
-    playClickSound();
-}
-
 // ===== ITENS =====
 function renderItems() {
     itemList.innerHTML = '';
     if (items.length === 0) {
-        itemList.innerHTML = '<li class="empty-message" style="width:100%;text-align:center;">NENHUMA OPÇÃO ADICIONADA.</li>';
+        itemList.innerHTML = '<li class="empty-message-arcade" style="width:100%;text-align:center;">NENHUMA OPÇÃO ADICIONADA.</li>';
         renderFatias();
         return;
     }
@@ -128,13 +109,11 @@ function renderFatias() {
     const count = items.length;
     roletaFatias.innerHTML = '';
     if (count === 0) {
-        roleta.style.background = '#2d3436';
+        roleta.style.background = '#0a0a0a';
         return;
     }
 
     const angleStep = 360 / count;
-    const radius = 50; // %
-
     items.forEach((item, index) => {
         const angle = index * angleStep;
         const color = COLORS[index % COLORS.length];
@@ -159,11 +138,10 @@ function renderFatias() {
             font-size: 0.5rem;
             padding-left: 10px;
             box-sizing: border-box;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.1);
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.15);
         `;
 
-        // Texto da fatia
         const span = document.createElement('span');
         span.textContent = item;
         span.style.cssText = `
@@ -175,13 +153,12 @@ function renderFatias() {
             overflow: hidden;
             white-space: nowrap;
             font-family: 'Press Start 2P', monospace;
+            font-weight: bold;
         `;
         fatia.appendChild(span);
-
         roletaFatias.appendChild(fatia);
     });
 
-    // Ajustar a roleta para mostrar as fatias corretamente
     roleta.style.background = 'transparent';
 }
 
@@ -212,16 +189,16 @@ function clearItems() {
         items = [];
         saveItems();
         renderItems();
-        resultArea.innerHTML = '<span class="empty-message">► ADICIONE ITENS E GIRE ◄</span>';
+        resultArea.innerHTML = '<span class="empty-message-arcade">► ADICIONE ITENS E GIRE ◄</span>';
         playClickSound();
     }
 }
 
-// ===== GIRAR ROLETA =====
+// ===== GIRAR ROLETA (COM EFEITOS ARCADE) =====
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
-        resultArea.innerHTML = '<span style="color:#e52521;">⚠️ ADICIONE ITENS!</span>';
+        resultArea.innerHTML = '<span style="color:#ff0000;">⚠️ ADICIONE ITENS!</span>';
         playErrorSound();
         return;
     }
@@ -229,34 +206,38 @@ function spinRoleta() {
     isSpinning = true;
     spinBtn.disabled = true;
 
+    // ===== ANIMAÇÃO "VS" =====
+    showVSAnimation();
+
     playSpinSound();
 
     const randomIndex = Math.floor(Math.random() * items.length);
     const result = items[randomIndex];
 
-    // Calcular ângulo para parar no item selecionado
     const angleStep = 360 / items.length;
-    // Para alinhar com o ponteiro (topo), precisamos que o item fique na posição 0 (topo)
-    // Ajuste para que o item fique alinhado com o ponteiro
     const targetAngle = 360 - (randomIndex * angleStep + angleStep / 2);
-    // Adicionar rotações extras para parecer que girou muito
     const extraSpins = 5 + Math.floor(Math.random() * 3);
     const finalAngle = extraSpins * 360 + targetAngle;
 
-    // Aplicar rotação
+    // ===== LUZES NA BORDA =====
+    startBorderLights();
+
     roletaFatias.style.transform = `rotate(${finalAngle}deg)`;
     currentRotation = finalAngle;
 
     setTimeout(() => {
+        stopBorderLights();
+
+        // ===== EFEITO "KO" =====
+        showKOEffect();
+
         playSuccessSound();
 
-        spins++;
-        spinCounter.textContent = spins;
-        localStorage.setItem('roleta8bit_spins', spins.toString());
+        coins++;
+        coinCounter.textContent = coins;
+        localStorage.setItem('roletaArcade_coins', coins.toString());
 
-        // Mostrar resultado com tema
-        const resultadoTexto = tema !== 'NENHUM' ? `${tema}: ${result}` : `${result}`;
-        resultArea.innerHTML = `🎯 ${resultadoTexto}`;
+        resultArea.innerHTML = `🎯 ${result}`;
         resultArea.classList.remove('pop');
         void resultArea.offsetWidth;
         resultArea.classList.add('pop');
@@ -269,8 +250,91 @@ function spinRoleta() {
     }, 4200);
 }
 
+// ===== ANIMAÇÃO "VS" =====
+function showVSAnimation() {
+    const vs = document.createElement('div');
+    vs.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 6rem;
+        font-family: 'Press Start 2P', monospace;
+        color: #ffcc00;
+        text-shadow: 
+            0 0 40px rgba(255, 0, 0, 0.8),
+            0 0 80px rgba(255, 0, 0, 0.4),
+            4px 4px 0 #ff0000;
+        z-index: 999;
+        animation: vsAnimation 0.8s steps(4) forwards;
+        pointer-events: none;
+        background: rgba(0,0,0,0.7);
+        padding: 30px 50px;
+        border: 4px solid #ffcc00;
+        box-shadow: 0 0 60px rgba(255, 204, 0, 0.3);
+    `;
+    vs.textContent = 'VS';
+    document.body.appendChild(vs);
+
+    setTimeout(() => {
+        vs.style.animation = 'vsFadeOut 0.3s steps(4) forwards';
+        setTimeout(() => vs.remove(), 400);
+    }, 1000);
+}
+
+// ===== EFEITO "KO" =====
+function showKOEffect() {
+    const ko = document.createElement('div');
+    ko.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 5rem;
+        font-family: 'Press Start 2P', monospace;
+        color: #ff0000;
+        text-shadow: 
+            0 0 40px rgba(255, 0, 0, 0.9),
+            0 0 80px rgba(255, 0, 0, 0.5),
+            4px 4px 0 #000000;
+        z-index: 999;
+        animation: koAnimation 0.8s steps(4) forwards;
+        pointer-events: none;
+        background: rgba(0,0,0,0.5);
+        padding: 20px 40px;
+        border: 4px solid #ff0000;
+        box-shadow: 0 0 60px rgba(255, 0, 0, 0.3);
+    `;
+    ko.textContent = '🔥 KO!';
+    document.body.appendChild(ko);
+
+    setTimeout(() => {
+        ko.style.animation = 'koFadeOut 0.3s steps(4) forwards';
+        setTimeout(() => ko.remove(), 400);
+    }, 1200);
+}
+
+// ===== LUZES NA BORDA =====
+let borderInterval;
+
+function startBorderLights() {
+    roletaBorder.style.animation = 'borderGlow 0.3s linear infinite';
+    let i = 0;
+    borderInterval = setInterval(() => {
+        const colors = ['#ff0000', '#ffcc00', '#0066ff', '#00ff00'];
+        roletaBorder.style.borderColor = colors[i % colors.length];
+        i++;
+    }, 150);
+}
+
+function stopBorderLights() {
+    clearInterval(borderInterval);
+    roletaBorder.style.animation = 'borderGlow 2s linear infinite';
+    roletaBorder.style.borderColor = '#ffcc00';
+}
+
 // ============================================
-// SONS 8-BITS (CHIP-TUNE)
+// SONS ARCADE (CHIP-TUNE)
 // ============================================
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -309,15 +373,15 @@ function playSpinSound() {
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 400 + Math.random() * 200;
+            osc.frequency.value = 300 + Math.random() * 300;
             osc.type = 'square';
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.04);
             count++;
-            if (count > 16) clearInterval(interval);
-        }, 60);
+            if (count > 18) clearInterval(interval);
+        }, 50);
     } catch (e) {}
 }
 
@@ -325,7 +389,7 @@ function playSuccessSound() {
     if (!soundEnabled) return;
     initAudio();
     try {
-        const notes = [523, 659, 784];
+        const notes = [523, 659, 784, 1047];
         notes.forEach((freq, i) => {
             setTimeout(() => {
                 const osc = audioCtx.createOscillator();
@@ -347,7 +411,7 @@ function playCelebrationSound() {
     if (!soundEnabled) return;
     initAudio();
     try {
-        const notes = [523, 587, 659, 698, 784, 880];
+        const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
         notes.forEach((freq, i) => {
             setTimeout(() => {
                 const osc = audioCtx.createOscillator();
@@ -383,13 +447,37 @@ function playErrorSound() {
 }
 
 // ============================================
+// ESTILOS DINÂMICOS (ANIMAÇÕES)
+// ============================================
+
+const styleArcade = document.createElement('style');
+styleArcade.textContent = `
+    @keyframes vsAnimation {
+        0% { transform: translate(-50%, -50%) scale(0) rotate(-10deg); opacity: 0; }
+        50% { transform: translate(-50%, -50%) scale(1.2) rotate(5deg); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes vsFadeOut {
+        0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+    @keyframes koAnimation {
+        0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
+        30% { transform: translate(-50%, -50%) scale(1.3) rotate(10deg); opacity: 1; }
+        70% { transform: translate(-50%, -50%) scale(0.9) rotate(-5deg); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes koFadeOut {
+        0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    }
+`;
+document.head.appendChild(styleArcade);
+
+// ============================================
 // EVENTOS
 // ============================================
 
-setThemeBtn.addEventListener('click', setTheme);
-themeInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') setTheme();
-});
 addBtn.addEventListener('click', addItem);
 itemInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addItem();
@@ -400,6 +488,10 @@ soundToggle.addEventListener('click', function() {
     soundEnabled = !soundEnabled;
     soundStatus.textContent = soundEnabled ? 'LIGADO' : 'DESLIGADO';
 });
+
+// ============================================
+// INICIALIZAR
+// ============================================
 
 loadData();
 renderItems();

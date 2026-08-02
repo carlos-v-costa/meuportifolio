@@ -1,5 +1,5 @@
 /* ============================================
-   ESTILOS 8-BITS — RODA DA SORTE
+   ESTILOS ARCADE — STREET FIGHTER
    ============================================ */
 
 * {
@@ -10,13 +10,15 @@
 
 body {
     font-family: 'Press Start 2P', monospace;
-    background: #000000;
+    background: #0a0a0a;
     color: #ffffff;
     min-height: 100vh;
     image-rendering: pixelated;
 }
 
-/* ===== SCANLINE ===== */
+/* ============================================
+   SCANLINE (EFEITO DE TV)
+   ============================================ */
 .scanline {
     position: fixed;
     inset: 0;
@@ -26,38 +28,80 @@ body {
         0deg,
         transparent 0px,
         transparent 2px,
-        rgba(0, 0, 0, 0.08) 2px,
-        rgba(0, 0, 0, 0.08) 4px
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
     );
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
-/* ===== FUNDO PIXELADO ===== */
-.bg-pixels {
+/* ============================================
+   FUNDO ARCADE
+   ============================================ */
+.bg-arcade {
     position: fixed;
     inset: 0;
     z-index: -1;
     background: #0a0a0a;
     background-image:
-        linear-gradient(rgba(0, 104, 181, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 104, 181, 0.05) 1px, transparent 1px);
-    background-size: 16px 16px;
+        linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
-/* ===== CONTAINER ===== */
+.bg-arcade::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.05), transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
 .container {
-    max-width: 800px;
+    max-width: 820px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ===== HEADER ===== */
-.header-8bit {
-    background: #000000;
-    border-bottom: 4px solid #e52521;
+/* ============================================
+   HEADER ARCADE
+   ============================================ */
+.header-arcade {
+    background: linear-gradient(180deg, #1a0000, #0a0a0a);
+    border-bottom: 4px solid #ff0000;
     padding: 20px 0;
     margin-bottom: 30px;
-    box-shadow: 0 4px 0 #8c8c8c;
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+    position: relative;
+}
+
+.header-arcade::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        #ff0000 0px,
+        #ff0000 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    animation: borderLight 0.5s linear infinite;
+}
+
+@keyframes borderLight {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
 }
 
 .header-content {
@@ -68,139 +112,304 @@ body {
     gap: 12px;
 }
 
-.title-8bit {
+.title-arcade {
     font-size: 1.8rem;
-    color: #f5c800;
-    text-shadow: 4px 4px 0 #e52521;
-    letter-spacing: 2px;
+    color: #ffcc00;
+    text-shadow:
+        0 0 10px rgba(255, 204, 0, 0.5),
+        4px 4px 0 #ff0000,
+        -2px -2px 0 #0066ff;
+    letter-spacing: 4px;
 }
 
-.btn-voltar {
+.btn-voltar-arcade {
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.8rem;
-    padding: 8px 16px;
-    border: 3px solid #8c8c8c;
-    background: #000000;
+    font-size: 0.7rem;
+    padding: 10px 18px;
+    border: 3px solid #ffcc00;
+    background: #1a0000;
     transition: all 0.1s;
-    box-shadow: 4px 4px 0 #8c8c8c;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-.btn-voltar:hover {
+.btn-voltar-arcade:hover {
     transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #8c8c8c;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.4);
 }
 
-.version {
-    color: #8c8c8c;
-    font-size: 0.6rem;
-    border: 2px solid #8c8c8c;
-    padding: 4px 8px;
+.version-arcade {
+    color: #ffcc00;
+    font-size: 0.5rem;
+    border: 2px solid #ff0000;
+    padding: 4px 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
-/* ===== MAIN ===== */
-.main-8bit {
+/* ============================================
+   MAIN
+   ============================================ */
+.main-arcade {
     padding-bottom: 40px;
 }
 
-/* ===== CONTROLE DE SOM ===== */
-.sound-control {
+/* ============================================
+   CONTROLE DE SOM E MOEDAS
+   ============================================ */
+.sound-control-arcade {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
 }
 
-.btn-sound {
-    background: #000000;
+.btn-sound-arcade {
+    background: #1a0000;
     color: #ffffff;
-    border: 3px solid #8c8c8c;
-    padding: 8px 16px;
+    border: 3px solid #ffcc00;
+    padding: 10px 20px;
     font-family: 'Press Start 2P', monospace;
     font-size: 0.6rem;
     cursor: pointer;
-    box-shadow: 4px 4px 0 #8c8c8c;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
     transition: all 0.1s;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
 }
 
-.btn-sound:hover {
+.btn-sound-arcade:hover {
     transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #8c8c8c;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
 }
 
-.spin-counter {
-    font-size: 0.7rem;
-    color: #f5c800;
-}
-
-/* ===== TEMA ===== */
-.theme-area {
+.coin-counter {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
     align-items: center;
+    gap: 8px;
+    background: #1a0000;
+    border: 3px solid #ffcc00;
+    padding: 10px 18px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
 }
 
-.theme-label {
+.coin-icon {
+    font-size: 1.2rem;
+}
+
+.coin-label {
+    font-size: 0.6rem;
+    color: #ffcc00;
+}
+
+.coin-value {
+    font-size: 0.8rem;
+    color: #ffffff;
+    min-width: 30px;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+}
+
+/* ============================================
+   TEMA (STREET FIGHTER)
+   ============================================ */
+.theme-area-arcade {
+    margin-bottom: 16px;
+}
+
+.theme-display-arcade {
+    background: #1a0000;
+    border: 3px solid #ff0000;
+    padding: 12px 16px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.theme-label-arcade {
     font-size: 0.7rem;
-    color: #8c8c8c;
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-#themeInput {
+.theme-text-arcade {
+    font-size: 0.8rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #ff0000, #0066ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+}
+
+/* ============================================
+   ADICIONAR ITENS
+   ============================================ */
+.controls-arcade {
+    display: flex;
+    gap: 12px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.controls-arcade input {
     flex: 1;
     min-width: 160px;
-    padding: 10px 14px;
-    background: #000000;
-    border: 3px solid #8c8c8c;
+    padding: 14px 18px;
+    background: #0a0a0a;
+    border: 3px solid #ffcc00;
     color: #ffffff;
     font-family: 'Press Start 2P', monospace;
     font-size: 0.6rem;
-    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 204, 0, 0.05);
     outline: none;
+    text-transform: uppercase;
 }
 
-#themeInput:focus {
-    border-color: #f5c800;
+.controls-arcade input:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
 }
 
-.btn-theme {
-    border-color: #0068b5;
-    color: #0068b5;
-    box-shadow: 4px 4px 0 #0068b5;
-    padding: 10px 16px;
-    font-size: 0.6rem;
-}
-.btn-theme:hover {
-    box-shadow: 2px 2px 0 #0068b5;
+.controls-arcade input::placeholder {
+    color: #4a4a4a;
+    text-transform: none;
 }
 
-.theme-display {
-    background: #000000;
-    border: 3px solid #8c8c8c;
-    padding: 8px 14px;
-    margin-bottom: 16px;
-    text-align: center;
-    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
-}
-
-.theme-text {
-    font-size: 0.7rem;
+/* ============================================
+   BOTÕES ARCADE
+   ============================================ */
+.btn-arcade {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    padding: 14px 24px;
+    border: 3px solid #ffcc00;
+    background: #1a0000;
     color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
+    transition: all 0.1s;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
 }
 
-#currentTheme {
-    color: #f5c800;
+.btn-arcade:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 40px rgba(255, 204, 0, 0.3);
 }
 
-/* ===== ROLETA ===== */
-.roleta-wrapper {
+.btn-arcade:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.btn-add-arcade {
+    border-color: #00ff00;
+    color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+.btn-add-arcade:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+}
+
+.btn-spin-arcade {
+    border-color: #ffcc00;
+    color: #ffcc00;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.15);
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+    font-size: 0.8rem;
+    padding: 16px 32px;
+}
+.btn-spin-arcade:hover {
+    box-shadow: 0 0 50px rgba(255, 204, 0, 0.4);
+}
+
+.btn-clear-arcade {
+    border-color: #ff0000;
+    color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+.btn-clear-arcade:hover {
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
+}
+
+.actions-arcade {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   LISTA DE ITENS
+   ============================================ */
+.item-list-arcade {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 16px 0;
+    padding: 0;
+}
+
+.item-list-arcade li {
+    background: #1a0000;
+    border: 3px solid #ffcc00;
+    padding: 8px 14px;
+    font-size: 0.55rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.05);
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.1);
+}
+
+.item-list-arcade .remove-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0 4px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* ============================================
+   ROLETA COM BORDA DE LUZES
+   ============================================ */
+.roleta-wrapper-arcade {
     position: relative;
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     margin: 20px auto 30px;
+}
+
+.roleta-border {
+    position: relative;
+    padding: 12px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        #ff0000, #ffcc00, #0066ff, #00ff00,
+        #ff0000, #ffcc00, #0066ff, #00ff00
+    );
+    animation: borderGlow 2s linear infinite;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 0.3), 0 0 80px rgba(0, 0, 255, 0.2);
+}
+
+@keyframes borderGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .roleta {
@@ -208,19 +417,15 @@ body {
     width: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid #ffffff;
-    box-shadow:
-        0 0 0 4px #000000,
-        0 0 0 8px #8c8c8c,
-        inset 0 0 20px rgba(0, 0, 0, 0.5);
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-    cursor: pointer;
-    image-rendering: pixelated;
     overflow: hidden;
-    background: #2d3436;
+    background: #0a0a0a;
+    border: 4px solid #0a0a0a;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
 }
 
-/* FATIAS DA ROLETA */
+/* ============================================
+   FATIAS DA ROLETA
+   ============================================ */
 .roleta-fatias {
     position: absolute;
     inset: 0;
@@ -239,14 +444,14 @@ body {
     justify-content: center;
     font-size: 0.5rem;
     color: #ffffff;
-    text-shadow: 2px 2px 0 #000000;
+    text-shadow: 2px 2px 0 #000000, 0 0 10px rgba(0,0,0,0.8);
     padding-left: 10px;
     box-sizing: border-box;
     font-family: 'Press Start 2P', monospace;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .fatia span {
@@ -257,173 +462,58 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: bold;
 }
 
-/* PONTEIRO FIXO */
-.roleta-ponteiro-8bit {
+/* ============================================
+   PONTEIRO ARCADE
+   ============================================ */
+.roleta-ponteiro-arcade {
     position: absolute;
     top: -22px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0;
     z-index: 20;
-    filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
 }
 
-.roleta-ponteiro-8bit::before {
-    content: '';
+.roleta-ponteiro-arcade::before {
+    content: '⚡';
+    font-size: 2.2rem;
     display: block;
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 32px solid #e52521;
-    filter: drop-shadow(0 4px 0 #8c8c8c);
+    color: #ffcc00;
+    text-shadow: 0 0 30px rgba(255, 204, 0, 0.6), 0 0 60px rgba(255, 0, 0, 0.3);
 }
 
-/* CENTRO DA ROLETA */
-.roleta-center-8bit {
+/* ============================================
+   CENTRO DA ROLETA
+   ============================================ */
+.roleta-center-arcade {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
-    background: #000000;
+    background: radial-gradient(circle, #1a0000, #0a0a0a);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f5c800;
-    font-size: 1.8rem;
-    border: 4px solid #ffffff;
-    box-shadow: 0 0 0 4px #8c8c8c, inset 0 0 20px rgba(0, 0, 0, 0.8);
+    color: #ffcc00;
+    font-size: 2rem;
+    border: 4px solid #ffcc00;
+    box-shadow: 0 0 0 6px #1a0000, 0 0 40px rgba(255, 204, 0, 0.3);
     z-index: 15;
 }
 
-/* ===== CONTROLES ===== */
-.controls-8bit {
-    display: flex;
-    gap: 12px;
-    margin: 16px 0;
-    flex-wrap: wrap;
-}
-
-.controls-8bit input {
-    flex: 1;
-    min-width: 160px;
-    padding: 12px 16px;
-    background: #000000;
-    border: 4px solid #8c8c8c;
-    color: #ffffff;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.6rem;
-    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
-    outline: none;
-}
-
-.controls-8bit input:focus {
-    border-color: #f5c800;
-}
-
-.controls-8bit input::placeholder {
-    color: #4a4a4a;
-}
-
-/* ===== BOTÕES ===== */
-.btn-8bit {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.65rem;
-    padding: 12px 20px;
-    border: 4px solid #8c8c8c;
-    background: #000000;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 4px 4px 0 #8c8c8c;
-    transition: all 0.1s;
-    text-transform: uppercase;
-}
-
-.btn-8bit:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #8c8c8c;
-}
-
-.btn-8bit:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0 0 0 #8c8c8c;
-}
-
-.btn-add {
-    border-color: #00a800;
-    color: #00a800;
-    box-shadow: 4px 4px 0 #00a800;
-}
-.btn-add:hover {
-    box-shadow: 2px 2px 0 #00a800;
-}
-
-.btn-spin {
-    border-color: #f5c800;
-    color: #f5c800;
-    box-shadow: 4px 4px 0 #f5c800;
-}
-.btn-spin:hover {
-    box-shadow: 2px 2px 0 #f5c800;
-}
-
-.btn-clear {
-    border-color: #e52521;
-    color: #e52521;
-    box-shadow: 4px 4px 0 #e52521;
-}
-.btn-clear:hover {
-    box-shadow: 2px 2px 0 #e52521;
-}
-
-.actions-8bit {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin: 16px 0;
-    flex-wrap: wrap;
-}
-
-/* ===== LISTA DE ITENS ===== */
-.item-list-8bit {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin: 12px 0;
-    padding: 0;
-}
-
-.item-list-8bit li {
-    background: #000000;
-    border: 3px solid #8c8c8c;
-    padding: 6px 12px;
-    font-size: 0.55rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 4px 4px 0 #8c8c8c;
-}
-
-.item-list-8bit .remove-btn {
-    background: none;
-    border: none;
-    color: #e52521;
-    cursor: pointer;
-    font-size: 0.9rem;
-    padding: 0 4px;
-}
-
-/* ===== RESULTADO ===== */
-.result-8bit {
-    background: #000000;
-    border: 4px solid #8c8c8c;
+/* ============================================
+   RESULTADO
+   ============================================ */
+.result-arcade {
+    background: #1a0000;
+    border: 4px solid #ffcc00;
     padding: 20px;
     margin: 16px 0;
     text-align: center;
@@ -432,99 +522,133 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    color: #f5c800;
-    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 204, 0, 0.05);
     transition: all 0.3s;
+    position: relative;
 }
 
-.result-8bit.pop {
-    border-color: #f5c800;
-    animation: pop8bit 0.5s steps(4);
+.result-arcade.pop {
+    border-color: #ffcc00;
+    animation: popArcade 0.5s steps(4);
+    box-shadow: 0 0 60px rgba(255, 204, 0, 0.3);
 }
 
-@keyframes pop8bit {
+@keyframes popArcade {
     0% { transform: scale(0.8); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.1); }
     100% { transform: scale(1); }
 }
 
-.empty-message {
-    color: #4a4a4a;
-    font-size: 0.6rem;
+.result-arcade .ko-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: #ff0000;
+    text-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+    animation: koAnimation 0.8s steps(4);
+    pointer-events: none;
 }
 
-/* ===== HISTÓRICO ===== */
-.historico-8bit {
-    background: #000000;
-    border: 4px solid #8c8c8c;
+@keyframes koAnimation {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.empty-message-arcade {
+    color: #4a4a4a;
+    font-size: 0.6rem;
+    text-shadow: none;
+}
+
+/* ============================================
+   HISTÓRICO
+   ============================================ */
+.historico-arcade {
+    background: #1a0000;
+    border: 4px solid #ff0000;
     padding: 16px;
     margin-top: 16px;
     max-height: 180px;
     overflow-y: auto;
-    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
 }
 
-.historico-8bit h3 {
-    color: #f5c800;
+.historico-arcade h3 {
+    color: #ffcc00;
     font-size: 0.7rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-align: center;
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
 }
 
-.historico-8bit ul {
+.historico-arcade ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.historico-8bit li {
-    padding: 6px 0;
-    border-bottom: 2px solid #1a1a1a;
+.historico-arcade li {
+    padding: 8px 0;
+    border-bottom: 2px solid #2a0a0a;
     font-size: 0.55rem;
     display: flex;
     justify-content: space-between;
     color: #8c8c8c;
 }
 
-.historico-8bit li span {
+.historico-arcade li span {
     color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-/* ===== RODAPÉ ===== */
-.footer-8bit {
-    border-top: 4px solid #e52521;
-    padding: 16px 0;
-    margin-top: 16px;
+/* ============================================
+   RODAPÉ
+   ============================================ */
+.footer-arcade {
+    border-top: 4px solid #ff0000;
+    padding: 20px 0;
+    margin-top: 20px;
     text-align: center;
     font-size: 0.55rem;
     color: #4a4a4a;
+    box-shadow: 0 -4px 20px rgba(255, 0, 0, 0.1);
 }
 
-.footer-credits {
-    margin-top: 6px;
-    color: #f5c800;
-    font-size: 0.45rem;
+.footer-credits-arcade {
+    margin-top: 8px;
+    color: #ffcc00;
+    font-size: 0.5rem;
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
 }
 
-/* ===== SCROLLBAR ===== */
+/* ============================================
+   SCROLLBAR ARCADE
+   ============================================ */
 ::-webkit-scrollbar {
     width: 12px;
 }
 ::-webkit-scrollbar-track {
-    background: #000000;
-    border-left: 2px solid #8c8c8c;
+    background: #0a0a0a;
+    border-left: 2px solid #ff0000;
 }
 ::-webkit-scrollbar-thumb {
-    background: #f5c800;
-    border: 2px solid #000000;
+    background: #ffcc00;
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #e52521;
+    background: #ff0000;
 }
 
-/* ===== RESPONSIVO ===== */
+/* ============================================
+   RESPONSIVO
+   ============================================ */
 @media (max-width: 600px) {
-    .title-8bit {
+    .title-arcade {
         font-size: 1.2rem;
     }
     .header-content {
@@ -532,31 +656,37 @@ body {
         align-items: stretch;
         text-align: center;
     }
-    .controls-8bit input,
-    #themeInput {
+    .controls-arcade input {
         min-width: 120px;
         font-size: 0.5rem;
     }
-    .btn-8bit {
+    .btn-arcade {
         font-size: 0.5rem;
-        padding: 8px 12px;
+        padding: 10px 14px;
     }
-    .roleta-center-8bit {
-        width: 40px;
-        height: 40px;
+    .roleta-center-arcade {
+        width: 44px;
+        height: 44px;
         font-size: 1.2rem;
     }
-    .roleta-ponteiro-8bit::before {
-        border-left-width: 14px;
-        border-right-width: 14px;
-        border-top-width: 24px;
+    .roleta-ponteiro-arcade::before {
+        font-size: 1.6rem;
     }
-    .result-8bit {
+    .result-arcade {
         font-size: 0.8rem;
-        padding: 12px;
+        padding: 14px;
     }
     .fatia span {
         font-size: 0.4rem;
         max-width: 60px;
+    }
+    .coin-counter {
+        padding: 6px 12px;
+    }
+    .coin-label {
+        font-size: 0.5rem;
+    }
+    .coin-value {
+        font-size: 0.6rem;
     }
 }

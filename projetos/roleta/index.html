@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Roda da Sorte 8-Bits" />
-    <title>🎮 Roda 8-Bit</title>
+    <meta name="description" content="Roda da Sorte Arcade - Street Fighter" />
+    <title>🎮 Roda Arcade</title>
 
     <!-- FONTE PIXELADA -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -13,88 +13,94 @@
 </head>
 <body>
 
-    <!-- SCANLINE -->
+    <!-- ============================================
+    SCANLINE (EFEITO DE TV)
+    ============================================ -->
     <div class="scanline"></div>
 
-    <!-- FUNDO 8-BITS -->
-    <div class="bg-pixels"></div>
+    <!-- ============================================
+    FUNDO ARCADE
+    ============================================ -->
+    <div class="bg-arcade"></div>
 
     <!-- ============================================
-    MENU SUPERIOR
+    MENU SUPERIOR (ARCADE)
     ============================================ -->
-    <header class="header-8bit">
+    <header class="header-arcade">
         <div class="container">
             <div class="header-content">
-                <a href="../../abas/projetos.html" class="btn-voltar">← VOLTAR</a>
-                <h1 class="title-8bit">🎮 RODA 8-BIT</h1>
-                <span class="version">v1.0</span>
+                <a href="../../abas/projetos.html" class="btn-voltar-arcade">← VOLTAR</a>
+                <h1 class="title-arcade">⚡ RODA ARCADE ⚡</h1>
+                <span class="version-arcade">v1.0</span>
             </div>
         </div>
     </header>
 
     <!-- ============================================
-    ROLETA 8-BITS
+    CONTEÚDO PRINCIPAL
     ============================================ -->
-    <main class="main-8bit">
+    <main class="main-arcade">
         <div class="container">
 
-            <!-- CONTROLE DE SOM -->
-            <div class="sound-control">
-                <button id="soundToggle" class="btn-sound">
-                    🔊 SOM: <span id="soundStatus">LIGADO</span>
+            <!-- CONTROLE DE SOM E MOEDAS -->
+            <div class="sound-control-arcade">
+                <button id="soundToggle" class="btn-sound-arcade">
+                    🔊 <span id="soundStatus">LIGADO</span>
                 </button>
-                <span class="spin-counter">🎮 GIROS: <span id="spinCounter">0</span></span>
-            </div>
-
-            <!-- TEMA -->
-            <div class="theme-area">
-                <label for="themeInput" class="theme-label">📌 TEMA:</label>
-                <input type="text" id="themeInput" placeholder="EX: FILMES, JOGOS, COMIDAS..." maxlength="30" />
-                <button class="btn-8bit btn-theme" id="setThemeBtn">DEFINIR TEMA</button>
-            </div>
-
-            <!-- TEMA ATUAL -->
-            <div class="theme-display" id="themeDisplay">
-                <span class="theme-text">TEMA: <span id="currentTheme">NENHUM</span></span>
-            </div>
-
-            <!-- ADICIONAR ITENS -->
-            <div class="controls-8bit">
-                <input type="text" id="itemInput" placeholder="DIGITE UMA OPÇÃO..." maxlength="20" />
-                <button class="btn-8bit btn-add" id="addItemBtn">+ ADICIONAR</button>
-            </div>
-
-            <!-- LISTA DE ITENS -->
-            <ul class="item-list-8bit" id="itemList"></ul>
-
-            <!-- ROLETA VISUAL -->
-            <div class="roleta-wrapper">
-                <div class="roleta" id="roleta">
-                    <!-- PONTEIRO FIXO (SETA NA PARTE SUPERIOR) -->
-                    <div class="roleta-ponteiro-8bit">▼</div>
-                    <!-- CENTRO DA ROLETA -->
-                    <div class="roleta-center-8bit" id="roletaCenter">🎯</div>
-                    <!-- FATIAS DA ROLETA (GERADAS POR JS) -->
-                    <div class="roleta-fatias" id="roletaFatias"></div>
+                <div class="coin-counter">
+                    <span class="coin-icon">🪙</span>
+                    <span class="coin-label">CRÉDITOS:</span>
+                    <span id="coinCounter" class="coin-value">0</span>
                 </div>
             </div>
 
-            <!-- BOTÕES DE AÇÃO -->
-            <div class="actions-8bit">
-                <button class="btn-8bit btn-spin" id="spinBtn">🎮 GIRAR</button>
-                <button class="btn-8bit btn-clear" id="clearBtn">🗑️ LIMPAR</button>
+            <!-- TEMA (STREET FIGHTER) -->
+            <div class="theme-area-arcade">
+                <div class="theme-display-arcade">
+                    <span class="theme-label-arcade">🎯 TEMA:</span>
+                    <span class="theme-text-arcade" id="currentTheme">STREET FIGHTER</span>
+                </div>
             </div>
 
-            <!-- RESULTADO -->
-            <div class="result-8bit" id="resultArea">
-                <span class="empty-message">► ADICIONE ITENS E GIRE ◄</span>
+            <!-- ADICIONAR ITENS -->
+            <div class="controls-arcade">
+                <input type="text" id="itemInput" placeholder="DIGITE UMA OPÇÃO..." maxlength="20" />
+                <button class="btn-arcade btn-add-arcade" id="addItemBtn">+ ADICIONAR</button>
+            </div>
+
+            <!-- LISTA DE ITENS -->
+            <ul class="item-list-arcade" id="itemList"></ul>
+
+            <!-- ROLETA COM BORDA DE LUZES -->
+            <div class="roleta-wrapper-arcade">
+                <div class="roleta-border" id="roletaBorder">
+                    <div class="roleta" id="roleta">
+                        <!-- PONTEIRO ESTILIZADO -->
+                        <div class="roleta-ponteiro-arcade">▼</div>
+                        <!-- CENTRO DA ROLETA -->
+                        <div class="roleta-center-arcade" id="roletaCenter">⚡</div>
+                        <!-- FATIAS DA ROLETA -->
+                        <div class="roleta-fatias" id="roletaFatias"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÕES DE AÇÃO (ESTILO ARCADE) -->
+            <div class="actions-arcade">
+                <button class="btn-arcade btn-spin-arcade" id="spinBtn">🎮 GIRAR</button>
+                <button class="btn-arcade btn-clear-arcade" id="clearBtn">🗑️ LIMPAR</button>
+            </div>
+
+            <!-- RESULTADO (ESTILO ARCADE) -->
+            <div class="result-arcade" id="resultArea">
+                <span class="empty-message-arcade">► ADICIONE ITENS E GIRE ◄</span>
             </div>
 
             <!-- HISTÓRICO -->
-            <div class="historico-8bit" id="historicoArea">
+            <div class="historico-arcade" id="historicoArea">
                 <h3>📜 HISTÓRICO</h3>
                 <ul id="historicoList">
-                    <li class="empty-message">NENHUM SORTEIO AINDA.</li>
+                    <li class="empty-message-arcade">NENHUM SORTEIO AINDA.</li>
                 </ul>
             </div>
 
@@ -102,12 +108,12 @@
     </main>
 
     <!-- ============================================
-    RODAPÉ
+    RODAPÉ ARCADE
     ============================================ -->
-    <footer class="footer-8bit">
+    <footer class="footer-arcade">
         <div class="container">
-            <p>© 2026 CARLOS · RODA 8-BIT</p>
-            <p class="footer-credits">⚡ POWERED BY NOSTALGIA</p>
+            <p>© 2026 CARLOS · RODA ARCADE</p>
+            <p class="footer-credits-arcade">⚡ STREET FIGHTER EDITION ⚡</p>
         </div>
     </footer>
 
