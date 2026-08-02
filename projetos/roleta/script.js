@@ -17,11 +17,18 @@ const soundToggle = document.getElementById('soundToggle');
 const soundStatus = document.getElementById('soundStatus');
 const coinCounter = document.getElementById('coinCounter');
 
+// ===== ELEMENTOS DO FUNDO (ANIMAÇÕES) =====
+const kanjis = document.querySelectorAll('.kanji');
+const pulseLights = document.querySelectorAll('.pulse-light');
+const fightCircle = document.querySelector('.fight-circle');
+
 let items = [];
 let isSpinning = false;
 let soundEnabled = true;
 let coins = 0;
 let currentRotation = 0;
+let animationFrame = null;
+let isPageVisible = true;
 
 // ===== CORES STREET FIGHTER =====
 const COLORS = [
@@ -29,7 +36,84 @@ const COLORS = [
     '#ff00ff', '#00ffff', '#ff6600', '#ff0066'
 ];
 
-// ===== CARREGAR DADOS =====
+// ============================================
+// ANIMAÇÕES DE FUNDO (CONTROLADAS POR JS)
+// ============================================
+
+// ===== ANIMAÇÃO DOS KANJIS (MOVIMENTO SINCRONIZADO) =====
+function animateKanjis() {
+    if (!isPageVisible) return;
+    
+    kanjis.forEach((kanji, index) => {
+        const speed = 0.5 + (index * 0.2);
+        const offset = Math.sin(Date.now() / 2000 + index * 1.5) * 15;
+        kanji.style.transform = `translateY(${offset}px) rotate(${index * 10 - 5}deg)`;
+    });
+    
+    animationFrame = requestAnimationFrame(animateKanjis);
+}
+
+// ===== ANIMAÇÃO DO CÍRCULO DE LUTA (PULSO) =====
+function animateFightCircle() {
+    if (!fightCircle) return;
+    const scale = 1 + Math.sin(Date.now() / 3000) * 0.03;
+    fightCircle.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    fightCircle.style.opacity = 0.4 + Math.sin(Date.now() / 2500) * 0.15;
+}
+
+// ===== ANIMAÇÃO DAS LUZES PULSANTES =====
+function animatePulseLights() {
+    pulseLights.forEach((light, index) => {
+        const delay = index * 2000;
+        const pulse = Math.sin((Date.now() + delay) / 3000) * 0.5 + 0.5;
+        light.style.opacity = 0.05 + pulse * 0.15;
+        const scale = 0.9 + pulse * 0.3;
+        light.style.transform = `scale(${scale})`;
+    });
+}
+
+// ===== ANIMAÇÃO DO TÍTULO (EFEITO DE BRILHO) =====
+function animateTitle() {
+    const title = document.querySelector('.title-arcade');
+    if (!title) return;
+    const glow = Math.sin(Date.now() / 1500) * 0.3 + 0.7;
+    title.style.textShadow = `
+        0 0 ${20 + glow * 20}px rgba(255, 204, 0, ${0.2 + glow * 0.3}),
+        4px 4px 0 #ff0000,
+        -2px -2px 0 #0066ff
+    `;
+}
+
+// ===== LOOP DE ANIMAÇÃO =====
+function startBackgroundAnimations() {
+    function animateLoop() {
+        if (!isPageVisible) {
+            requestAnimationFrame(animateLoop);
+            return;
+        }
+        
+        animateKanjis();
+        animateFightCircle();
+        animatePulseLights();
+        animateTitle();
+        
+        requestAnimationFrame(animateLoop);
+    }
+    
+    animateLoop();
+}
+
+// ===== PAUSAR ANIMAÇÕES QUANDO A PÁGINA NÃO ESTÁ VISÍVEL =====
+document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+        startBackgroundAnimations();
+    }
+});
+
+// ============================================
+// CARREGAR DADOS
+// ============================================
 function loadData() {
     const savedItems = localStorage.getItem('roletaArcade_items');
     if (savedItems) {
@@ -139,7 +223,7 @@ function renderFatias() {
             padding-left: 10px;
             box-sizing: border-box;
             text-shadow: 2px 2px 0 rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
         `;
 
         const span = document.createElement('span');
@@ -194,7 +278,7 @@ function clearItems() {
     }
 }
 
-// ===== GIRAR ROLETA (COM EFEITOS ARCADE) =====
+// ===== GIRAR ROLETA =====
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
@@ -262,8 +346,8 @@ function showVSAnimation() {
         font-family: 'Press Start 2P', monospace;
         color: #ffcc00;
         text-shadow: 
-            0 0 40px rgba(255, 0, 0, 0.8),
-            0 0 80px rgba(255, 0, 0, 0.4),
+            0 0 40px rgba(255, 0, 0, 0.6),
+            0 0 80px rgba(255, 0, 0, 0.3),
             4px 4px 0 #ff0000;
         z-index: 999;
         animation: vsAnimation 0.8s steps(4) forwards;
@@ -271,7 +355,8 @@ function showVSAnimation() {
         background: rgba(0,0,0,0.7);
         padding: 30px 50px;
         border: 4px solid #ffcc00;
-        box-shadow: 0 0 60px rgba(255, 204, 0, 0.3);
+        box-shadow: 0 0 60px rgba(255, 204, 0, 0.2);
+        backdrop-filter: blur(10px);
     `;
     vs.textContent = 'VS';
     document.body.appendChild(vs);
@@ -294,8 +379,8 @@ function showKOEffect() {
         font-family: 'Press Start 2P', monospace;
         color: #ff0000;
         text-shadow: 
-            0 0 40px rgba(255, 0, 0, 0.9),
-            0 0 80px rgba(255, 0, 0, 0.5),
+            0 0 40px rgba(255, 0, 0, 0.7),
+            0 0 80px rgba(255, 0, 0, 0.3),
             4px 4px 0 #000000;
         z-index: 999;
         animation: koAnimation 0.8s steps(4) forwards;
@@ -303,7 +388,8 @@ function showKOEffect() {
         background: rgba(0,0,0,0.5);
         padding: 20px 40px;
         border: 4px solid #ff0000;
-        box-shadow: 0 0 60px rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 60px rgba(255, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
     `;
     ko.textContent = '🔥 KO!';
     document.body.appendChild(ko);
@@ -495,3 +581,13 @@ soundToggle.addEventListener('click', function() {
 
 loadData();
 renderItems();
+
+// Iniciar animações de fundo
+startBackgroundAnimations();
+
+// Pequena pausa para sincronizar os elementos do fundo
+setTimeout(() => {
+    document.querySelectorAll('.kanji').forEach(el => {
+        el.style.transition = 'transform 0.5s ease';
+    });
+}, 100);
