@@ -2,7 +2,41 @@
    ESTILOS EXCLUSIVOS DA ROLETA
    ============================================ */
 
-/* ---- MENU SIMPLES ---- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0f0a;
+    color: #edf2f7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- FUNDO ---- */
+.gradient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(-45deg, #0a0f0a, #0d1a1a, #0a1628, #0f1a2a);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite;
+    opacity: 0.9;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---- MENU ---- */
 .navbar-simples {
     position: fixed;
     top: 0;
@@ -11,21 +45,24 @@
     z-index: 100;
     background: rgba(10, 15, 10, 0.85);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(46, 204, 113, 0.15);
     padding: 0.75rem 0;
 }
 
-.nav-container {
+.container {
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 24px;
+}
+
+.nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .btn-voltar {
-    color: var(--text-primary);
+    color: #edf2f7;
     text-decoration: none;
     font-size: 0.9rem;
     display: flex;
@@ -34,33 +71,46 @@
     padding: 8px 16px;
     border-radius: 8px;
     transition: all 0.3s;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(46, 204, 113, 0.15);
 }
 
 .btn-voltar:hover {
-    background: var(--bg-card);
-    border-color: var(--primary-light);
-    color: var(--primary-light);
+    background: rgba(20, 30, 20, 0.6);
+    border-color: #48cae4;
+    color: #48cae4;
 }
 
 .logo {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--primary-light);
+    color: #48cae4;
 }
 
 /* ---- ROLETA ---- */
+.section {
+    padding: 80px 0 40px;
+    flex: 1;
+}
+
 .roleta-container {
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    padding: 5rem 1rem 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.page-title span {
+    border-bottom: 3px solid #2ecc71;
+    padding-bottom: 8px;
 }
 
 .roleta-subtitle {
-    color: var(--text-secondary);
+    color: #94a3b8;
     margin-bottom: 1.5rem;
-    font-size: 1.1rem;
 }
 
 .roleta-wrapper {
@@ -76,12 +126,9 @@
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid #2d3436;
-    box-shadow: 0 0 40px rgba(0, 180, 216, 0.4),
-                inset 0 0 40px rgba(0, 0, 0, 0.3),
-                0 0 80px rgba(0, 180, 216, 0.1);
+    box-shadow: 0 0 40px rgba(0, 180, 216, 0.4);
     transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
     cursor: pointer;
-    position: relative;
     overflow: hidden;
 }
 
@@ -91,8 +138,6 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
-    color: #ff6b6b;
 }
 
 .roleta-ponteiro::before {
@@ -121,11 +166,9 @@
     color: #fff;
     font-size: 1.8rem;
     font-weight: 700;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
     border: 3px solid #feca57;
     z-index: 5;
-    transition: transform 0.3s;
 }
 
 .controls {
@@ -141,17 +184,16 @@
     min-width: 180px;
     padding: 0.75rem 1rem;
     border-radius: 12px;
-    border: 2px solid var(--border);
-    background: var(--bg-card);
-    color: var(--text-primary);
+    border: 2px solid rgba(46, 204, 113, 0.15);
+    background: rgba(20, 30, 20, 0.6);
+    color: #edf2f7;
     font-size: 1rem;
     transition: all 0.3s;
-    backdrop-filter: blur(10px);
 }
 
 .controls input:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: #00b4d8;
     box-shadow: 0 0 20px rgba(0, 180, 216, 0.15);
 }
 
@@ -162,13 +204,12 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: var(--font);
+    font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
-    backdrop-filter: blur(10px);
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
     color: #0a0f0a;
     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
 }
@@ -179,12 +220,12 @@
 
 .btn-outline {
     background: transparent;
-    border: 2px solid var(--border);
-    color: var(--text-primary);
+    border: 2px solid rgba(46, 204, 113, 0.15);
+    color: #edf2f7;
 }
 .btn-outline:hover {
-    border-color: var(--primary-light);
-    color: var(--primary-light);
+    border-color: #48cae4;
+    color: #48cae4;
     transform: translateY(-2px);
 }
 
@@ -199,16 +240,15 @@
 }
 
 .item-list li {
-    background: var(--bg-card);
+    background: rgba(20, 30, 20, 0.6);
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(46, 204, 113, 0.15);
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.9rem;
     transition: all 0.3s;
-    backdrop-filter: blur(10px);
 }
 
 .item-list .remove-btn {
@@ -236,22 +276,21 @@
     margin: 1.5rem 0;
     padding: 1.5rem;
     border-radius: 20px;
-    background: var(--bg-card);
-    border: 2px solid var(--border);
+    background: rgba(20, 30, 20, 0.6);
+    border: 2px solid rgba(46, 204, 113, 0.15);
     min-height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-light);
+    color: #48cae4;
     transition: all 0.5s;
-    backdrop-filter: blur(10px);
 }
 
 .result-area.pop {
     animation: resultPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border-color: var(--primary);
+    border-color: #00b4d8;
     box-shadow: 0 0 40px rgba(0, 180, 216, 0.15);
 }
 
@@ -265,19 +304,38 @@
     margin-top: 1.5rem;
     padding: 1rem 1.5rem;
     border-radius: 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    background: rgba(20, 30, 20, 0.6);
+    border: 1px solid rgba(46, 204, 113, 0.15);
     max-height: 200px;
     overflow-y: auto;
     text-align: left;
-    backdrop-filter: blur(10px);
 }
 
 .historico-area h4 {
     margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+    color: #94a3b8;
     font-size: 0.9rem;
     letter-spacing: 1px;
+}
+
+.historico-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.historico-area li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    color: #94a3b8;
+}
+
+.historico-area li span {
+    color: #48cae4;
+    font-weight: 500;
 }
 
 .sound-toggle {
@@ -286,38 +344,50 @@
     gap: 0.5rem;
     justify-content: center;
     margin: 0.5rem 0 1.5rem;
-    color: var(--text-secondary);
+    color: #94a3b8;
     font-size: 0.9rem;
 }
 
 .sound-toggle input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: var(--primary);
+    accent-color: #00b4d8;
     cursor: pointer;
 }
 
 .empty-message {
-    color: var(--text-muted);
+    color: #5a6a7a;
     font-size: 1rem;
 }
 
 /* ---- RODAPÉ ---- */
+footer {
+    border-top: 1px solid rgba(46, 204, 113, 0.15);
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .btn-voltar-footer {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--text-secondary);
+    color: #94a3b8;
     text-decoration: none;
     font-size: 0.85rem;
     transition: all 0.3s;
     padding: 6px 14px;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(46, 204, 113, 0.15);
     border-radius: 8px;
 }
 
 .btn-voltar-footer:hover {
-    color: var(--primary-light);
-    border-color: var(--primary-light);
+    color: #48cae4;
+    border-color: #48cae4;
 }
 
 /* ---- RESPONSIVO ---- */
@@ -343,6 +413,9 @@
     .btn {
         font-size: 0.85rem;
         padding: 0.6rem 1.2rem;
+    }
+    .page-title {
+        font-size: 1.5rem;
     }
     .navbar-simples .logo {
         font-size: 1rem;
