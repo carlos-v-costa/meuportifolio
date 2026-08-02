@@ -16,7 +16,7 @@ body {
     image-rendering: pixelated;
 }
 
-/* ===== SCANLINE (EFEITO DE TV) ===== */
+/* ===== SCANLINE ===== */
 .scanline {
     position: fixed;
     inset: 0;
@@ -51,7 +51,7 @@ body {
     padding: 0 20px;
 }
 
-/* ===== HEADER 8-BIT ===== */
+/* ===== HEADER ===== */
 .header-8bit {
     background: #000000;
     border-bottom: 4px solid #e52521;
@@ -135,12 +135,72 @@ body {
     color: #f5c800;
 }
 
-/* ===== ROLETA 8-BIT ===== */
+/* ===== TEMA ===== */
+.theme-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.theme-label {
+    font-size: 0.7rem;
+    color: #8c8c8c;
+}
+
+#themeInput {
+    flex: 1;
+    min-width: 160px;
+    padding: 10px 14px;
+    background: #000000;
+    border: 3px solid #8c8c8c;
+    color: #ffffff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
+    outline: none;
+}
+
+#themeInput:focus {
+    border-color: #f5c800;
+}
+
+.btn-theme {
+    border-color: #0068b5;
+    color: #0068b5;
+    box-shadow: 4px 4px 0 #0068b5;
+    padding: 10px 16px;
+    font-size: 0.6rem;
+}
+.btn-theme:hover {
+    box-shadow: 2px 2px 0 #0068b5;
+}
+
+.theme-display {
+    background: #000000;
+    border: 3px solid #8c8c8c;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    text-align: center;
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.theme-text {
+    font-size: 0.7rem;
+    color: #ffffff;
+}
+
+#currentTheme {
+    color: #f5c800;
+}
+
+/* ===== ROLETA ===== */
 .roleta-wrapper {
     position: relative;
     width: 100%;
-    max-width: 380px;
-    margin: 0 auto 30px;
+    max-width: 420px;
+    margin: 20px auto 30px;
 }
 
 .roleta {
@@ -156,36 +216,57 @@ body {
     transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
     cursor: pointer;
     image-rendering: pixelated;
-    background: conic-gradient(
-        #e52521 0% 12.5%,
-        #f5c800 12.5% 25%,
-        #0068b5 25% 37.5%,
-        #00a800 37.5% 50%,
-        #e52521 50% 62.5%,
-        #f5c800 62.5% 75%,
-        #0068b5 75% 87.5%,
-        #00a800 87.5% 100%
-    );
+    overflow: hidden;
+    background: #2d3436;
 }
 
-/* ===== ANIMAÇÃO DE "PREPARAR" (TRANCO PARA TRÁS) ===== */
-.roleta.preparar {
-    animation: prepararGiro 0.3s steps(2);
+/* FATIAS DA ROLETA */
+.roleta-fatias {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
 }
 
-@keyframes prepararGiro {
-    0% { transform: rotate(0deg); }
-    50% { transform: rotate(-15deg); }
-    100% { transform: rotate(0deg); }
+.fatia {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 0 #000000;
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.fatia span {
+    transform: rotate(45deg);
+    display: block;
+    font-size: 0.5rem;
+    max-width: 80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* PONTEIRO FIXO */
 .roleta-ponteiro-8bit {
     position: absolute;
     top: -22px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0;
-    z-index: 10;
+    z-index: 20;
     filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
 }
 
@@ -200,6 +281,7 @@ body {
     filter: drop-shadow(0 4px 0 #8c8c8c);
 }
 
+/* CENTRO DA ROLETA */
 .roleta-center-8bit {
     position: absolute;
     top: 50%;
@@ -216,26 +298,26 @@ body {
     font-size: 1.8rem;
     border: 4px solid #ffffff;
     box-shadow: 0 0 0 4px #8c8c8c, inset 0 0 20px rgba(0, 0, 0, 0.8);
-    z-index: 5;
+    z-index: 15;
 }
 
 /* ===== CONTROLES ===== */
 .controls-8bit {
     display: flex;
     gap: 12px;
-    margin: 20px 0;
+    margin: 16px 0;
     flex-wrap: wrap;
 }
 
 .controls-8bit input {
     flex: 1;
-    min-width: 180px;
+    min-width: 160px;
     padding: 12px 16px;
     background: #000000;
     border: 4px solid #8c8c8c;
     color: #ffffff;
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
     outline: none;
 }
@@ -248,10 +330,10 @@ body {
     color: #4a4a4a;
 }
 
-/* ===== BOTÕES 8-BIT ===== */
+/* ===== BOTÕES ===== */
 .btn-8bit {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     padding: 12px 20px;
     border: 4px solid #8c8c8c;
     background: #000000;
@@ -303,7 +385,7 @@ body {
     display: flex;
     gap: 16px;
     justify-content: center;
-    margin: 20px 0;
+    margin: 16px 0;
     flex-wrap: wrap;
 }
 
@@ -314,18 +396,18 @@ body {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    margin: 16px 0;
+    margin: 12px 0;
     padding: 0;
 }
 
 .item-list-8bit li {
     background: #000000;
     border: 3px solid #8c8c8c;
-    padding: 8px 14px;
-    font-size: 0.6rem;
+    padding: 6px 12px;
+    font-size: 0.55rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     box-shadow: 4px 4px 0 #8c8c8c;
 }
 
@@ -334,7 +416,7 @@ body {
     border: none;
     color: #e52521;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0 4px;
 }
 
@@ -343,7 +425,7 @@ body {
     background: #000000;
     border: 4px solid #8c8c8c;
     padding: 20px;
-    margin: 20px 0;
+    margin: 16px 0;
     text-align: center;
     min-height: 80px;
     display: flex;
@@ -368,7 +450,7 @@ body {
 
 .empty-message {
     color: #4a4a4a;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
 }
 
 /* ===== HISTÓRICO ===== */
@@ -376,7 +458,7 @@ body {
     background: #000000;
     border: 4px solid #8c8c8c;
     padding: 16px;
-    margin-top: 20px;
+    margin-top: 16px;
     max-height: 180px;
     overflow-y: auto;
     box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
@@ -384,8 +466,8 @@ body {
 
 .historico-8bit h3 {
     color: #f5c800;
-    font-size: 0.8rem;
-    margin-bottom: 12px;
+    font-size: 0.7rem;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -396,9 +478,9 @@ body {
 }
 
 .historico-8bit li {
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 2px solid #1a1a1a;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     display: flex;
     justify-content: space-between;
     color: #8c8c8c;
@@ -411,20 +493,20 @@ body {
 /* ===== RODAPÉ ===== */
 .footer-8bit {
     border-top: 4px solid #e52521;
-    padding: 20px 0;
-    margin-top: 20px;
+    padding: 16px 0;
+    margin-top: 16px;
     text-align: center;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: #4a4a4a;
 }
 
 .footer-credits {
     margin-top: 6px;
     color: #f5c800;
-    font-size: 0.5rem;
+    font-size: 0.45rem;
 }
 
-/* ===== SCROLLBAR 8-BIT ===== */
+/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -450,17 +532,18 @@ body {
         align-items: stretch;
         text-align: center;
     }
-    .controls-8bit input {
+    .controls-8bit input,
+    #themeInput {
         min-width: 120px;
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
     .btn-8bit {
-        font-size: 0.6rem;
-        padding: 10px 14px;
+        font-size: 0.5rem;
+        padding: 8px 12px;
     }
     .roleta-center-8bit {
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
         font-size: 1.2rem;
     }
     .roleta-ponteiro-8bit::before {
@@ -469,7 +552,11 @@ body {
         border-top-width: 24px;
     }
     .result-8bit {
-        font-size: 0.9rem;
-        padding: 14px;
+        font-size: 0.8rem;
+        padding: 12px;
+    }
+    .fatia span {
+        font-size: 0.4rem;
+        max-width: 60px;
     }
 }

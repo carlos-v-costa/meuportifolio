@@ -13,14 +13,10 @@
 </head>
 <body>
 
-    <!-- ============================================
-    SCANLINE (EFEITO DE TV) — VISUAL RETRÔ
-    ============================================ -->
+    <!-- SCANLINE -->
     <div class="scanline"></div>
 
-    <!-- ============================================
-    FUNDO 8-BITS
-    ============================================ -->
+    <!-- FUNDO 8-BITS -->
     <div class="bg-pixels"></div>
 
     <!-- ============================================
@@ -50,12 +46,16 @@
                 <span class="spin-counter">🎮 GIROS: <span id="spinCounter">0</span></span>
             </div>
 
-            <!-- ROLETA VISUAL -->
-            <div class="roleta-wrapper">
-                <div class="roleta" id="roleta">
-                    <div class="roleta-ponteiro-8bit">▼</div>
-                    <div class="roleta-center-8bit" id="roletaCenter">🎯</div>
-                </div>
+            <!-- TEMA -->
+            <div class="theme-area">
+                <label for="themeInput" class="theme-label">📌 TEMA:</label>
+                <input type="text" id="themeInput" placeholder="EX: FILMES, JOGOS, COMIDAS..." maxlength="30" />
+                <button class="btn-8bit btn-theme" id="setThemeBtn">DEFINIR TEMA</button>
+            </div>
+
+            <!-- TEMA ATUAL -->
+            <div class="theme-display" id="themeDisplay">
+                <span class="theme-text">TEMA: <span id="currentTheme">NENHUM</span></span>
             </div>
 
             <!-- ADICIONAR ITENS -->
@@ -66,6 +66,18 @@
 
             <!-- LISTA DE ITENS -->
             <ul class="item-list-8bit" id="itemList"></ul>
+
+            <!-- ROLETA VISUAL -->
+            <div class="roleta-wrapper">
+                <div class="roleta" id="roleta">
+                    <!-- PONTEIRO FIXO (SETA NA PARTE SUPERIOR) -->
+                    <div class="roleta-ponteiro-8bit">▼</div>
+                    <!-- CENTRO DA ROLETA -->
+                    <div class="roleta-center-8bit" id="roletaCenter">🎯</div>
+                    <!-- FATIAS DA ROLETA (GERADAS POR JS) -->
+                    <div class="roleta-fatias" id="roletaFatias"></div>
+                </div>
+            </div>
 
             <!-- BOTÕES DE AÇÃO -->
             <div class="actions-8bit">

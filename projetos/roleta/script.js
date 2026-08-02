@@ -1,9 +1,13 @@
 // ============================================
-// RODA 8-BIT — SCRIPT COMPLETO
+// RODA 8-BIT — SCRIPT COMPLETO (COM FATIAS)
 // ============================================
 
 // ===== ELEMENTOS =====
 const roleta = document.getElementById('roleta');
+const roletaFatias = document.getElementById('roletaFatias');
+const themeInput = document.getElementById('themeInput');
+const setThemeBtn = document.getElementById('setThemeBtn');
+const currentTheme = document.getElementById('currentTheme');
 const itemInput = document.getElementById('itemInput');
 const addBtn = document.getElementById('addItemBtn');
 const itemList = document.getElementById('itemList');
@@ -16,9 +20,11 @@ const soundStatus = document.getElementById('soundStatus');
 const spinCounter = document.getElementById('spinCounter');
 
 let items = [];
+let tema = 'NENHUM';
 let isSpinning = false;
 let soundEnabled = true;
 let spins = 0;
+let currentRotation = 0;
 
 // ===== CORES 8-BITS (NES) =====
 const COLORS = [
@@ -28,9 +34,14 @@ const COLORS = [
 
 // ===== CARREGAR DADOS =====
 function loadData() {
-    const saved = localStorage.getItem('roleta8bit_items');
-    if (saved) {
-        try { items = JSON.parse(saved); } catch (e) { items = []; }
+    const savedItems = localStorage.getItem('roleta8bit_items');
+    if (savedItems) {
+        try { items = JSON.parse(savedItems); } catch (e) { items = []; }
+    }
+    const savedTheme = localStorage.getItem('roleta8bit_theme');
+    if (savedTheme) {
+        tema = savedTheme;
+        currentTheme.textContent = tema;
     }
     renderItems();
     loadHistorico();
@@ -43,6 +54,7 @@ function loadData() {
 
 function saveItems() {
     localStorage.setItem('roleta8bit_items', JSON.stringify(items));
+    localStorage.setItem('roleta8bit_theme', tema);
 }
 
 // ===== HISTÓRICO =====
@@ -81,11 +93,23 @@ function renderHistorico(historico) {
     });
 }
 
+// ===== TEMA =====
+function setTheme() {
+    const text = themeInput.value.trim().toUpperCase();
+    if (!text) return;
+    tema = text;
+    currentTheme.textContent = tema;
+    themeInput.value = '';
+    saveItems();
+    playClickSound();
+}
+
 // ===== ITENS =====
 function renderItems() {
     itemList.innerHTML = '';
     if (items.length === 0) {
         itemList.innerHTML = '<li class="empty-message" style="width:100%;text-align:center;">NENHUMA OPÇÃO ADICIONADA.</li>';
+        renderFatias();
         return;
     }
     items.forEach((item, index) => {
@@ -97,7 +121,68 @@ function renderItems() {
         li.querySelector('.remove-btn').addEventListener('click', () => { removeItem(index); });
         itemList.appendChild(li);
     });
-    updateRoletaCores();
+    renderFatias();
+}
+
+function renderFatias() {
+    const count = items.length;
+    roletaFatias.innerHTML = '';
+    if (count === 0) {
+        roleta.style.background = '#2d3436';
+        return;
+    }
+
+    const angleStep = 360 / count;
+    const radius = 50; // %
+
+    items.forEach((item, index) => {
+        const angle = index * angleStep;
+        const color = COLORS[index % COLORS.length];
+
+        const fatia = document.createElement('div');
+        fatia.className = 'fatia';
+        fatia.style.cssText = `
+            transform: rotate(${angle}deg);
+            background: ${color};
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            font-size: 0.5rem;
+            padding-left: 10px;
+            box-sizing: border-box;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        // Texto da fatia
+        const span = document.createElement('span');
+        span.textContent = item;
+        span.style.cssText = `
+            transform: rotate(${angleStep / 2}deg);
+            display: block;
+            font-size: 0.5rem;
+            max-width: 80px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Press Start 2P', monospace;
+        `;
+        fatia.appendChild(span);
+
+        roletaFatias.appendChild(fatia);
+    });
+
+    // Ajustar a roleta para mostrar as fatias corretamente
+    roleta.style.background = 'transparent';
 }
 
 function addItem() {
@@ -132,25 +217,7 @@ function clearItems() {
     }
 }
 
-// ===== ROLETA =====
-function updateRoletaCores() {
-    const count = items.length;
-    if (count === 0) {
-        roleta.style.background = '#2d3436';
-        return;
-    }
-    let gradient = 'conic-gradient(';
-    const step = 100 / count;
-    for (let i = 0; i < count; i++) {
-        const color = COLORS[i % COLORS.length];
-        const start = i * step;
-        const end = (i + 1) * step;
-        gradient += `${color} ${start}% ${end}%${i < count - 1 ? ',' : ''}`;
-    }
-    gradient += ')';
-    roleta.style.background = gradient;
-}
-
+// ===== GIRAR ROLETA =====
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
@@ -162,23 +229,23 @@ function spinRoleta() {
     isSpinning = true;
     spinBtn.disabled = true;
 
-    // ===== ANIMAÇÃO DE "PREPARAR" (TRANCO PARA TRÁS) =====
-    roleta.classList.add('preparar');
-    setTimeout(() => {
-        roleta.classList.remove('preparar');
-    }, 300);
-
     playSpinSound();
 
     const randomIndex = Math.floor(Math.random() * items.length);
     const result = items[randomIndex];
 
-    const angle = 1440 + (360 / items.length) * randomIndex + 360 - (360 / items.length / 2);
+    // Calcular ângulo para parar no item selecionado
+    const angleStep = 360 / items.length;
+    // Para alinhar com o ponteiro (topo), precisamos que o item fique na posição 0 (topo)
+    // Ajuste para que o item fique alinhado com o ponteiro
+    const targetAngle = 360 - (randomIndex * angleStep + angleStep / 2);
+    // Adicionar rotações extras para parecer que girou muito
+    const extraSpins = 5 + Math.floor(Math.random() * 3);
+    const finalAngle = extraSpins * 360 + targetAngle;
 
-    // Pequeno atraso para a animação de preparar terminar antes do giro
-    setTimeout(() => {
-        roleta.style.transform = `rotate(${angle}deg)`;
-    }, 200);
+    // Aplicar rotação
+    roletaFatias.style.transform = `rotate(${finalAngle}deg)`;
+    currentRotation = finalAngle;
 
     setTimeout(() => {
         playSuccessSound();
@@ -187,7 +254,9 @@ function spinRoleta() {
         spinCounter.textContent = spins;
         localStorage.setItem('roleta8bit_spins', spins.toString());
 
-        resultArea.innerHTML = `🎯 ${result}`;
+        // Mostrar resultado com tema
+        const resultadoTexto = tema !== 'NENHUM' ? `${tema}: ${result}` : `${result}`;
+        resultArea.innerHTML = `🎯 ${resultadoTexto}`;
         resultArea.classList.remove('pop');
         void resultArea.offsetWidth;
         resultArea.classList.add('pop');
@@ -266,69 +335,4 @@ function playSuccessSound() {
                 osc.frequency.value = freq;
                 osc.type = 'square';
                 gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-                osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.2);
-            }, i * 100);
-        });
-    } catch (e) {}
-}
-
-function playCelebrationSound() {
-    if (!soundEnabled) return;
-    initAudio();
-    try {
-        const notes = [523, 587, 659, 698, 784, 880];
-        notes.forEach((freq, i) => {
-            setTimeout(() => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = freq;
-                osc.type = 'square';
-                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.1);
-            }, i * 60);
-        });
-    } catch (e) {}
-}
-
-function playErrorSound() {
-    if (!soundEnabled) return;
-    initAudio();
-    try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.frequency.value = 200;
-        osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.3);
-    } catch (e) {}
-}
-
-// ============================================
-// EVENTOS
-// ============================================
-
-addBtn.addEventListener('click', addItem);
-itemInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') addItem();
-});
-spinBtn.addEventListener('click', spinRoleta);
-clearBtn.addEventListener('click', clearItems);
-soundToggle.addEventListener('click', function() {
-    soundEnabled = !soundEnabled;
-    soundStatus.textContent = soundEnabled ? 'LIGADO' : 'DESLIGADO';
-});
-
-loadData();
-if (items.length > 0) {
-    updateRoletaCores();
-}
+                gain.gain.exponentialRampToValueAtTime(0.01, audio
