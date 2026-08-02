@@ -1,288 +1,414 @@
-// ELEMENTOS
-const themeSelect = document.getElementById('themeSelect');
-const statusTheme = document.getElementById('statusTheme');
-const statusSpins = document.getElementById('statusSpins');
+// ============================================
+// RODA CARTOON — SCRIPT COMPLETO
+// ============================================
 
+// ===== ELEMENTOS =====
+const roleta = document.getElementById('roleta');
+const roletaFatias = document.getElementById('roletaFatias');
+const roletaBorder = document.getElementById('roletaBorder');
 const itemInput = document.getElementById('itemInput');
-const addItemBtn = document.getElementById('addItemBtn');
-const clearItemsBtn = document.getElementById('clearItemsBtn');
+const addBtn = document.getElementById('addItemBtn');
 const itemList = document.getElementById('itemList');
-
-const wheelSlices = document.getElementById('wheelSlices');
 const spinBtn = document.getElementById('spinBtn');
+const clearBtn = document.getElementById('clearBtn');
 const resultArea = document.getElementById('resultArea');
+const historicoList = document.getElementById('historicoList');
+const soundToggle = document.getElementById('soundToggle');
+const soundStatus = document.getElementById('soundStatus');
+const coinCounter = document.getElementById('coinCounter');
 
-const historyList = document.getElementById('historyList');
-const btnPreset = document.getElementById('btnPreset');
-
-let currentTheme = 'FILMES';
 let items = [];
 let isSpinning = false;
-let spins = 0;
+let soundEnabled = true;
+let coins = 0;
+let currentRotation = 0;
 
-// CORES PARA FATIAS
-const SLICE_COLORS = [
-  '#ff6b6b', '#4ecdc4', '#ffe66d', '#1a9af7',
-  '#ff9f1c', '#ff6b9c', '#9b5de5', '#00bbf9'
+// ===== CORES CARTOON (PASTEL) =====
+const COLORS = [
+    '#ffb6c1', '#ffccbc', '#b3e5fc', '#c8e6c9',
+    '#f8bbd0', '#d1c4e9', '#b2dfdb', '#ffe0b2'
 ];
 
-// LOCALSTORAGE KEYS
-function getItemsKey() {
-  return `rodaDivertida_items_${currentTheme}`;
-}
-function getHistoryKey() {
-  return `rodaDivertida_history_${currentTheme}`;
-}
-const SPINS_KEY = 'rodaDivertida_spins';
-const THEME_KEY = 'rodaDivertida_theme';
-
-// CARREGAR DADOS
+// ===== CARREGAR DADOS =====
 function loadData() {
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  if (savedTheme) currentTheme = savedTheme;
-
-  themeSelect.value = currentTheme;
-  statusTheme.textContent = formatThemeLabel(currentTheme);
-
-  const savedSpins = localStorage.getItem(SPINS_KEY);
-  if (savedSpins) spins = parseInt(savedSpins) || 0;
-  updateSpins();
-
-  const savedItems = localStorage.getItem(getItemsKey());
-  if (savedItems) {
-    try { items = JSON.parse(savedItems); } catch { items = []; }
-  }
-
-  renderItems();
-  loadHistory();
-}
-
-function updateSpins() {
-  statusSpins.textContent = spins.toString();
-}
-
-function addSpin() {
-  spins++;
-  localStorage.setItem(SPINS_KEY, spins.toString());
-  updateSpins();
-}
-
-// HISTÓRICO
-function loadHistory() {
-  const saved = localStorage.getItem(getHistoryKey());
-  if (!saved) {
-    renderHistory([]);
-    return;
-  }
-  try {
-    const history = JSON.parse(saved);
-    renderHistory(history);
-  } catch {
-    renderHistory([]);
-  }
-}
-
-function saveHistoryEntry(item) {
-  const saved = localStorage.getItem(getHistoryKey());
-  let history = [];
-  if (saved) {
-    try { history = JSON.parse(saved); } catch {}
-  }
-  history.unshift({ item, date: new Date().toLocaleString() });
-  if (history.length > 20) history.pop();
-  localStorage.setItem(getHistoryKey(), JSON.stringify(history));
-  renderHistory(history);
-}
-
-function renderHistory(history) {
-  historyList.innerHTML = '';
-  if (!history || history.length === 0) {
-    const li = document.createElement('li');
-    li.className = 'history-empty';
-    li.textContent = 'Nenhum sorteio ainda.';
-    historyList.appendChild(li);
-    return;
-  }
-  history.forEach(entry => {
-    const li = document.createElement('li');
-    li.textContent = `${entry.item} · ${entry.date}`;
-    historyList.appendChild(li);
-  });
-}
-
-// ITENS
-function renderItems() {
-  itemList.innerHTML = '';
-  if (items.length === 0) {
-    const li = document.createElement('li');
-    li.textContent = 'Nenhuma opção adicionada.';
-    itemList.appendChild(li);
-    renderSlices();
-    return;
-  }
-  items.forEach((text, index) => {
-    const li = document.createElement('li');
-    li.textContent = text;
-    const btn = document.createElement('button');
-    btn.className = 'item-remove';
-    btn.textContent = '✕';
-    btn.addEventListener('click', () => {
-      items.splice(index, 1);
-      saveItems();
-      renderItems();
-    });
-    li.appendChild(btn);
-    itemList.appendChild(li);
-  });
-  renderSlices();
+    const savedItems = localStorage.getItem('roletaCartoon_items');
+    if (savedItems) {
+        try { items = JSON.parse(savedItems); } catch (e) { items = []; }
+    }
+    const savedCoins = localStorage.getItem('roletaCartoon_coins');
+    if (savedCoins) {
+        coins = parseInt(savedCoins) || 0;
+        coinCounter.textContent = coins;
+    }
+    renderItems();
+    loadHistorico();
 }
 
 function saveItems() {
-  localStorage.setItem(getItemsKey(), JSON.stringify(items));
+    localStorage.setItem('roletaCartoon_items', JSON.stringify(items));
+    localStorage.setItem('roletaCartoon_coins', coins.toString());
 }
 
-function addItemFromInput() {
-  const raw = itemInput.value.trim();
-  if (!raw) return;
+// ===== HISTÓRICO =====
+function loadHistorico() {
+    const saved = localStorage.getItem('roletaCartoon_historico');
+    if (saved) {
+        try {
+            const historico = JSON.parse(saved);
+            renderHistorico(historico);
+        } catch (e) { renderHistorico([]); }
+    } else { renderHistorico([]); }
+}
 
-  const parts = raw.split(',').map(p => p.trim()).filter(p => p);
-  parts.forEach(p => {
-    if (items.length < 16) {
-      items.push(p);
+function saveHistorico(entry) {
+    let historico = [];
+    const saved = localStorage.getItem('roletaCartoon_historico');
+    if (saved) {
+        try { historico = JSON.parse(saved); } catch (e) {}
     }
-  });
+    historico.unshift({ item: entry, data: new Date().toLocaleString() });
+    if (historico.length > 20) historico.pop();
+    localStorage.setItem('roletaCartoon_historico', JSON.stringify(historico));
+    renderHistorico(historico);
+}
 
-  itemInput.value = '';
-  saveItems();
-  renderItems();
+function renderHistorico(historico) {
+    historicoList.innerHTML = '';
+    if (!historico || historico.length === 0) {
+        historicoList.innerHTML = '<li class="empty-message-cartoon">NENHUM SORTEIO AINDA.</li>';
+        return;
+    }
+    historico.forEach(h => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>⭐ ${h.item}</span> <small>${h.data}</small>`;
+        historicoList.appendChild(li);
+    });
+}
+
+// ===== ITENS =====
+function renderItems() {
+    itemList.innerHTML = '';
+    if (items.length === 0) {
+        itemList.innerHTML = '<li class="empty-message-cartoon" style="width:100%;text-align:center;">NENHUMA OPÇÃO ADICIONADA.</li>';
+        renderFatias();
+        return;
+    }
+    items.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            ${item}
+            <button class="remove-btn" data-index="${index}">✕</button>
+        `;
+        li.querySelector('.remove-btn').addEventListener('click', () => { removeItem(index); });
+        itemList.appendChild(li);
+    });
+    renderFatias();
+}
+
+function renderFatias() {
+    const count = items.length;
+    roletaFatias.innerHTML = '';
+    if (count === 0) {
+        roleta.style.background = '#f5f5f5';
+        return;
+    }
+
+    const angleStep = 360 / count;
+    items.forEach((item, index) => {
+        const angle = index * angleStep;
+        const color = COLORS[index % COLORS.length];
+
+        const fatia = document.createElement('div');
+        fatia.className = 'fatia';
+        fatia.style.cssText = `
+            transform: rotate(${angle}deg);
+            background: ${color};
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #4a4a4a;
+            font-size: 0.5rem;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.3);
+        `;
+
+        const span = document.createElement('span');
+        span.textContent = item;
+        span.style.cssText = `
+            transform: rotate(${angleStep / 2}deg);
+            display: block;
+            font-size: 0.5rem;
+            max-width: 80px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+        `;
+        fatia.appendChild(span);
+        roletaFatias.appendChild(fatia);
+    });
+
+    roleta.style.background = 'transparent';
+}
+
+function addItem() {
+    const text = itemInput.value.trim().toUpperCase();
+    if (!text) return;
+    if (items.length >= 8) {
+        alert('MÁXIMO DE 8 ITENS!');
+        return;
+    }
+    items.push(text);
+    itemInput.value = '';
+    saveItems();
+    renderItems();
+    playClickSound();
+}
+
+function removeItem(index) {
+    items.splice(index, 1);
+    saveItems();
+    renderItems();
+    playClickSound();
 }
 
 function clearItems() {
-  if (items.length === 0) return;
-  if (!confirm('Limpar todas as opções deste tema?')) return;
-  items = [];
-  saveItems();
-  renderItems();
+    if (items.length === 0) return;
+    if (confirm('Tem certeza que deseja limpar a lista?')) {
+        items = [];
+        saveItems();
+        renderItems();
+        resultArea.innerHTML = '<span class="empty-message-cartoon">► ADICIONE ITENS E GIRE ◄</span>';
+        playClickSound();
+    }
 }
 
-// ROLETA
-function renderSlices() {
-  wheelSlices.innerHTML = '';
-  const count = items.length;
-  if (count === 0) return;
+// ===== GIRAR ROLETA =====
+function spinRoleta() {
+    if (isSpinning) return;
+    if (items.length === 0) {
+        resultArea.innerHTML = '<span style="color:#e91e63;">⚠️ ADICIONE ITENS!</span>';
+        playErrorSound();
+        return;
+    }
 
-  const angleStep = 360 / count;
-  items.forEach((item, index) => {
-    const angle = index * angleStep;
-    const color = SLICE_COLORS[index % SLICE_COLORS.length];
+    isSpinning = true;
+    spinBtn.disabled = true;
 
-    const slice = document.createElement('div');
-    slice.className = 'slice';
-    slice.style.background = color;
-    slice.style.transform = `rotate(${angle}deg)`;
+    // ===== ANIMAÇÃO DE PREPARAR =====
+    roleta.style.transition = 'transform 0.3s ease';
+    roleta.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        roleta.style.transform = 'scale(1)';
+    }, 200);
 
-    const span = document.createElement('span');
-    span.textContent = item;
-    slice.appendChild(span);
+    playSpinSound();
 
-    wheelSlices.appendChild(slice);
-  });
-}
-
-function spinWheel() {
-  if (isSpinning) return;
-  if (items.length === 0) {
-    resultArea.innerHTML = '<span class="result-placeholder">Adicione opções primeiro.</span>';
-    return;
-  }
-
-  isSpinning = true;
-  spinBtn.disabled = true;
-
-  const randomIndex = Math.floor(Math.random() * items.length);
-  const angleStep = 360 / items.length;
-  const targetAngle = 360 - (randomIndex * angleStep + angleStep / 2);
-  const extraSpins = 4 + Math.floor(Math.random() * 3);
-  const finalAngle = extraSpins * 360 + targetAngle;
-
-  wheelSlices.style.transform = `rotate(${finalAngle}deg)`;
-
-  setTimeout(() => {
+    const randomIndex = Math.floor(Math.random() * items.length);
     const result = items[randomIndex];
-    addSpin();
-    saveHistoryEntry(result);
-    resultArea.innerHTML = `<span class="result-highlight">Resultado: ${result}</span>`;
-    isSpinning = false;
-    spinBtn.disabled = false;
-  }, 3200);
+
+    const angleStep = 360 / items.length;
+    const targetAngle = 360 - (randomIndex * angleStep + angleStep / 2);
+    const extraSpins = 5 + Math.floor(Math.random() * 3);
+    const finalAngle = extraSpins * 360 + targetAngle;
+
+    roletaFatias.style.transition = 'transform 4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    roletaFatias.style.transform = `rotate(${finalAngle}deg)`;
+    currentRotation = finalAngle;
+
+    // ===== EFEITO DE LUZES NA BORDA =====
+    startBorderLights();
+
+    setTimeout(() => {
+        stopBorderLights();
+
+        playSuccessSound();
+
+        coins++;
+        coinCounter.textContent = coins;
+        localStorage.setItem('roletaCartoon_coins', coins.toString());
+
+        // Resultado com estilo cartoon
+        resultArea.innerHTML = `⭐ ${result}`;
+        resultArea.classList.remove('pop');
+        void resultArea.offsetWidth;
+        resultArea.classList.add('pop');
+
+        saveHistorico(result);
+        playCelebrationSound();
+
+        isSpinning = false;
+        spinBtn.disabled = false;
+    }, 4200);
 }
 
-// TEMA / PRESET
-function formatThemeLabel(theme) {
-  switch (theme) {
-    case 'FILMES': return 'Filmes';
-    case 'SÉRIES': return 'Séries';
-    case 'JOGOS': return 'Jogos';
-    case 'ANIMES': return 'Animes';
-    case 'MÚSICAS': return 'Músicas';
-    case 'COMIDAS': return 'Comidas';
-    default: return theme;
-  }
+// ===== LUZES NA BORDA (CARTOON) =====
+let borderInterval;
+
+function startBorderLights() {
+    roletaBorder.style.animation = 'borderGlowCartoon 0.3s linear infinite';
+    let i = 0;
+    borderInterval = setInterval(() => {
+        const colors = ['#ffb6c1', '#ffccbc', '#b3e5fc', '#c8e6c9'];
+        roletaBorder.style.borderColor = colors[i % colors.length];
+        i++;
+    }, 200);
 }
 
-function changeTheme(newTheme) {
-  currentTheme = newTheme;
-  localStorage.setItem(THEME_KEY, currentTheme);
-  statusTheme.textContent = formatThemeLabel(currentTheme);
-  items = [];
-  const savedItems = localStorage.getItem(getItemsKey());
-  if (savedItems) {
-    try { items = JSON.parse(savedItems); } catch { items = []; }
-  }
-  renderItems();
-  loadHistory();
+function stopBorderLights() {
+    clearInterval(borderInterval);
+    roletaBorder.style.animation = 'borderGlowCartoon 4s linear infinite';
+    roletaBorder.style.borderColor = '#ffb6c1';
 }
 
-function loadPresetForTheme() {
-  let preset = [];
-  switch (currentTheme) {
-    case 'FILMES':
-      preset = ['Matrix', 'Toy Story', 'Avatar', 'Jurassic Park', 'Star Wars', 'Vingadores'];
-      break;
-    case 'SÉRIES':
-      preset = ['Breaking Bad', 'Stranger Things', 'The Office', 'Game of Thrones', 'Friends'];
-      break;
-    case 'JOGOS':
-      preset = ['Mario', 'Zelda', 'Fortnite', 'Minecraft', 'Street Fighter', 'FIFA'];
-      break;
-    case 'ANIMES':
-      preset = ['Naruto', 'Dragon Ball', 'One Piece', 'Bleach', 'Demon Slayer'];
-      break;
-    case 'MÚSICAS':
-      preset = ['Rock', 'Pop', 'Jazz', 'Lo-fi', 'Hip Hop', 'Metal'];
-      break;
-    case 'COMIDAS':
-      preset = ['Pizza', 'Hambúrguer', 'Sushi', 'Lasanha', 'Churrasco', 'Tacos'];
-      break;
-  }
-  items = preset;
-  saveItems();
-  renderItems();
+// ============================================
+// SONS CARTOON (SUAVES)
+// ============================================
+
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+
+function initAudio() {
+    if (!audioCtx) {
+        audioCtx = new AudioContext();
+    }
 }
 
+function playClickSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 800;
+        osc.type = 'sine';
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.06);
+    } catch (e) {}
+}
+
+function playSpinSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        let count = 0;
+        const interval = setInterval(() => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = 500 + Math.random() * 200;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.04);
+            count++;
+            if (count > 16) clearInterval(interval);
+        }, 60);
+    } catch (e) {}
+}
+
+function playSuccessSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const notes = [523, 659, 784];
+        notes.forEach((freq, i) => {
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.2);
+            }, i * 100);
+        });
+    } catch (e) {}
+}
+
+function playCelebrationSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const notes = [523, 587, 659, 698, 784];
+        notes.forEach((freq, i) => {
+            setTimeout(() => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = freq;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.12);
+            }, i * 70);
+        });
+    } catch (e) {}
+}
+
+function playErrorSound() {
+    if (!soundEnabled) return;
+    initAudio();
+    try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = 300;
+        osc.type = 'sawtooth';
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.3);
+    } catch (e) {}
+}
+
+// ============================================
 // EVENTOS
-themeSelect.addEventListener('change', () => {
-  changeTheme(themeSelect.value);
-});
+// ============================================
 
-addItemBtn.addEventListener('click', addItemFromInput);
+addBtn.addEventListener('click', addItem);
 itemInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') addItemFromInput();
+    if (e.key === 'Enter') addItem();
+});
+spinBtn.addEventListener('click', spinRoleta);
+clearBtn.addEventListener('click', clearItems);
+soundToggle.addEventListener('click', function() {
+    soundEnabled = !soundEnabled;
+    soundStatus.textContent = soundEnabled ? 'LIGADO' : 'DESLIGADO';
 });
 
-clearItemsBtn.addEventListener('click', clearItems);
-spinBtn.addEventListener('click', spinWheel);
-btnPreset.addEventListener('click', loadPresetForTheme);
+// ============================================
+// INICIALIZAR
+// ============================================
 
-// INIT
 loadData();
+renderItems();
+
+// Verificar se há itens para colorir a roleta
+if (items.length > 0) {
+    renderFatias();
+}

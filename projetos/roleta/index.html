@@ -1,112 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Roda Divertida</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Roda da Sorte - Cartoon Style" />
+    <title>🎈 Roda Cartoon</title>
+
+    <!-- FONTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- FUNDO ANIMADO COLORIDO -->
-  <div class="bg-animated">
-    <div class="bubble bubble-1"></div>
-    <div class="bubble bubble-2"></div>
-    <div class="bubble bubble-3"></div>
-    <div class="bubble bubble-4"></div>
-    <div class="bubble bubble-5"></div>
-  </div>
-
-  <header class="header">
-    <div class="container header-content">
-      <div class="logo">
-        <h1>🎉 Roda Divertida</h1>
-        <p>Deixe a sorte escolher por você</p>
-      </div>
-      <div class="status">
-        <div class="status-item">
-          <span class="status-label">Tema</span>
-          <span id="statusTheme" class="status-value">Filmes</span>
-        </div>
-        <div class="status-item">
-          <span class="status-label">Giros</span>
-          <span id="statusSpins" class="status-value">0</span>
-        </div>
-      </div>
+    <!-- ============================================
+    FUNDO CARTOON
+    ============================================ -->
+    <div class="bg-cartoon">
+        <!-- Nuvens fofas -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <!-- Bolinhas coloridas -->
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <!-- Grama e flores -->
+        <div class="grass"></div>
+        <div class="flower flower-1">🌸</div>
+        <div class="flower flower-2">🌼</div>
+        <div class="flower flower-3">🌷</div>
+        <div class="flower flower-4">🌻</div>
     </div>
-  </header>
 
-  <main class="main">
-    <div class="container layout">
-
-      <!-- LADO ESQUERDO: CONTROLES -->
-      <section class="panel panel-controls">
-        <h2>Escolha o tema</h2>
-        <div class="row">
-          <select id="themeSelect" class="select">
-            <option value="FILMES">Filmes</option>
-            <option value="SÉRIES">Séries</option>
-            <option value="JOGOS">Jogos</option>
-            <option value="ANIMES">Animes</option>
-            <option value="MÚSICAS">Músicas</option>
-            <option value="COMIDAS">Comidas</option>
-          </select>
-          <button id="btnPreset" class="btn btn-secondary">Lista pronta</button>
-        </div>
-        <p class="hint">Escolha um tema e use uma lista pronta ou crie a sua.</p>
-
-        <h2>Adicione opções</h2>
-        <div class="row">
-          <input id="itemInput" type="text" maxlength="40" placeholder="Ex: Matrix, Toy Story, Avatar..." />
-          <button id="addItemBtn" class="btn">Adicionar</button>
-        </div>
-        <p class="hint">Você pode digitar várias opções separadas por vírgula.</p>
-
-        <ul id="itemList" class="item-list"></ul>
-
-        <div class="row actions-row">
-          <button id="clearItemsBtn" class="btn btn-danger">Limpar lista</button>
-        </div>
-      </section>
-
-      <!-- LADO DIREITO: ROLETA + RESULTADO -->
-      <section class="panel panel-wheel">
-        <h2>Roda da sorte</h2>
-        <div class="wheel-wrapper">
-          <div class="wheel-border">
-            <div class="wheel">
-              <div class="wheel-pointer"></div>
-              <div id="wheelSlices" class="wheel-slices"></div>
-              <div class="wheel-center">🎮</div>
+    <!-- ============================================
+    MENU SUPERIOR
+    ============================================ -->
+    <header class="header-cartoon">
+        <div class="container">
+            <div class="header-content">
+                <a href="../../abas/projetos.html" class="btn-voltar-cartoon">← VOLTAR</a>
+                <h1 class="title-cartoon">🎈 RODA CARTOON</h1>
+                <span class="version-cartoon">v1.0</span>
             </div>
-          </div>
         </div>
+    </header>
 
-        <div class="row center">
-          <button id="spinBtn" class="btn btn-primary">Girar!</button>
+    <!-- ============================================
+    CONTEÚDO PRINCIPAL
+    ============================================ -->
+    <main class="main-cartoon">
+        <div class="container">
+
+            <!-- CONTROLE DE SOM E MOEDAS -->
+            <div class="sound-control-cartoon">
+                <button id="soundToggle" class="btn-sound-cartoon">
+                    🔊 <span id="soundStatus">LIGADO</span>
+                </button>
+                <div class="coin-counter-cartoon">
+                    <span class="coin-icon">⭐</span>
+                    <span class="coin-label">PONTOS:</span>
+                    <span id="coinCounter" class="coin-value">0</span>
+                </div>
+            </div>
+
+            <!-- TEMA -->
+            <div class="theme-area-cartoon">
+                <div class="theme-display-cartoon">
+                    <span class="theme-label-cartoon">🎯 TEMA:</span>
+                    <span class="theme-text-cartoon" id="currentTheme">CARTOON</span>
+                </div>
+            </div>
+
+            <!-- ADICIONAR ITENS -->
+            <div class="controls-cartoon">
+                <input type="text" id="itemInput" placeholder="DIGITE UMA OPÇÃO..." maxlength="20" />
+                <button class="btn-cartoon btn-add-cartoon" id="addItemBtn">+ ADICIONAR</button>
+            </div>
+
+            <!-- LISTA DE ITENS -->
+            <ul class="item-list-cartoon" id="itemList"></ul>
+
+            <!-- ROLETA -->
+            <div class="roleta-wrapper-cartoon">
+                <div class="roleta-border-cartoon" id="roletaBorder">
+                    <div class="roleta" id="roleta">
+                        <div class="roleta-ponteiro-cartoon">★</div>
+                        <div class="roleta-center-cartoon" id="roletaCenter">🎈</div>
+                        <div class="roleta-fatias" id="roletaFatias"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÕES DE AÇÃO -->
+            <div class="actions-cartoon">
+                <button class="btn-cartoon btn-spin-cartoon" id="spinBtn">🎈 GIRAR</button>
+                <button class="btn-cartoon btn-clear-cartoon" id="clearBtn">🗑️ LIMPAR</button>
+            </div>
+
+            <!-- RESULTADO -->
+            <div class="result-cartoon" id="resultArea">
+                <span class="empty-message-cartoon">► ADICIONE ITENS E GIRE ◄</span>
+            </div>
+
+            <!-- HISTÓRICO -->
+            <div class="historico-cartoon" id="historicoArea">
+                <h3>📜 HISTÓRICO</h3>
+                <ul id="historicoList">
+                    <li class="empty-message-cartoon">NENHUM SORTEIO AINDA.</li>
+                </ul>
+            </div>
+
         </div>
+    </main>
 
-        <div id="resultArea" class="result-box">
-          <span class="result-placeholder">Adicione opções e gire a roda!</span>
+    <!-- ============================================
+    RODAPÉ
+    ============================================ -->
+    <footer class="footer-cartoon">
+        <div class="container">
+            <p>© 2026 CARLOS · RODA CARTOON</p>
+            <p class="footer-credits-cartoon">★ FEITO COM CARINHO ★</p>
         </div>
+    </footer>
 
-        <h2>Histórico</h2>
-        <ul id="historyList" class="history-list">
-          <li class="history-empty">Nenhum sorteio ainda.</li>
-        </ul>
-      </section>
-
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-content">
-      <span>© 2026 Carlos · Roda Divertida</span>
-      <span>Escolha um tema, preencha opções e deixe a sorte decidir.</span>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
