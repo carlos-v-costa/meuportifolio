@@ -1,140 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Roda da Sorte Arcade - Street Fighter" />
-    <title>🎮 Roda Arcade</title>
-
-    <!-- FONTE PIXELADA -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <title>🎮 Pixel Roulette</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ============================================
-    FUNDO ARCADE (ELEMENTOS VISUAIS)
-    ============================================ -->
+  <!-- SCANLINES / CRT -->
+  <div class="crt-overlay"></div>
 
-    <!-- SCANLINE (EFEITO DE TV) -->
-    <div class="scanline"></div>
-
-    <!-- FUNDO PRINCIPAL COM GRID E NEÓN -->
-    <div class="bg-arcade"></div>
-
-    <!-- LUZES LATERAIS (NEÓN) -->
-    <div class="neon-left"></div>
-    <div class="neon-right"></div>
-
-    <!-- KANJI (IDEOGRAMAS JAPONESES) -->
-    <div class="kanji kanji-1">力</div>
-    <div class="kanji kanji-2">闘</div>
-    <div class="kanji kanji-3">魂</div>
-    <div class="kanji kanji-4">武</div>
-
-    <!-- CÍRCULO DE LUTA (STREET FIGHTER) -->
-    <div class="fight-circle"></div>
-
-    <!-- LUZES PULSANTES -->
-    <div class="pulse-light pulse-1"></div>
-    <div class="pulse-light pulse-2"></div>
-    <div class="pulse-light pulse-3"></div>
-
-    <!-- ============================================
-    MENU SUPERIOR (ARCADE)
-    ============================================ -->
-    <header class="header-arcade">
-        <div class="container">
-            <div class="header-content">
-                <a href="../../abas/projetos.html" class="btn-voltar-arcade">← VOLTAR</a>
-                <h1 class="title-arcade">⚡ RODA ARCADE ⚡</h1>
-                <span class="version-arcade">v1.0</span>
-            </div>
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo-area">
+        <span class="logo-title">PIXEL ROULETTE</span>
+        <span class="logo-sub">8-BIT DECISION MAKER</span>
+      </div>
+      <div class="hud">
+        <div class="hud-item">
+          <span class="hud-label">CRÉDITOS</span>
+          <span id="creditCounter" class="hud-value">000</span>
         </div>
-    </header>
-
-    <!-- ============================================
-    CONTEÚDO PRINCIPAL
-    ============================================ -->
-    <main class="main-arcade">
-        <div class="container">
-
-            <!-- CONTROLE DE SOM E MOEDAS -->
-            <div class="sound-control-arcade">
-                <button id="soundToggle" class="btn-sound-arcade">
-                    🔊 <span id="soundStatus">LIGADO</span>
-                </button>
-                <div class="coin-counter">
-                    <span class="coin-icon">🪙</span>
-                    <span class="coin-label">CRÉDITOS:</span>
-                    <span id="coinCounter" class="coin-value">0</span>
-                </div>
-            </div>
-
-            <!-- TEMA (STREET FIGHTER) -->
-            <div class="theme-area-arcade">
-                <div class="theme-display-arcade">
-                    <span class="theme-label-arcade">🎯 TEMA:</span>
-                    <span class="theme-text-arcade" id="currentTheme">STREET FIGHTER</span>
-                </div>
-            </div>
-
-            <!-- ADICIONAR ITENS -->
-            <div class="controls-arcade">
-                <input type="text" id="itemInput" placeholder="DIGITE UMA OPÇÃO..." maxlength="20" />
-                <button class="btn-arcade btn-add-arcade" id="addItemBtn">+ ADICIONAR</button>
-            </div>
-
-            <!-- LISTA DE ITENS -->
-            <ul class="item-list-arcade" id="itemList"></ul>
-
-            <!-- ROLETA COM BORDA DE LUZES -->
-            <div class="roleta-wrapper-arcade">
-                <div class="roleta-border" id="roletaBorder">
-                    <div class="roleta" id="roleta">
-                        <!-- PONTEIRO ESTILIZADO -->
-                        <div class="roleta-ponteiro-arcade">▼</div>
-                        <!-- CENTRO DA ROLETA -->
-                        <div class="roleta-center-arcade" id="roletaCenter">⚡</div>
-                        <!-- FATIAS DA ROLETA -->
-                        <div class="roleta-fatias" id="roletaFatias"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BOTÕES DE AÇÃO (ESTILO ARCADE) -->
-            <div class="actions-arcade">
-                <button class="btn-arcade btn-spin-arcade" id="spinBtn">🎮 GIRAR</button>
-                <button class="btn-arcade btn-clear-arcade" id="clearBtn">🗑️ LIMPAR</button>
-            </div>
-
-            <!-- RESULTADO (ESTILO ARCADE) -->
-            <div class="result-arcade" id="resultArea">
-                <span class="empty-message-arcade">► ADICIONE ITENS E GIRE ◄</span>
-            </div>
-
-            <!-- HISTÓRICO -->
-            <div class="historico-arcade" id="historicoArea">
-                <h3>📜 HISTÓRICO</h3>
-                <ul id="historicoList">
-                    <li class="empty-message-arcade">NENHUM SORTEIO AINDA.</li>
-                </ul>
-            </div>
-
+        <div class="hud-item">
+          <span class="hud-label">TEMA</span>
+          <span id="hudTheme" class="hud-value">FILMES</span>
         </div>
-    </main>
+      </div>
+    </div>
+  </header>
 
-    <!-- ============================================
-    RODAPÉ ARCADE
-    ============================================ -->
-    <footer class="footer-arcade">
-        <div class="container">
-            <p>© 2026 CARLOS · RODA ARCADE</p>
-            <p class="footer-credits-arcade">⚡ STREET FIGHTER EDITION ⚡</p>
+  <main class="main">
+    <div class="container">
+
+      <!-- SELETOR DE TEMA -->
+      <section class="panel panel-theme">
+        <h2 class="panel-title">TEMA</h2>
+        <div class="theme-select-row">
+          <select id="themeSelect" class="select-theme">
+            <option value="FILMES">FILMES</option>
+            <option value="SÉRIES">SÉRIES</option>
+            <option value="JOGOS">JOGOS</option>
+            <option value="ANIMES">ANIMES</option>
+            <option value="MÚSICAS">MÚSICAS</option>
+            <option value="COMIDAS">COMIDAS</option>
+          </select>
+          <button id="btnPreset" class="btn btn-small">CARREGAR LISTA RETRÔ</button>
         </div>
-    </footer>
+        <p class="panel-help">
+          Escolha um tema e adicione opções para a roleta decidir por você.
+        </p>
+      </section>
 
-    <script src="script.js"></script>
+      <!-- FORM DE ITENS -->
+      <section class="panel panel-items">
+        <h2 class="panel-title">OPÇÕES</h2>
+        <div class="item-input-row">
+          <input id="itemInput" type="text" maxlength="30" placeholder="DIGITE UMA OPÇÃO (EX: MATRIX)" />
+          <button id="addItemBtn" class="btn">ADICIONAR</button>
+        </div>
+        <p class="panel-help">
+          Dica: você pode digitar várias opções separadas por vírgula.
+        </p>
+        <ul id="itemList" class="item-list"></ul>
+        <div class="item-actions">
+          <button id="clearItemsBtn" class="btn btn-danger">LIMPAR LISTA</button>
+        </div>
+      </section>
+
+      <!-- ROLETA -->
+      <section class="panel panel-wheel">
+        <h2 class="panel-title">ROLETA</h2>
+        <div class="wheel-wrapper">
+          <div class="wheel-border">
+            <div id="wheel" class="wheel">
+              <div class="wheel-pointer"></div>
+              <div id="wheelSlices" class="wheel-slices"></div>
+              <div class="wheel-center">★</div>
+            </div>
+          </div>
+        </div>
+        <div class="wheel-actions">
+          <button id="spinBtn" class="btn btn-primary">GIRAR</button>
+        </div>
+        <div id="resultArea" class="result-box">
+          <span class="result-placeholder">AGUARDANDO SORTEIO...</span>
+        </div>
+      </section>
+
+      <!-- HISTÓRICO -->
+      <section class="panel panel-history">
+        <h2 class="panel-title">HISTÓRICO</h2>
+        <ul id="historyList" class="history-list">
+          <li class="history-empty">NENHUM SORTEIO AINDA.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <span>© 2026 CARLOS · PIXEL ROULETTE</span>
+      <span>INSPIRE-SE · DECIDA · JOGUE</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
