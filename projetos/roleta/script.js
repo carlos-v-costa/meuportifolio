@@ -1,5 +1,5 @@
 // ============================================
-// RODA CARTOON — SCRIPT COMPLETO
+// RODA CARTOON — SCRIPT COMPLETO (NOITE)
 // ============================================
 
 // ===== ELEMENTOS =====
@@ -23,13 +23,64 @@ let soundEnabled = true;
 let coins = 0;
 let currentRotation = 0;
 
-// ===== CORES CARTOON (PASTEL) =====
+// ===== CORES NOITE CARTOON (PASTEL ESCURO) =====
 const COLORS = [
-    '#ffb6c1', '#ffccbc', '#b3e5fc', '#c8e6c9',
-    '#f8bbd0', '#d1c4e9', '#b2dfdb', '#ffe0b2'
+    '#2a1a3a', '#1a2a4a', '#3a1a2a', '#1a3a2a',
+    '#2a2a4a', '#4a1a3a', '#1a4a3a', '#3a2a1a'
 ];
 
-// ===== CARREGAR DADOS =====
+// ============================================
+// ESTRELAS CADENTES
+// ============================================
+function createShootingStar() {
+    const container = document.getElementById('shooting-stars');
+    if (!container) return;
+
+    const star = document.createElement('div');
+    star.classList.add('shooting-star');
+
+    const startX = Math.random() * 100;
+    const startY = Math.random() * 30;
+
+    const angle = Math.random() * 60 + 20;
+    const distance = 200 + Math.random() * 300;
+    const tx = distance * Math.cos(angle * Math.PI / 180);
+    const ty = distance * Math.sin(angle * Math.PI / 180);
+
+    star.style.left = startX + '%';
+    star.style.top = startY + '%';
+    star.style.setProperty('--tx', tx + 'px');
+    star.style.setProperty('--ty', ty + 'px');
+
+    const duration = 2 + Math.random() * 2;
+    star.style.animationDuration = duration + 's';
+
+    const size = 1 + Math.random() * 2;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+
+    container.appendChild(star);
+
+    setTimeout(() => {
+        star.remove();
+    }, duration * 1000 + 500);
+}
+
+function startShootingStars() {
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => createShootingStar(), i * 1000);
+    }
+
+    setInterval(() => {
+        if (Math.random() < 0.25) {
+            createShootingStar();
+        }
+    }, 3000 + Math.random() * 3000);
+}
+
+// ============================================
+// CARREGAR DADOS
+// ============================================
 function loadData() {
     const savedItems = localStorage.getItem('roletaCartoon_items');
     if (savedItems) {
@@ -80,7 +131,7 @@ function renderHistorico(historico) {
     }
     historico.forEach(h => {
         const li = document.createElement('li');
-        li.innerHTML = `<span>⭐ ${h.item}</span> <small>${h.data}</small>`;
+        li.innerHTML = `<span>✦ ${h.item}</span> <small>${h.data}</small>`;
         historicoList.appendChild(li);
     });
 }
@@ -109,7 +160,7 @@ function renderFatias() {
     const count = items.length;
     roletaFatias.innerHTML = '';
     if (count === 0) {
-        roleta.style.background = '#f5f5f5';
+        roleta.style.background = 'rgba(20,20,40,0.9)';
         return;
     }
 
@@ -134,13 +185,13 @@ function renderFatias() {
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #4a4a4a;
+            color: rgba(255,255,255,0.8);
             font-size: 0.5rem;
             padding-left: 10px;
             box-sizing: border-box;
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
         `;
 
         const span = document.createElement('span');
@@ -199,7 +250,7 @@ function clearItems() {
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
-        resultArea.innerHTML = '<span style="color:#e91e63;">⚠️ ADICIONE ITENS!</span>';
+        resultArea.innerHTML = '<span style="color:#ffd54f;">⚠️ ADICIONE ITENS!</span>';
         playErrorSound();
         return;
     }
@@ -207,7 +258,6 @@ function spinRoleta() {
     isSpinning = true;
     spinBtn.disabled = true;
 
-    // ===== ANIMAÇÃO DE PREPARAR =====
     roleta.style.transition = 'transform 0.3s ease';
     roleta.style.transform = 'scale(0.95)';
     setTimeout(() => {
@@ -228,7 +278,6 @@ function spinRoleta() {
     roletaFatias.style.transform = `rotate(${finalAngle}deg)`;
     currentRotation = finalAngle;
 
-    // ===== EFEITO DE LUZES NA BORDA =====
     startBorderLights();
 
     setTimeout(() => {
@@ -240,8 +289,7 @@ function spinRoleta() {
         coinCounter.textContent = coins;
         localStorage.setItem('roletaCartoon_coins', coins.toString());
 
-        // Resultado com estilo cartoon
-        resultArea.innerHTML = `⭐ ${result}`;
+        resultArea.innerHTML = `✦ ${result}`;
         resultArea.classList.remove('pop');
         void resultArea.offsetWidth;
         resultArea.classList.add('pop');
@@ -254,14 +302,14 @@ function spinRoleta() {
     }, 4200);
 }
 
-// ===== LUZES NA BORDA (CARTOON) =====
+// ===== LUZES NA BORDA =====
 let borderInterval;
 
 function startBorderLights() {
-    roletaBorder.style.animation = 'borderGlowCartoon 0.3s linear infinite';
+    roletaBorder.style.animation = 'borderGlowNight 0.3s linear infinite';
     let i = 0;
     borderInterval = setInterval(() => {
-        const colors = ['#ffb6c1', '#ffccbc', '#b3e5fc', '#c8e6c9'];
+        const colors = ['rgba(255,215,0,0.3)', 'rgba(100,200,255,0.3)', 'rgba(255,150,200,0.3)', 'rgba(150,255,200,0.3)'];
         roletaBorder.style.borderColor = colors[i % colors.length];
         i++;
     }, 200);
@@ -269,8 +317,8 @@ function startBorderLights() {
 
 function stopBorderLights() {
     clearInterval(borderInterval);
-    roletaBorder.style.animation = 'borderGlowCartoon 4s linear infinite';
-    roletaBorder.style.borderColor = '#ffb6c1';
+    roletaBorder.style.animation = 'borderGlowNight 6s linear infinite';
+    roletaBorder.style.borderColor = 'rgba(255,215,0,0.2)';
 }
 
 // ============================================
@@ -296,7 +344,7 @@ function playClickSound() {
         gain.connect(audioCtx.destination);
         osc.frequency.value = 800;
         osc.type = 'sine';
-        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.06);
@@ -315,7 +363,7 @@ function playSpinSound() {
             gain.connect(audioCtx.destination);
             osc.frequency.value = 500 + Math.random() * 200;
             osc.type = 'sine';
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.04);
@@ -338,7 +386,7 @@ function playSuccessSound() {
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
                 osc.type = 'sine';
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
                 osc.start(audioCtx.currentTime);
                 osc.stop(audioCtx.currentTime + 0.2);
@@ -360,7 +408,7 @@ function playCelebrationSound() {
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
                 osc.type = 'sine';
-                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
                 osc.start(audioCtx.currentTime);
                 osc.stop(audioCtx.currentTime + 0.12);
@@ -379,7 +427,7 @@ function playErrorSound() {
         gain.connect(audioCtx.destination);
         osc.frequency.value = 300;
         osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.3);
@@ -407,8 +455,8 @@ soundToggle.addEventListener('click', function() {
 
 loadData();
 renderItems();
+startShootingStars();
 
-// Verificar se há itens para colorir a roleta
 if (items.length > 0) {
     renderFatias();
 }

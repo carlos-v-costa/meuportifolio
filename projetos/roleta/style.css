@@ -1,5 +1,5 @@
 /* ============================================
-   ESTILOS CARTOON — KIRBY STYLE
+   ESTILOS CARTOON — NOITE ESTRELADA
    ============================================ */
 
 * {
@@ -10,160 +10,135 @@
 
 body {
     font-family: 'Nunito', 'Quicksand', sans-serif;
-    background: #fce4ec;
-    color: #4a4a4a;
+    background: #0a0a1a;
+    color: #e0e0e0;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 /* ============================================
-   FUNDO CARTOON
+   FUNDO NOITE CARTOON
    ============================================ */
-.bg-cartoon {
+.bg-night {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(180deg, #e8f5e9 0%, #fce4ec 30%, #f3e5f5 60%, #e3f2fd 100%);
+    background: linear-gradient(180deg, #0a0a2a 0%, #1a1a3a 40%, #2a1a3a 70%, #1a0a2a 100%);
     overflow: hidden;
 }
 
-/* ===== NUVENS FO FAS ===== */
-.cloud {
+/* ===== LUA FOFA ===== */
+.moon {
     position: absolute;
-    background: rgba(255, 255, 255, 0.85);
+    top: 8%;
+    right: 10%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #fffde7, #fff9c4);
     border-radius: 50%;
     box-shadow: 
-        40px -10px 0 10px rgba(255, 255, 255, 0.85),
-        80px 0 0 5px rgba(255, 255, 255, 0.85),
-        20px 20px 0 15px rgba(255, 255, 255, 0.85),
-        60px 20px 0 10px rgba(255, 255, 255, 0.85);
-    animation: cloudFloat 20s ease-in-out infinite;
-    opacity: 0.9;
+        0 0 40px rgba(255, 249, 196, 0.3),
+        0 0 80px rgba(255, 249, 196, 0.1),
+        inset -10px -10px 30px rgba(0, 0, 0, 0.05);
+    animation: moonFloat 6s ease-in-out infinite;
 }
 
-.cloud-1 {
-    width: 100px;
-    height: 40px;
-    top: 5%;
-    left: -10%;
-    animation-duration: 25s;
-}
-
-.cloud-2 {
-    width: 120px;
-    height: 50px;
-    top: 15%;
-    left: 30%;
-    animation-duration: 30s;
-    animation-delay: -5s;
-}
-
-.cloud-3 {
-    width: 80px;
-    height: 35px;
-    top: 8%;
-    right: -10%;
-    animation-duration: 22s;
-    animation-delay: -10s;
-}
-
-@keyframes cloudFloat {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(60px); }
-    100% { transform: translateX(0); }
-}
-
-/* ===== BOLINHAS COLORIDAS QUICANDO ===== */
-.bubble {
+.moon::after {
+    content: '';
     position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.04);
     border-radius: 50%;
-    animation: bubbleBounce 6s ease-in-out infinite;
-    opacity: 0.5;
+    box-shadow: 
+        25px 10px 0 4px rgba(0, 0, 0, 0.04),
+        15px 30px 0 6px rgba(0, 0, 0, 0.03);
 }
 
-.bubble-1 {
-    width: 30px;
-    height: 30px;
-    background: #ffb6c1;
-    top: 20%;
-    left: 5%;
-    animation-delay: 0s;
+@keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
-.bubble-2 {
-    width: 20px;
-    height: 20px;
-    background: #87ceeb;
-    top: 40%;
-    right: 8%;
-    animation-delay: -2s;
-    animation-duration: 7s;
-}
-
-.bubble-3 {
-    width: 25px;
-    height: 25px;
-    background: #fffacd;
-    top: 60%;
-    left: 15%;
-    animation-delay: -4s;
-    animation-duration: 5s;
-}
-
-.bubble-4 {
-    width: 15px;
-    height: 15px;
-    background: #98fb98;
-    top: 30%;
-    right: 20%;
-    animation-delay: -1s;
-    animation-duration: 8s;
-}
-
-.bubble-5 {
-    width: 35px;
-    height: 35px;
-    background: #ffb347;
-    top: 70%;
-    right: 30%;
-    animation-delay: -3s;
-    animation-duration: 6s;
-}
-
-@keyframes bubbleBounce {
-    0%, 100% { transform: translateY(0) scale(1); }
-    25% { transform: translateY(-20px) scale(1.05); }
-    50% { transform: translateY(0) scale(1); }
-    75% { transform: translateY(-15px) scale(1.02); }
-}
-
-/* ===== GRAMA E FLORES ===== */
-.grass {
+/* ===== ESTRELAS FIXAS ===== */
+.stars {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    inset: 0;
+    background-image: 
+        radial-gradient(2px 2px at 10% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 25% 5%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 40% 15%, #fff, transparent),
+        radial-gradient(2px 2px at 55% 8%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 25%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 85% 10%, #fff, transparent),
+        radial-gradient(2px 2px at 15% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 35% 35%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 50% 45%, #fff, transparent),
+        radial-gradient(2px 2px at 65% 35%, #fff, transparent),
+        radial-gradient(1px 1px at 80% 50%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 20% 60%, #fff, transparent),
+        radial-gradient(2px 2px at 45% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 60% 65%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 75% 75%, #fff, transparent),
+        radial-gradient(2px 2px at 90% 60%, #fff, transparent);
+    background-size: 100% 100%;
+    opacity: 0.6;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* ===== ESTRELAS CADENTES (ANIMADAS POR JS) ===== */
+#shooting-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.3);
+    animation: shootStar linear forwards;
+    opacity: 0;
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0;
     right: 0;
-    height: 80px;
-    background: linear-gradient(0deg, #81c784, #a5d6a7);
-    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
-    opacity: 0.4;
+    width: 80px;
+    height: 1.5px;
+    background: linear-gradient(to left, rgba(255,255,255,0.6), transparent);
+    transform: rotate(0deg);
+    transform-origin: right center;
 }
 
-.flower {
-    position: absolute;
-    font-size: 2rem;
-    bottom: 40px;
-    animation: flowerSway 4s ease-in-out infinite;
-}
-
-.flower-1 { left: 10%; animation-delay: 0s; }
-.flower-2 { left: 25%; animation-delay: -1s; }
-.flower-3 { right: 20%; animation-delay: -2s; }
-.flower-4 { right: 8%; animation-delay: -3s; }
-
-@keyframes flowerSway {
-    0%, 100% { transform: rotate(-10deg); }
-    50% { transform: rotate(10deg); }
+@keyframes shootStar {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0.2);
+        opacity: 0;
+    }
 }
 
 /* ============================================
@@ -181,12 +156,11 @@ body {
    HEADER CARTOON
    ============================================ */
 .header-cartoon {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(10, 10, 30, 0.7);
     backdrop-filter: blur(10px);
-    border-bottom: 4px solid #ffb6c1;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.1);
     padding: 20px 0;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.15);
     border-radius: 0 0 30px 30px;
 }
 
@@ -201,38 +175,36 @@ body {
 .title-cartoon {
     font-size: 1.8rem;
     font-weight: 900;
-    color: #e91e63;
-    text-shadow: 4px 4px 0 #f8bbd0, 0 4px 20px rgba(233, 30, 99, 0.1);
+    color: #ffd54f;
+    text-shadow: 0 0 20px rgba(255, 213, 79, 0.2);
     letter-spacing: 2px;
 }
 
 .btn-voltar-cartoon {
-    color: #4a4a4a;
+    color: #e0e0e0;
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: 700;
     padding: 10px 20px;
-    border: 3px solid #ffb6c1;
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.05);
     transition: all 0.2s;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.15);
 }
 
 .btn-voltar-cartoon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(255, 182, 193, 0.25);
-    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .version-cartoon {
-    color: #f06292;
+    color: rgba(255, 255, 255, 0.3);
     font-size: 0.6rem;
     font-weight: 700;
-    border: 2px solid #ffb6c1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     padding: 4px 14px;
-    background: rgba(255, 255, 255, 0.3);
 }
 
 /* ============================================
@@ -255,9 +227,9 @@ body {
 }
 
 .btn-sound-cartoon {
-    background: rgba(255, 255, 255, 0.6);
-    color: #4a4a4a;
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     padding: 10px 24px;
     font-family: 'Nunito', sans-serif;
@@ -265,39 +237,38 @@ body {
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
 }
 
 .btn-sound-cartoon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(255, 182, 193, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
 .coin-counter-cartoon {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     padding: 10px 20px;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
 }
 
 .coin-icon {
     font-size: 1.2rem;
+    color: #ffd54f;
 }
 
 .coin-label {
     font-size: 0.65rem;
     font-weight: 700;
-    color: #e91e63;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .coin-value {
     font-size: 0.8rem;
     font-weight: 800;
-    color: #4a4a4a;
+    color: #ffd54f;
     min-width: 30px;
     text-align: center;
 }
@@ -310,8 +281,8 @@ body {
 }
 
 .theme-display-cartoon {
-    background: rgba(255, 255, 255, 0.6);
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     padding: 12px 20px;
     text-align: center;
@@ -320,23 +291,19 @@ body {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
 }
 
 .theme-label-cartoon {
     font-size: 0.7rem;
     font-weight: 700;
-    color: #e91e63;
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .theme-text-cartoon {
     font-size: 0.8rem;
     font-weight: 800;
-    color: #4a4a4a;
-    background: linear-gradient(135deg, #e91e63, #f06292);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #ffd54f;
+    text-shadow: 0 0 20px rgba(255, 213, 79, 0.1);
 }
 
 /* ============================================
@@ -353,26 +320,25 @@ body {
     flex: 1;
     min-width: 160px;
     padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.7);
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
-    color: #4a4a4a;
+    color: #e0e0e0;
     font-family: 'Nunito', sans-serif;
     font-size: 0.7rem;
     font-weight: 600;
     outline: none;
     text-transform: uppercase;
-    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.03);
     transition: all 0.2s;
 }
 
 .controls-cartoon input:focus {
-    border-color: #e91e63;
-    box-shadow: 0 0 0 6px rgba(233, 30, 99, 0.08);
+    border-color: rgba(255, 213, 79, 0.3);
+    box-shadow: 0 0 20px rgba(255, 213, 79, 0.05);
 }
 
 .controls-cartoon input::placeholder {
-    color: #bbb;
+    color: rgba(255, 255, 255, 0.2);
     text-transform: none;
 }
 
@@ -384,52 +350,44 @@ body {
     font-size: 0.7rem;
     font-weight: 800;
     padding: 14px 24px;
-    border: 3px solid #ffb6c1;
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
-    background: rgba(255, 255, 255, 0.6);
-    color: #4a4a4a;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
     cursor: pointer;
     transition: all 0.2s;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.1);
 }
 
 .btn-cartoon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(255, 182, 193, 0.2);
-}
-
-.btn-cartoon:active {
-    transform: translateY(0);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-add-cartoon {
-    border-color: #81c784;
-    color: #2e7d32;
-    background: rgba(129, 199, 132, 0.15);
+    border-color: rgba(129, 199, 132, 0.3);
+    color: #81c784;
 }
 .btn-add-cartoon:hover {
-    background: rgba(129, 199, 132, 0.25);
+    background: rgba(129, 199, 132, 0.1);
 }
 
 .btn-spin-cartoon {
-    border-color: #e91e63;
-    color: #e91e63;
-    background: rgba(233, 30, 99, 0.08);
+    border-color: rgba(255, 213, 79, 0.3);
+    color: #ffd54f;
     font-size: 0.85rem;
     padding: 16px 36px;
 }
 .btn-spin-cartoon:hover {
-    background: rgba(233, 30, 99, 0.15);
+    background: rgba(255, 213, 79, 0.1);
 }
 
 .btn-clear-cartoon {
-    border-color: #ffb6c1;
-    color: #e91e63;
-    background: rgba(255, 182, 193, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.4);
 }
 .btn-clear-cartoon:hover {
-    background: rgba(255, 182, 193, 0.2);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .actions-cartoon {
@@ -454,8 +412,8 @@ body {
 }
 
 .item-list-cartoon li {
-    background: rgba(255, 255, 255, 0.6);
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.08);
     border-radius: 50px;
     padding: 8px 16px;
     font-size: 0.6rem;
@@ -463,13 +421,13 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.05);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .item-list-cartoon .remove-btn {
     background: none;
     border: none;
-    color: #e91e63;
+    color: rgba(255, 100, 100, 0.5);
     cursor: pointer;
     font-size: 0.9rem;
     padding: 0 4px;
@@ -478,6 +436,7 @@ body {
 
 .item-list-cartoon .remove-btn:hover {
     transform: scale(1.2);
+    color: rgba(255, 100, 100, 0.8);
 }
 
 /* ============================================
@@ -496,14 +455,17 @@ body {
     border-radius: 50%;
     background: conic-gradient(
         from 0deg,
-        #ffb6c1, #ffccbc, #b3e5fc, #c8e6c9,
-        #ffb6c1, #ffccbc, #b3e5fc, #c8e6c9
+        rgba(255, 215, 0, 0.3),
+        rgba(100, 200, 255, 0.3),
+        rgba(255, 150, 200, 0.3),
+        rgba(150, 255, 200, 0.3),
+        rgba(255, 215, 0, 0.3)
     );
-    animation: borderGlowCartoon 4s linear infinite;
-    box-shadow: 0 8px 40px rgba(255, 182, 193, 0.2);
+    animation: borderGlowNight 6s linear infinite;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.05);
 }
 
-@keyframes borderGlowCartoon {
+@keyframes borderGlowNight {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
@@ -514,9 +476,8 @@ body {
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
-    background: #ffffff;
-    border: 6px solid #ffffff;
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
+    background: rgba(20, 20, 40, 0.9);
+    border: 4px solid rgba(255, 255, 255, 0.05);
 }
 
 .roleta-fatias {
@@ -537,7 +498,7 @@ body {
     justify-content: center;
     font-size: 0.5rem;
     color: #ffffff;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     padding-left: 10px;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
@@ -545,6 +506,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
 .fatia span {
@@ -564,9 +526,9 @@ body {
     transform: translateX(-50%);
     font-size: 2.5rem;
     z-index: 20;
-    color: #e91e63;
-    text-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.05));
+    color: #ffd54f;
+    text-shadow: 0 0 30px rgba(255, 213, 79, 0.3);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
 .roleta-center-cartoon {
@@ -576,15 +538,15 @@ body {
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
-    background: #ffffff;
+    background: radial-gradient(circle, #1a1a3a, #0a0a1a);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #e91e63;
+    color: #ffd54f;
     font-size: 2rem;
-    border: 4px solid #ffb6c1;
-    box-shadow: 0 0 0 6px #ffffff, 0 4px 20px rgba(255, 182, 193, 0.2);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.05);
     z-index: 15;
 }
 
@@ -592,8 +554,8 @@ body {
    RESULTADO
    ============================================ */
 .result-cartoon {
-    background: rgba(255, 255, 255, 0.7);
-    border: 4px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.08);
     border-radius: 50px;
     padding: 20px;
     margin: 16px 0;
@@ -604,25 +566,24 @@ body {
     justify-content: center;
     font-size: 1.2rem;
     font-weight: 800;
-    color: #e91e63;
-    box-shadow: 0 4px 20px rgba(255, 182, 193, 0.1);
+    color: #ffd54f;
     transition: all 0.3s;
 }
 
 .result-cartoon.pop {
-    animation: popCartoon 0.5s ease;
-    border-color: #e91e63;
-    box-shadow: 0 8px 40px rgba(233, 30, 99, 0.15);
+    animation: popNight 0.5s ease;
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.05);
 }
 
-@keyframes popCartoon {
-    0% { transform: scale(0.9); }
+@keyframes popNight {
+    0% { transform: scale(0.95); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
 .empty-message-cartoon {
-    color: #bbb;
+    color: rgba(255, 255, 255, 0.2);
     font-size: 0.65rem;
     font-weight: 600;
 }
@@ -631,18 +592,17 @@ body {
    HISTÓRICO
    ============================================ */
 .historico-cartoon {
-    background: rgba(255, 255, 255, 0.6);
-    border: 3px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.06);
     border-radius: 30px;
     padding: 16px 20px;
     margin-top: 16px;
     max-height: 180px;
     overflow-y: auto;
-    box-shadow: 0 4px 20px rgba(255, 182, 193, 0.05);
 }
 
 .historico-cartoon h3 {
-    color: #e91e63;
+    color: rgba(255, 255, 255, 0.3);
     font-size: 0.7rem;
     margin-bottom: 12px;
     text-align: center;
@@ -657,37 +617,35 @@ body {
 
 .historico-cartoon li {
     padding: 8px 0;
-    border-bottom: 2px solid rgba(255, 182, 193, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 0.6rem;
     font-weight: 600;
     display: flex;
     justify-content: space-between;
-    color: #888;
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .historico-cartoon li span {
-    color: #4a4a4a;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* ============================================
    RODAPÉ
    ============================================ */
 .footer-cartoon {
-    border-top: 4px solid #ffb6c1;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding: 20px 0;
     margin-top: 20px;
     text-align: center;
     font-size: 0.55rem;
-    color: #bbb;
+    color: rgba(255, 255, 255, 0.2);
     position: relative;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 30px 30px 0 0;
 }
 
 .footer-credits-cartoon {
     margin-top: 8px;
-    color: #e91e63;
+    color: rgba(255, 215, 0, 0.2);
     font-size: 0.5rem;
     font-weight: 700;
 }
@@ -696,18 +654,18 @@ body {
    SCROLLBAR CARTOON
    ============================================ */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #fce4ec;
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #ffb6c1;
+    background: rgba(255, 215, 0, 0.15);
     border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #e91e63;
+    background: rgba(255, 215, 0, 0.3);
 }
 
 /* ============================================
@@ -750,16 +708,10 @@ body {
     .coin-counter-cartoon {
         padding: 6px 14px;
     }
-    .coin-label {
-        font-size: 0.5rem;
-    }
-    .coin-value {
-        font-size: 0.6rem;
-    }
-    .cloud {
-        display: none;
-    }
-    .flower {
-        font-size: 1.2rem;
+    .moon {
+        width: 50px;
+        height: 50px;
+        top: 5%;
+        right: 5%;
     }
 }
