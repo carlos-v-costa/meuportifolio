@@ -1,7 +1,8 @@
 // ============================================
-// ROLETA — SCRIPT COMPLETO
+// RODA 8-BIT — SCRIPT COMPLETO
 // ============================================
 
+// ===== ELEMENTOS =====
 const roleta = document.getElementById('roleta');
 const itemInput = document.getElementById('itemInput');
 const addBtn = document.getElementById('addItemBtn');
@@ -11,33 +12,42 @@ const clearBtn = document.getElementById('clearBtn');
 const resultArea = document.getElementById('resultArea');
 const historicoList = document.getElementById('historicoList');
 const soundToggle = document.getElementById('soundToggle');
+const soundStatus = document.getElementById('soundStatus');
+const spinCounter = document.getElementById('spinCounter');
 
 let items = [];
 let isSpinning = false;
 let soundEnabled = true;
+let spins = 0;
 
+// ===== CORES 8-BITS (NES) =====
 const COLORS = [
-    '#00b4d8', '#48cae4', '#0077b6', '#90e0ef',
-    '#00d4ff', '#0096c7', '#023e8a', '#03045e'
+    '#e52521', '#f5c800', '#0068b5', '#00a800',
+    '#e52521', '#f5c800', '#0068b5', '#00a800'
 ];
 
 // ===== CARREGAR DADOS =====
 function loadData() {
-    const saved = localStorage.getItem('roleta_items');
+    const saved = localStorage.getItem('roleta8bit_items');
     if (saved) {
         try { items = JSON.parse(saved); } catch (e) { items = []; }
     }
     renderItems();
     loadHistorico();
+    const savedSpins = localStorage.getItem('roleta8bit_spins');
+    if (savedSpins) {
+        spins = parseInt(savedSpins) || 0;
+        spinCounter.textContent = spins;
+    }
 }
 
 function saveItems() {
-    localStorage.setItem('roleta_items', JSON.stringify(items));
+    localStorage.setItem('roleta8bit_items', JSON.stringify(items));
 }
 
 // ===== HISTÓRICO =====
 function loadHistorico() {
-    const saved = localStorage.getItem('roleta_historico');
+    const saved = localStorage.getItem('roleta8bit_historico');
     if (saved) {
         try {
             const historico = JSON.parse(saved);
@@ -48,25 +58,25 @@ function loadHistorico() {
 
 function saveHistorico(entry) {
     let historico = [];
-    const saved = localStorage.getItem('roleta_historico');
+    const saved = localStorage.getItem('roleta8bit_historico');
     if (saved) {
         try { historico = JSON.parse(saved); } catch (e) {}
     }
     historico.unshift({ item: entry, data: new Date().toLocaleString() });
     if (historico.length > 20) historico.pop();
-    localStorage.setItem('roleta_historico', JSON.stringify(historico));
+    localStorage.setItem('roleta8bit_historico', JSON.stringify(historico));
     renderHistorico(historico);
 }
 
 function renderHistorico(historico) {
     historicoList.innerHTML = '';
     if (!historico || historico.length === 0) {
-        historicoList.innerHTML = '<li class="empty-message">Nenhum sorteio ainda.</li>';
+        historicoList.innerHTML = '<li class="empty-message">NENHUM SORTEIO AINDA.</li>';
         return;
     }
     historico.forEach(h => {
         const li = document.createElement('li');
-        li.innerHTML = `<span>${h.item}</span> <small>${h.data}</small>`;
+        li.innerHTML = `<span>🎯 ${h.item}</span> <small>${h.data}</small>`;
         historicoList.appendChild(li);
     });
 }
@@ -75,14 +85,14 @@ function renderHistorico(historico) {
 function renderItems() {
     itemList.innerHTML = '';
     if (items.length === 0) {
-        itemList.innerHTML = '<li class="empty-message" style="width:100%;text-align:center;">Nenhuma opção adicionada.</li>';
+        itemList.innerHTML = '<li class="empty-message" style="width:100%;text-align:center;">NENHUMA OPÇÃO ADICIONADA.</li>';
         return;
     }
     items.forEach((item, index) => {
         const li = document.createElement('li');
         li.innerHTML = `
             ${item}
-            <button class="remove-btn" data-index="${index}"><i class="fas fa-times"></i></button>
+            <button class="remove-btn" data-index="${index}">✕</button>
         `;
         li.querySelector('.remove-btn').addEventListener('click', () => { removeItem(index); });
         itemList.appendChild(li);
@@ -91,10 +101,10 @@ function renderItems() {
 }
 
 function addItem() {
-    const text = itemInput.value.trim();
+    const text = itemInput.value.trim().toUpperCase();
     if (!text) return;
-    if (items.length >= 12) {
-        alert('Máximo de 12 itens!');
+    if (items.length >= 8) {
+        alert('MÁXIMO DE 8 ITENS!');
         return;
     }
     items.push(text);
@@ -117,7 +127,7 @@ function clearItems() {
         items = [];
         saveItems();
         renderItems();
-        resultArea.innerHTML = '<span class="empty-message">Adicione itens e gire a roleta!</span>';
+        resultArea.innerHTML = '<span class="empty-message">► ADICIONE ITENS E GIRE ◄</span>';
         playClickSound();
     }
 }
@@ -144,7 +154,7 @@ function updateRoletaCores() {
 function spinRoleta() {
     if (isSpinning) return;
     if (items.length === 0) {
-        resultArea.innerHTML = '<span style="color:#e74c3c;">⚠️ Adicione itens primeiro!</span>';
+        resultArea.innerHTML = '<span style="color:#e52521;">⚠️ ADICIONE ITENS!</span>';
         playErrorSound();
         return;
     }
@@ -164,7 +174,11 @@ function spinRoleta() {
     setTimeout(() => {
         playSuccessSound();
 
-        resultArea.innerHTML = `🎉 <span style="color: #feca57;">${result}</span> 🎉`;
+        spins++;
+        spinCounter.textContent = spins;
+        localStorage.setItem('roleta8bit_spins', spins.toString());
+
+        resultArea.innerHTML = `🎯 ${result}`;
         resultArea.classList.remove('pop');
         void resultArea.offsetWidth;
         resultArea.classList.add('pop');
@@ -178,7 +192,7 @@ function spinRoleta() {
 }
 
 // ============================================
-// SONS
+// SONS 8-BITS (CHIP-TUNE)
 // ============================================
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -199,11 +213,11 @@ function playClickSound() {
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.frequency.value = 800;
-        osc.type = 'sine';
-        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.type = 'square';
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
         osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.08);
+        osc.stop(audioCtx.currentTime + 0.06);
     } catch (e) {}
 }
 
@@ -217,15 +231,15 @@ function playSpinSound() {
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = 600 + Math.random() * 200;
+            osc.frequency.value = 400 + Math.random() * 200;
             osc.type = 'square';
-            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.04);
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.04);
             count++;
-            if (count > 18) clearInterval(interval);
-        }, 70);
+            if (count > 16) clearInterval(interval);
+        }, 60);
     } catch (e) {}
 }
 
@@ -241,12 +255,12 @@ function playSuccessSound() {
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
-                osc.type = 'sine';
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                osc.type = 'square';
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
                 osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.25);
-            }, i * 120);
+                osc.stop(audioCtx.currentTime + 0.2);
+            }, i * 100);
         });
     } catch (e) {}
 }
@@ -263,12 +277,12 @@ function playCelebrationSound() {
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.frequency.value = freq;
-                osc.type = 'sine';
-                gain.gain.setValueAtTime(0.07, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+                osc.type = 'square';
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
                 osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.12);
-            }, i * 70);
+                osc.stop(audioCtx.currentTime + 0.1);
+            }, i * 60);
         });
     } catch (e) {}
 }
@@ -283,7 +297,7 @@ function playErrorSound() {
         gain.connect(audioCtx.destination);
         osc.frequency.value = 200;
         osc.type = 'sawtooth';
-        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
         osc.start(audioCtx.currentTime);
         osc.stop(audioCtx.currentTime + 0.3);
@@ -300,8 +314,9 @@ itemInput.addEventListener('keypress', (e) => {
 });
 spinBtn.addEventListener('click', spinRoleta);
 clearBtn.addEventListener('click', clearItems);
-soundToggle.addEventListener('change', function() {
-    soundEnabled = this.checked;
+soundToggle.addEventListener('click', function() {
+    soundEnabled = !soundEnabled;
+    soundStatus.textContent = soundEnabled ? 'LIGADO' : 'DESLIGADO';
 });
 
 loadData();

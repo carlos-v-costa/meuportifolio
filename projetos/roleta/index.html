@@ -3,101 +3,100 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Roda da Sorte — Decisão Rápida" />
-    <title>🎡 Roda da Sorte</title>
+    <meta name="description" content="Roda da Sorte 8-Bits" />
+    <title>🎮 Roda 8-Bit</title>
 
-    <!-- CSS EXCLUSIVO DA ROLETA -->
-    <link rel="stylesheet" href="style.css" />
+    <!-- FONTE PIXELADA -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <!-- ============================================
-    FUNDO
+    FUNDO 8-BITS
     ============================================ -->
-    <div class="gradient-bg"></div>
+    <div class="bg-pixels"></div>
 
     <!-- ============================================
-    MENU SIMPLES (APENAS VOLTAR)
+    MENU SUPERIOR
     ============================================ -->
-    <nav class="navbar-simples">
-        <div class="container nav-container">
-            <a href="../../abas/projetos.html" class="btn-voltar">
-                <i class="fas fa-arrow-left"></i> Voltar aos Projetos
-            </a>
-            <span class="logo">🎡 Roda da Sorte</span>
-        </div>
-    </nav>
-
-    <!-- ============================================
-    ROLETA
-    ============================================ -->
-    <section class="section" id="roleta">
+    <header class="header-8bit">
         <div class="container">
-            <div class="roleta-container">
-
-                <h1 class="page-title"><span>🎡 Roda da Sorte</span></h1>
-                <p class="roleta-subtitle">Adicione opções, gire e deixe a sorte decidir!</p>
-
-                <!-- CONTROLE DE SOM -->
-                <div class="sound-toggle">
-                    <label for="soundToggle">🔊 Sons</label>
-                    <input type="checkbox" id="soundToggle" checked />
-                </div>
-
-                <!-- ROLETA VISUAL -->
-                <div class="roleta-wrapper">
-                    <div class="roleta" id="roleta">
-                        <div class="roleta-ponteiro">▼</div>
-                        <div class="roleta-center" id="roletaCenter">🎯</div>
-                    </div>
-                </div>
-
-                <!-- ADICIONAR ITENS -->
-                <div class="controls">
-                    <input type="text" id="itemInput" placeholder="Digite uma opção..." />
-                    <button class="btn btn-primary" id="addItemBtn">➕ Adicionar</button>
-                </div>
-
-                <!-- LISTA DE ITENS -->
-                <ul class="item-list" id="itemList"></ul>
-
-                <!-- BOTÕES DE AÇÃO -->
-                <div class="controls">
-                    <button class="btn btn-primary" id="spinBtn">🎰 GIRAR</button>
-                    <button class="btn btn-outline" id="clearBtn">🗑️ Limpar Lista</button>
-                </div>
-
-                <!-- RESULTADO -->
-                <div class="result-area" id="resultArea">
-                    <span class="empty-message">Adicione itens e gire a roleta!</span>
-                </div>
-
-                <!-- HISTÓRICO -->
-                <div class="historico-area" id="historicoArea">
-                    <h4>📜 Histórico</h4>
-                    <ul id="historicoList">
-                        <li class="empty-message">Nenhum sorteio ainda.</li>
-                    </ul>
-                </div>
-
+            <div class="header-content">
+                <a href="../../abas/projetos.html" class="btn-voltar">← VOLTAR</a>
+                <h1 class="title-8bit">🎮 RODA 8-BIT</h1>
+                <span class="version">v1.0</span>
             </div>
         </div>
-    </section>
+    </header>
 
     <!-- ============================================
-    FOOTER
+    ROLETA 8-BITS
     ============================================ -->
-    <footer role="contentinfo">
-        <div class="container footer-content">
-            <p>© 2026 Carlos · Roda da Sorte</p>
-            <a href="../../abas/projetos.html" class="btn-voltar-footer">
-                <i class="fas fa-arrow-left"></i> Voltar aos Projetos
-            </a>
+    <main class="main-8bit">
+        <div class="container">
+
+            <!-- CONTROLE DE SOM -->
+            <div class="sound-control">
+                <button id="soundToggle" class="btn-sound">
+                    🔊 SOM: <span id="soundStatus">LIGADO</span>
+                </button>
+                <span class="spin-counter">🎮 GIROS: <span id="spinCounter">0</span></span>
+            </div>
+
+            <!-- ROLETA VISUAL -->
+            <div class="roleta-wrapper">
+                <div class="roleta" id="roleta">
+                    <div class="roleta-ponteiro-8bit">▼</div>
+                    <div class="roleta-center-8bit" id="roletaCenter">🎯</div>
+                </div>
+            </div>
+
+            <!-- ADICIONAR ITENS -->
+            <div class="controls-8bit">
+                <input type="text" id="itemInput" placeholder="DIGITE UMA OPÇÃO..." maxlength="20" />
+                <button class="btn-8bit btn-add" id="addItemBtn">+ ADICIONAR</button>
+            </div>
+
+            <!-- LISTA DE ITENS -->
+            <ul class="item-list-8bit" id="itemList"></ul>
+
+            <!-- BOTÕES DE AÇÃO -->
+            <div class="actions-8bit">
+                <button class="btn-8bit btn-spin" id="spinBtn">🎮 GIRAR</button>
+                <button class="btn-8bit btn-clear" id="clearBtn">🗑️ LIMPAR</button>
+            </div>
+
+            <!-- RESULTADO -->
+            <div class="result-8bit" id="resultArea">
+                <span class="empty-message">► ADICIONE ITENS E GIRE ◄</span>
+            </div>
+
+            <!-- HISTÓRICO -->
+            <div class="historico-8bit" id="historicoArea">
+                <h3>📜 HISTÓRICO</h3>
+                <ul id="historicoList">
+                    <li class="empty-message">NENHUM SORTEIO AINDA.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ============================================
+    RODAPÉ
+    ============================================ -->
+    <footer class="footer-8bit">
+        <div class="container">
+            <p>© 2026 CARLOS · RODA 8-BIT</p>
+            <p class="footer-credits">⚡ POWERED BY NOSTALGIA</p>
         </div>
     </footer>
 
+    <!-- ============================================
+    SCRIPTS
+    ============================================ -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ============================================
-   ESTILOS EXCLUSIVOS DA ROLETA
+   ESTILOS 8-BITS — RODA DA SORTE
    ============================================ */
 
 * {
@@ -9,115 +9,122 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: #0a0f0a;
-    color: #edf2f7;
+    font-family: 'Press Start 2P', monospace;
+    background: #000000;
+    color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    image-rendering: pixelated;
 }
 
-/* ---- FUNDO ---- */
-.gradient-bg {
+/* ===== FUNDO PIXELADO ===== */
+.bg-pixels {
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(-45deg, #0a0f0a, #0d1a1a, #0a1628, #0f1a2a);
-    background-size: 400% 400%;
-    animation: gradientMove 20s ease infinite;
-    opacity: 0.9;
+    background: #0a0a0a;
+    background-image:
+        linear-gradient(rgba(0, 104, 181, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 104, 181, 0.05) 1px, transparent 1px);
+    background-size: 16px 16px;
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    25% { background-position: 100% 50%; }
-    50% { background-position: 100% 100%; }
-    75% { background-position: 0% 100%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* ---- MENU ---- */
-.navbar-simples {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(10, 15, 10, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(46, 204, 113, 0.15);
-    padding: 0.75rem 0;
-}
-
+/* ===== CONTAINER ===== */
 .container {
-    max-width: 1120px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
 }
 
-.nav-container {
+/* ===== HEADER 8-BIT ===== */
+.header-8bit {
+    background: #000000;
+    border-bottom: 4px solid #e52521;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 0 #8c8c8c;
+}
+
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.title-8bit {
+    font-size: 1.8rem;
+    color: #f5c800;
+    text-shadow: 4px 4px 0 #e52521;
+    letter-spacing: 2px;
 }
 
 .btn-voltar {
-    color: #edf2f7;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 0.8rem;
     padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s;
-    border: 1px solid rgba(46, 204, 113, 0.15);
+    border: 3px solid #8c8c8c;
+    background: #000000;
+    transition: all 0.1s;
+    box-shadow: 4px 4px 0 #8c8c8c;
 }
 
 .btn-voltar:hover {
-    background: rgba(20, 30, 20, 0.6);
-    border-color: #48cae4;
-    color: #48cae4;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #8c8c8c;
 }
 
-.logo {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #48cae4;
+.version {
+    color: #8c8c8c;
+    font-size: 0.6rem;
+    border: 2px solid #8c8c8c;
+    padding: 4px 8px;
 }
 
-/* ---- ROLETA ---- */
-.section {
-    padding: 80px 0 40px;
-    flex: 1;
+/* ===== MAIN ===== */
+.main-8bit {
+    padding-bottom: 40px;
 }
 
-.roleta-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
+/* ===== CONTROLE DE SOM ===== */
+.sound-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-.page-title span {
-    border-bottom: 3px solid #2ecc71;
-    padding-bottom: 8px;
-}
-
-.roleta-subtitle {
-    color: #94a3b8;
-    margin-bottom: 1.5rem;
+.btn-sound {
+    background: #000000;
+    color: #ffffff;
+    border: 3px solid #8c8c8c;
+    padding: 8px 16px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #8c8c8c;
+    transition: all 0.1s;
 }
 
+.btn-sound:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #8c8c8c;
+}
+
+.spin-counter {
+    font-size: 0.7rem;
+    color: #f5c800;
+}
+
+/* ===== ROLETA 8-BIT ===== */
 .roleta-wrapper {
     position: relative;
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto 2rem;
+    max-width: 380px;
+    margin: 0 auto 30px;
 }
 
 .roleta {
@@ -125,303 +132,317 @@ body {
     width: 100%;
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 8px solid #2d3436;
-    box-shadow: 0 0 40px rgba(0, 180, 216, 0.4);
+    border: 8px solid #ffffff;
+    box-shadow:
+        0 0 0 4px #000000,
+        0 0 0 8px #8c8c8c,
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
     transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
     cursor: pointer;
-    overflow: hidden;
+    image-rendering: pixelated;
+    background: conic-gradient(
+        #e52521 0% 12.5%,
+        #f5c800 12.5% 25%,
+        #0068b5 25% 37.5%,
+        #00a800 37.5% 50%,
+        #e52521 50% 62.5%,
+        #f5c800 62.5% 75%,
+        #0068b5 75% 87.5%,
+        #00a800 87.5% 100%
+    );
 }
 
-.roleta-ponteiro {
+.roleta-ponteiro-8bit {
     position: absolute;
-    top: -20px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 0;
     z-index: 10;
+    filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
 }
 
-.roleta-ponteiro::before {
+.roleta-ponteiro-8bit::before {
     content: '';
     display: block;
     width: 0;
     height: 0;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-    border-top: 30px solid #ff6b6b;
-    filter: drop-shadow(0 4px 10px rgba(255, 107, 107, 0.5));
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 32px solid #e52521;
+    filter: drop-shadow(0 4px 0 #8c8c8c);
 }
 
-.roleta-center {
+.roleta-center-8bit {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 65px;
-    height: 65px;
-    background: radial-gradient(circle, #2d3436, #1a1a1a);
+    width: 60px;
+    height: 60px;
+    background: #000000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #f5c800;
     font-size: 1.8rem;
-    font-weight: 700;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-    border: 3px solid #feca57;
+    border: 4px solid #ffffff;
+    box-shadow: 0 0 0 4px #8c8c8c, inset 0 0 20px rgba(0, 0, 0, 0.8);
     z-index: 5;
 }
 
-.controls {
+/* ===== CONTROLES ===== */
+.controls-8bit {
     display: flex;
+    gap: 12px;
+    margin: 20px 0;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-    margin: 1.5rem 0;
 }
 
-.controls input {
+.controls-8bit input {
     flex: 1;
     min-width: 180px;
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    border: 2px solid rgba(46, 204, 113, 0.15);
-    background: rgba(20, 30, 20, 0.6);
-    color: #edf2f7;
-    font-size: 1rem;
-    transition: all 0.3s;
-}
-
-.controls input:focus {
+    padding: 12px 16px;
+    background: #000000;
+    border: 4px solid #8c8c8c;
+    color: #ffffff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
     outline: none;
-    border-color: #00b4d8;
-    box-shadow: 0 0 20px rgba(0, 180, 216, 0.15);
 }
 
-.btn {
-    padding: 0.7rem 1.5rem;
-    border-radius: 12px;
-    font-weight: 600;
-    border: none;
+.controls-8bit input:focus {
+    border-color: #f5c800;
+}
+
+.controls-8bit input::placeholder {
+    color: #4a4a4a;
+}
+
+/* ===== BOTÕES 8-BIT ===== */
+.btn-8bit {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    padding: 12px 20px;
+    border: 4px solid #8c8c8c;
+    background: #000000;
+    color: #ffffff;
     cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    box-shadow: 4px 4px 0 #8c8c8c;
+    transition: all 0.1s;
+    text-transform: uppercase;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: #0a0f0a;
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
-}
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(46, 204, 113, 0.35);
+.btn-8bit:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #8c8c8c;
 }
 
-.btn-outline {
-    background: transparent;
-    border: 2px solid rgba(46, 204, 113, 0.15);
-    color: #edf2f7;
-}
-.btn-outline:hover {
-    border-color: #48cae4;
-    color: #48cae4;
-    transform: translateY(-2px);
+.btn-8bit:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 #8c8c8c;
 }
 
-.item-list {
+.btn-add {
+    border-color: #00a800;
+    color: #00a800;
+    box-shadow: 4px 4px 0 #00a800;
+}
+.btn-add:hover {
+    box-shadow: 2px 2px 0 #00a800;
+}
+
+.btn-spin {
+    border-color: #f5c800;
+    color: #f5c800;
+    box-shadow: 4px 4px 0 #f5c800;
+}
+.btn-spin:hover {
+    box-shadow: 2px 2px 0 #f5c800;
+}
+
+.btn-clear {
+    border-color: #e52521;
+    color: #e52521;
+    box-shadow: 4px 4px 0 #e52521;
+}
+.btn-clear:hover {
+    box-shadow: 2px 2px 0 #e52521;
+}
+
+.actions-8bit {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* ===== LISTA DE ITENS ===== */
+.item-list-8bit {
     list-style: none;
-    padding: 0;
-    margin: 1.5rem 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 10px;
     justify-content: center;
+    margin: 16px 0;
+    padding: 0;
 }
 
-.item-list li {
-    background: rgba(20, 30, 20, 0.6);
-    padding: 0.4rem 1rem;
-    border-radius: 50px;
-    border: 1px solid rgba(46, 204, 113, 0.15);
+.item-list-8bit li {
+    background: #000000;
+    border: 3px solid #8c8c8c;
+    padding: 8px 14px;
+    font-size: 0.6rem;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-size: 0.9rem;
-    transition: all 0.3s;
+    gap: 10px;
+    box-shadow: 4px 4px 0 #8c8c8c;
 }
 
-.item-list .remove-btn {
+.item-list-8bit .remove-btn {
     background: none;
     border: none;
-    color: #e74c3c;
+    color: #e52521;
     cursor: pointer;
     font-size: 1rem;
     padding: 0 4px;
+}
+
+/* ===== RESULTADO ===== */
+.result-8bit {
+    background: #000000;
+    border: 4px solid #8c8c8c;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #f5c800;
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
     transition: all 0.3s;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
 }
 
-.item-list .remove-btn:hover {
-    background: rgba(231, 76, 60, 0.15);
-    transform: scale(1.2);
+.result-8bit.pop {
+    border-color: #f5c800;
+    animation: pop8bit 0.5s steps(4);
 }
 
-.result-area {
-    margin: 1.5rem 0;
-    padding: 1.5rem;
-    border-radius: 20px;
-    background: rgba(20, 30, 20, 0.6);
-    border: 2px solid rgba(46, 204, 113, 0.15);
-    min-height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #48cae4;
-    transition: all 0.5s;
-}
-
-.result-area.pop {
-    animation: resultPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border-color: #00b4d8;
-    box-shadow: 0 0 40px rgba(0, 180, 216, 0.15);
-}
-
-@keyframes resultPop {
-    0% { transform: scale(0.8); opacity: 0; }
+@keyframes pop8bit {
+    0% { transform: scale(0.8); }
     50% { transform: scale(1.05); }
-    100% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1); }
 }
 
-.historico-area {
-    margin-top: 1.5rem;
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    background: rgba(20, 30, 20, 0.6);
-    border: 1px solid rgba(46, 204, 113, 0.15);
-    max-height: 200px;
+.empty-message {
+    color: #4a4a4a;
+    font-size: 0.7rem;
+}
+
+/* ===== HISTÓRICO ===== */
+.historico-8bit {
+    background: #000000;
+    border: 4px solid #8c8c8c;
+    padding: 16px;
+    margin-top: 20px;
+    max-height: 180px;
     overflow-y: auto;
-    text-align: left;
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
-.historico-area h4 {
-    margin-bottom: 0.5rem;
-    color: #94a3b8;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+.historico-8bit h3 {
+    color: #f5c800;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
-.historico-area ul {
+.historico-8bit ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.historico-area li {
-    padding: 0.4rem 0;
-    border-bottom: 1px solid rgba(46, 204, 113, 0.1);
-    font-size: 0.9rem;
+.historico-8bit li {
+    padding: 8px 0;
+    border-bottom: 2px solid #1a1a1a;
+    font-size: 0.6rem;
     display: flex;
     justify-content: space-between;
-    color: #94a3b8;
+    color: #8c8c8c;
 }
 
-.historico-area li span {
-    color: #48cae4;
-    font-weight: 500;
+.historico-8bit li span {
+    color: #ffffff;
 }
 
-.sound-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0.5rem 0 1.5rem;
-    color: #94a3b8;
-    font-size: 0.9rem;
-}
-
-.sound-toggle input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #00b4d8;
-    cursor: pointer;
-}
-
-.empty-message {
-    color: #5a6a7a;
-    font-size: 1rem;
-}
-
-/* ---- RODAPÉ ---- */
-footer {
-    border-top: 1px solid rgba(46, 204, 113, 0.15);
-    padding: 1.5rem 0;
+/* ===== RODAPÉ ===== */
+.footer-8bit {
+    border-top: 4px solid #e52521;
+    padding: 20px 0;
+    margin-top: 20px;
     text-align: center;
-    margin-top: 2rem;
+    font-size: 0.6rem;
+    color: #4a4a4a;
 }
 
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+.footer-credits {
+    margin-top: 6px;
+    color: #f5c800;
+    font-size: 0.5rem;
 }
 
-.btn-voltar-footer {
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: all 0.3s;
-    padding: 6px 14px;
-    border: 1px solid rgba(46, 204, 113, 0.15);
-    border-radius: 8px;
+/* ===== SCROLLBAR 8-BIT ===== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #000000;
+    border-left: 2px solid #8c8c8c;
+}
+::-webkit-scrollbar-thumb {
+    background: #f5c800;
+    border: 2px solid #000000;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #e52521;
 }
 
-.btn-voltar-footer:hover {
-    color: #48cae4;
-    border-color: #48cae4;
-}
-
-/* ---- RESPONSIVO ---- */
-@media (max-width: 480px) {
-    .roleta-center {
-        width: 45px;
-        height: 45px;
+/* ===== RESPONSIVO ===== */
+@media (max-width: 600px) {
+    .title-8bit {
         font-size: 1.2rem;
     }
-    .roleta-ponteiro::before {
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .controls-8bit input {
+        min-width: 120px;
+        font-size: 0.6rem;
+    }
+    .btn-8bit {
+        font-size: 0.6rem;
+        padding: 10px 14px;
+    }
+    .roleta-center-8bit {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+    .roleta-ponteiro-8bit::before {
         border-left-width: 14px;
         border-right-width: 14px;
-        border-top-width: 22px;
+        border-top-width: 24px;
     }
-    .result-area {
-        font-size: 1.3rem;
-        padding: 1rem;
-    }
-    .controls input {
-        min-width: 140px;
+    .result-8bit {
         font-size: 0.9rem;
-    }
-    .btn {
-        font-size: 0.85rem;
-        padding: 0.6rem 1.2rem;
-    }
-    .page-title {
-        font-size: 1.5rem;
-    }
-    .navbar-simples .logo {
-        font-size: 1rem;
-    }
-    .btn-voltar {
-        font-size: 0.8rem;
-        padding: 6px 12px;
+        padding: 14px;
     }
 }
