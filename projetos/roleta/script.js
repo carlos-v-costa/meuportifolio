@@ -162,6 +162,12 @@ function spinRoleta() {
     isSpinning = true;
     spinBtn.disabled = true;
 
+    // ===== ANIMAÇÃO DE "PREPARAR" (TRANCO PARA TRÁS) =====
+    roleta.classList.add('preparar');
+    setTimeout(() => {
+        roleta.classList.remove('preparar');
+    }, 300);
+
     playSpinSound();
 
     const randomIndex = Math.floor(Math.random() * items.length);
@@ -169,7 +175,10 @@ function spinRoleta() {
 
     const angle = 1440 + (360 / items.length) * randomIndex + 360 - (360 / items.length / 2);
 
-    roleta.style.transform = `rotate(${angle}deg)`;
+    // Pequeno atraso para a animação de preparar terminar antes do giro
+    setTimeout(() => {
+        roleta.style.transform = `rotate(${angle}deg)`;
+    }, 200);
 
     setTimeout(() => {
         playSuccessSound();
@@ -188,7 +197,7 @@ function spinRoleta() {
 
         isSpinning = false;
         spinBtn.disabled = false;
-    }, 4000);
+    }, 4200);
 }
 
 // ============================================

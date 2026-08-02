@@ -16,6 +16,22 @@ body {
     image-rendering: pixelated;
 }
 
+/* ===== SCANLINE (EFEITO DE TV) ===== */
+.scanline {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+    );
+    opacity: 0.6;
+}
+
 /* ===== FUNDO PIXELADO ===== */
 .bg-pixels {
     position: fixed;
@@ -150,6 +166,17 @@ body {
         #0068b5 75% 87.5%,
         #00a800 87.5% 100%
     );
+}
+
+/* ===== ANIMAÇÃO DE "PREPARAR" (TRANCO PARA TRÁS) ===== */
+.roleta.preparar {
+    animation: prepararGiro 0.3s steps(2);
+}
+
+@keyframes prepararGiro {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-15deg); }
+    100% { transform: rotate(0deg); }
 }
 
 .roleta-ponteiro-8bit {
